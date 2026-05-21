@@ -1,0 +1,67 @@
+[gd_scene format=3 uid="uid://d1dcmef28wkuo"]
+
+[ext_resource type="Script" uid="uid://cs703no5hmrja" path="res://Characters/Player/Scripts/cam_orbit.gd" id="1_fonib"]
+[ext_resource type="Script" uid="uid://oevgoq2by4e" path="res://Characters/Player/Scripts/player_movement.gd" id="2_owuvf"]
+[ext_resource type="Material" uid="uid://cnqcs877mhgai" path="res://Art/Materials/TestPlayer.tres" id="3_owuvf"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_5ymk8"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_05as6"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_5ymk8"]
+
+[node name="Player" type="CharacterBody3D" unique_id=1256794055 node_paths=PackedStringArray("cam", "body_mesh")]
+physics_interpolation_mode = 1
+script = ExtResource("2_owuvf")
+acceleration = 0.5
+deceleration = 0.5
+cam = NodePath("CamOrbit/SpringArm3D/Camera3D")
+body_mesh = NodePath("BodyMesh")
+
+[node name="player_movement" type="Node" parent="." unique_id=1903413364]
+
+[node name="player_combat" type="Node" parent="." unique_id=454795803]
+
+[node name="BodyMesh" type="MeshInstance3D" parent="." unique_id=821930112]
+material_override = ExtResource("3_owuvf")
+mesh = SubResource("CapsuleMesh_5ymk8")
+
+[node name="Goggles" type="CSGBox3D" parent="BodyMesh" unique_id=1373218384]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.9802322e-08, 0.5, 0.3)
+size = Vector3(0.8, 0.4, 0.4)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=629211102]
+shape = SubResource("CapsuleShape3D_05as6")
+
+[node name="CamOrbit" type="Node3D" parent="." unique_id=1492972884 node_paths=PackedStringArray("target", "zoomNode")]
+top_level = true
+script = ExtResource("1_fonib")
+target = NodePath("..")
+followSpeed = 12.0
+interpolatePos = false
+camOrbitSens = 1.0
+xMin = -0.75
+zoomNode = NodePath("SpringArm3D")
+zoomSens = 30.0
+zoomSpeed = 25.0
+initialZoom = Vector3(0, 4, 0)
+
+[node name="SpringArm3D" type="SpringArm3D" parent="CamOrbit" unique_id=321896573]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6, 0)
+shape = SubResource("SphereShape3D_5ymk8")
+spring_length = 3.0
+
+[node name="Camera3D" type="Camera3D" parent="CamOrbit/SpringArm3D" unique_id=583933120]
+transform = Transform3D(1, 0, 0, 0, 0.7071068, 0.7071068, 0, -0.7071068, 0.7071068, 0, 0, 3)
+
+[node name="----" type="Node" parent="." unique_id=1520268418]
+
+[node name="Player" type="Node" parent="." unique_id=365268457]
+
+[node name="Gather_Mode" type="Node" parent="Player" unique_id=716403809]
+
+[node name="Build_Mode" type="Node" parent="Player" unique_id=1166619298]
+
+[node name="Movement" type="Node" parent="Player" unique_id=1752703384]
+
+[node name="Visuals" type="Node" parent="Player" unique_id=1683757670]

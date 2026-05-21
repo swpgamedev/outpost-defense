@@ -1,0 +1,47 @@
+[gd_scene format=3 uid="uid://r7p1s0qr6o3n"]
+
+[ext_resource type="Material" uid="uid://cnqcs877mhgai" path="res://Art/Materials/TestPlayer.tres" id="1_fv3h6"]
+[ext_resource type="Script" uid="uid://fsma0ba276yl" path="res://Characters/Player/Player_Controller.gd" id="1_h7mbw"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_h7mbw"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_7hjve"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ceing"]
+albedo_color = Color(0.38321832, 0.38321835, 0.38321832, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_nvj61"]
+size = Vector3(0.725, 0.35, 0.5)
+
+[node name="CharacterBody3D" type="CharacterBody3D" unique_id=1721109334]
+script = ExtResource("1_h7mbw")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1801990627]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_h7mbw")
+
+[node name="Body" type="MeshInstance3D" parent="CollisionShape3D" unique_id=985481087]
+material_override = ExtResource("1_fv3h6")
+mesh = SubResource("CapsuleMesh_7hjve")
+
+[node name="Face" type="MeshInstance3D" parent="CollisionShape3D/Body" unique_id=2137481935]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0.3)
+material_override = SubResource("StandardMaterial3D_ceing")
+mesh = SubResource("BoxMesh_nvj61")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=232849588]
+transform = Transform3D(-1, -5.0143647e-08, 7.161255e-08, 0, 0.81915206, 0.57357645, -8.742278e-08, 0.57357645, -0.81915206, 0, 5, -3.5)
+
+[node name="Player_Controller" type="Node" parent="." unique_id=330437952]
+
+[node name="----" type="Node" parent="." unique_id=251943333]
+
+[node name="Player" type="Node" parent="." unique_id=98588528]
+
+[node name="Gather_Mode" type="Node" parent="Player" unique_id=1744699688]
+
+[node name="Build_Mode" type="Node" parent="Player" unique_id=558058932]
+
+[node name="Movement" type="Node" parent="Player" unique_id=523451921]
+
+[node name="Visuals" type="Node" parent="Player" unique_id=707104539]

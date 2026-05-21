@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://d13ns8beco012"]
+
+[ext_resource type="Script" uid="uid://b4w0g0g37ovmw" path="res://Utility/debug_draw.gd" id="1_x5bt0"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5ymk8"]
+no_depth_test = true
+depth_test = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.69799274, 0.69799274, 0.69799274, 1)
+
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_4mnpp"]
+
+[node name="DebugDraw" type="Node" unique_id=1170096004]
+script = ExtResource("1_x5bt0")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=277535793]
+material_override = SubResource("StandardMaterial3D_5ymk8")
+cast_shadow = 0
+ignore_occlusion_culling = true
+mesh = SubResource("ImmediateMesh_4mnpp")

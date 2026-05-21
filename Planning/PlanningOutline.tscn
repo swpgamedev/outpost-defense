@@ -1,0 +1,39 @@
+[gd_scene format=3 uid="uid://cg12lg684q77b"]
+
+[node name="Outline" type="Node" unique_id=868244280]
+
+[node name="Player" type="Node" parent="." unique_id=214453941]
+
+[node name="Gather_Mode" type="Node" parent="Player" unique_id=1668458422]
+
+[node name="Build_Mode" type="Node" parent="Player" unique_id=1007334357]
+
+[node name="Movement" type="Node" parent="Player" unique_id=211393714]
+
+[node name="Visuals" type="Node" parent="Player" unique_id=1879172122]
+
+[node name="Camera" type="Node" parent="Player" unique_id=1955702332]
+
+[node name="Outpost" type="Node" parent="." unique_id=833700756]
+
+[node name="BaseBuildings" type="Node" parent="Outpost" unique_id=781677482]
+
+[node name="CommandPost" type="Node" parent="Outpost/BaseBuildings" unique_id=1705007207]
+
+[node name="Dropoff" type="Node" parent="Outpost/BaseBuildings" unique_id=622623628]
+
+[node name="DefenseBuildings" type="Node" parent="Outpost" unique_id=541321112]
+
+[node name="Wall" type="Node" parent="Outpost/DefenseBuildings" unique_id=261880970]
+
+[node name="Gate" type="Node" parent="Outpost/DefenseBuildings" unique_id=2085360062]
+
+[node name="ArrowTower" type="Node" parent="Outpost/DefenseBuildings" unique_id=2133074215]
+
+[node name="ResourceNodes" type="Node" parent="." unique_id=1292359639]
+
+[node name="GoldNode" type="Node" parent="ResourceNodes" unique_id=556178082]
+
+[node name="WoodNode" type="Node" parent="ResourceNodes" unique_id=475552519]
+
+[node name="StoneNode" type="Node" parent="ResourceNodes" unique_id=537029745]

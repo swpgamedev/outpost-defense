@@ -1,0 +1,76 @@
+[gd_scene format=3 uid="uid://bxi3u5ym0oqeo"]
+
+[ext_resource type="Material" uid="uid://bu4rki261mij7" path="res://Art/Materials/TestGround.tres" id="1_5kqye"]
+[ext_resource type="PackedScene" uid="uid://d1dcmef28wkuo" path="res://Characters/Player/player.tscn" id="2_1miuy"]
+[ext_resource type="PackedScene" uid="uid://bd8w8jdj7oshx" path="res://Characters/Worker/worker.tscn" id="4_1miuy"]
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_jidvq"]
+vertices = PackedVector3Array(-24.5, 0.70000005, -24.5, -24.5, 0.70000005, 24.5, 24.5, 0.70000005, 24.5, 24.5, 0.70000005, -24.5)
+polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
+cell_height = 0.1
+
+[node name="PlayerTestGym" type="Node3D" unique_id=94953513]
+
+[node name="DebugUI" type="CanvasLayer" parent="." unique_id=1246689883]
+
+[node name="Control" type="Control" parent="DebugUI" unique_id=3354694]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="DefaultPlayerButton" type="Button" parent="DebugUI/Control" unique_id=1396589985]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 48.0
+offset_top = -143.0
+offset_right = 162.0
+offset_bottom = -98.0
+grow_vertical = 0
+text = "Default"
+
+[node name="CustomPlayerButton" type="Button" parent="DebugUI/Control" unique_id=1049298190]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 48.0
+offset_top = -81.0
+offset_right = 162.0
+offset_bottom = -36.0
+grow_vertical = 0
+text = "Custom"
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="." unique_id=1886643212]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+navigation_mesh = SubResource("NavigationMesh_jidvq")
+
+[node name="Ground" type="CSGBox3D" parent="NavigationRegion3D" unique_id=1074539373]
+use_collision = true
+size = Vector3(50, 1, 50)
+material = ExtResource("1_5kqye")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=448775406]
+transform = Transform3D(0.7069928, 0.48655125, 0.51325345, -0.09646886, -0.65260273, 0.751534, 0.7006104, -0.5808421, -0.41444832, 0, 2.812119, 0)
+shadow_enabled = true
+
+[node name="ResetPoint" type="Node3D" parent="." unique_id=1460147241]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+
+[node name="Player" parent="." unique_id=1256794055 instance=ExtResource("2_1miuy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+debug = true
+
+[node name="Worker" parent="." unique_id=566881945 node_paths=PackedStringArray("debug_target") instance=ExtResource("4_1miuy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.914, 1, 8.629)
+axis_lock_angular_x = true
+axis_lock_angular_z = true
+debug_enabled = true
+debug_target = NodePath("../DebugTarget")
+
+[node name="DebugTarget" type="Node3D" parent="." unique_id=1729126804]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.8644974, 0, 3.1857014)

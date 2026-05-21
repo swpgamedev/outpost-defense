@@ -1,0 +1,81 @@
+[gd_scene format=3 uid="uid://dfdj6jyn71ywn"]
+
+[ext_resource type="Material" uid="uid://bu4rki261mij7" path="res://Art/Materials/TestGround.tres" id="1_bjxgj"]
+[ext_resource type="PackedScene" uid="uid://bd8w8jdj7oshx" path="res://Characters/Worker/worker.tscn" id="3_k7njs"]
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_jidvq"]
+vertices = PackedVector3Array(-24.5, 0.6000001, -24.5, -24.5, 0.6000001, 24.5, 24.5, 0.6000001, 24.5, 24.5, 0.6000001, -24.5)
+polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
+cell_height = 0.05
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yvsyn"]
+transparency = 1
+albedo_color = Color(0.9019608, 0.44705883, 1, 0.23529412)
+
+[sub_resource type="SphereMesh" id="SphereMesh_bjxgj"]
+material = SubResource("StandardMaterial3D_yvsyn")
+
+[node name="PlayerTestGym" type="Node3D" unique_id=94953513]
+
+[node name="TestWorkerUI" type="CanvasLayer" parent="." unique_id=1246689883]
+
+[node name="Control" type="Control" parent="TestWorkerUI" unique_id=3354694]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ButtonRoot" type="Control" parent="TestWorkerUI/Control" unique_id=1696943978]
+anchors_preset = 0
+offset_right = 300.0
+offset_bottom = 900.0
+
+[node name="Button1" type="Button" parent="TestWorkerUI/Control/ButtonRoot" unique_id=1396589985]
+layout_mode = 1
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 140.0
+offset_bottom = 68.0
+text = "Button1"
+
+[node name="Button2" type="Button" parent="TestWorkerUI/Control/ButtonRoot" unique_id=509920219]
+layout_mode = 1
+offset_left = 20.0
+offset_top = 88.0
+offset_right = 140.0
+offset_bottom = 136.00003
+text = "Button2"
+
+[node name="Ground" type="CSGBox3D" parent="." unique_id=1074539373]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+use_collision = true
+size = Vector3(50, 1, 50)
+material = ExtResource("1_bjxgj")
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="." unique_id=1886643212]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+visible = false
+navigation_mesh = SubResource("NavigationMesh_jidvq")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=448775406]
+transform = Transform3D(0.7069928, 0.48655125, 0.51325345, -0.09646886, -0.65260273, 0.751534, 0.7006104, -0.5808421, -0.41444832, 0, 2.812119, 0)
+shadow_enabled = true
+
+[node name="Worker" parent="." unique_id=566881945 node_paths=PackedStringArray("debug_target") instance=ExtResource("3_k7njs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.5, 1, 10)
+axis_lock_angular_x = true
+axis_lock_angular_z = true
+debug_enabled = true
+debug_target = NodePath("../DebugTarget")
+stopping_dist = 2.0
+
+[node name="DebugTarget" type="Node3D" parent="." unique_id=1729126804]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 1, -2)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="DebugTarget" unique_id=1050471813]
+mesh = SubResource("SphereMesh_bjxgj")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1583805346]
+transform = Transform3D(-1, 8.444392e-08, -2.2626683e-08, 0, 0.25881907, 0.9659258, 8.742278e-08, 0.9659258, -0.25881907, 0, 20, 0)

@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://bd8w8jdj7oshx"]
+
+[ext_resource type="Script" uid="uid://b13jkdbqf2cum" path="res://Characters/Worker/worker_behavior.gd" id="1_8w0bo"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_8w0bo"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_r51mh"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8w0bo"]
+albedo_color = Color(4.813075e-08, 0.427371, 0.30050135, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_u1olj"]
+
+[node name="Worker" type="RigidBody3D" unique_id=566881945 node_paths=PackedStringArray("nav_agent")]
+physics_material_override = SubResource("PhysicsMaterial_8w0bo")
+script = ExtResource("1_8w0bo")
+nav_agent = NodePath("NavigationAgent3D")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=759157175]
+shape = SubResource("CapsuleShape3D_r51mh")
+
+[node name="BodyMesh" type="MeshInstance3D" parent="." unique_id=1585266481]
+material_override = SubResource("StandardMaterial3D_8w0bo")
+mesh = SubResource("CapsuleMesh_u1olj")
+
+[node name="Goggles" type="CSGBox3D" parent="BodyMesh" unique_id=890791424]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.9802322e-08, 0.5, 0.3)
+size = Vector3(0.8, 0.4, 0.4)
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=1425908841]
+debug_enabled = true
