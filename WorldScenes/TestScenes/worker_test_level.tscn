@@ -1,12 +1,13 @@
 [gd_scene format=3 uid="uid://dfdj6jyn71ywn"]
 
 [ext_resource type="Material" uid="uid://bu4rki261mij7" path="res://Art/Materials/TestGround.tres" id="1_bjxgj"]
+[ext_resource type="Script" uid="uid://bogiqy0n1oggd" path="res://Resources/Nodes/resource_node.gd" id="3_bjxgj"]
 [ext_resource type="PackedScene" uid="uid://bd8w8jdj7oshx" path="res://Characters/Worker/worker.tscn" id="3_k7njs"]
 
-[sub_resource type="NavigationMesh" id="NavigationMesh_jidvq"]
-vertices = PackedVector3Array(-24.5, 0.6000001, -24.5, -24.5, 0.6000001, 24.5, 24.5, 0.6000001, 24.5, 24.5, 0.6000001, -24.5)
-polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
-cell_height = 0.05
+[sub_resource type="NavigationMesh" id="NavigationMesh_3w2og"]
+vertices = PackedVector3Array(9, 0.70000005, -6.5, 10.5, 0.70000005, -7, 10.5, 0.70000005, -24.5, -24.5, 0.70000005, -24.5, -24.5, 0.70000005, -4.75, 9, 0.70000005, -4.75, 11.5, 0.70000005, -7, 12, 0.70000005, -5.5, 24.5, 0.70000005, -5.5, 24.5, 0.70000005, -24.5, 10, 1.6, -5.75, 10.25, 1.6, -5, 11, 1.6, -5.25, 10.75, 1.6, -6, 11.5, 0.70000005, -4, 24.5, 0.70000005, 24.5, 9.5, 0.70000005, -4, -24.5, 0.70000005, 24.5)
+polygons = [PackedInt32Array(1, 0, 2), PackedInt32Array(2, 0, 3), PackedInt32Array(3, 0, 4), PackedInt32Array(0, 5, 4), PackedInt32Array(7, 6, 8), PackedInt32Array(8, 6, 9), PackedInt32Array(9, 6, 2), PackedInt32Array(6, 1, 2), PackedInt32Array(13, 12, 10), PackedInt32Array(10, 12, 11), PackedInt32Array(7, 8, 14), PackedInt32Array(14, 8, 15), PackedInt32Array(16, 15, 5), PackedInt32Array(5, 15, 4), PackedInt32Array(4, 15, 17), PackedInt32Array(16, 14, 15)]
+cell_height = 0.1
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yvsyn"]
 transparency = 1
@@ -14,6 +15,13 @@ albedo_color = Color(0.9019608, 0.44705883, 1, 0.23529412)
 
 [sub_resource type="SphereMesh" id="SphereMesh_bjxgj"]
 material = SubResource("StandardMaterial3D_yvsyn")
+
+[sub_resource type="SphereMesh" id="SphereMesh_yvsyn"]
+radius = 1.0
+height = 2.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_bjxgj"]
+radius = 1.0
 
 [node name="PlayerTestGym" type="Node3D" unique_id=94953513]
 
@@ -48,16 +56,14 @@ offset_right = 140.0
 offset_bottom = 136.00003
 text = "Button2"
 
-[node name="Ground" type="CSGBox3D" parent="." unique_id=1074539373]
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="." unique_id=1886643212]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+navigation_mesh = SubResource("NavigationMesh_3w2og")
+
+[node name="Ground" type="CSGBox3D" parent="NavigationRegion3D" unique_id=1074539373]
 use_collision = true
 size = Vector3(50, 1, 50)
 material = ExtResource("1_bjxgj")
-
-[node name="NavigationRegion3D" type="NavigationRegion3D" parent="." unique_id=1886643212]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
-visible = false
-navigation_mesh = SubResource("NavigationMesh_jidvq")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=448775406]
 transform = Transform3D(0.7069928, 0.48655125, 0.51325345, -0.09646886, -0.65260273, 0.751534, 0.7006104, -0.5808421, -0.41444832, 0, 2.812119, 0)
@@ -72,10 +78,26 @@ debug_target = NodePath("../DebugTarget")
 stopping_dist = 2.0
 
 [node name="DebugTarget" type="Node3D" parent="." unique_id=1729126804]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 1, -2)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.5, 1, -6.5)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="DebugTarget" unique_id=1050471813]
 mesh = SubResource("SphereMesh_bjxgj")
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1583805346]
 transform = Transform3D(-1, 8.444392e-08, -2.2626683e-08, 0, 0.25881907, 0.9659258, 8.742278e-08, 0.9659258, -0.25881907, 0, 20, 0)
+
+[node name="ResourceNode" type="StaticBody3D" parent="." unique_id=609161925]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.5, 0, -5.5)
+script = ExtResource("3_bjxgj")
+metadata/_custom_type_script = "uid://bogiqy0n1oggd"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="ResourceNode" unique_id=1142665557]
+mesh = SubResource("SphereMesh_yvsyn")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ResourceNode" unique_id=1204977166]
+shape = SubResource("SphereShape3D_bjxgj")
+
+[node name="NavigationObstacle3D" type="NavigationObstacle3D" parent="ResourceNode" unique_id=557804513]
+affect_navigation_mesh = true
+carve_navigation_mesh = true
+use_3d_avoidance = true
