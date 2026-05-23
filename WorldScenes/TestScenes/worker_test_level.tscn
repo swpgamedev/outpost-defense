@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dfdj6jyn71ywn"]
 
 [ext_resource type="Material" uid="uid://bu4rki261mij7" path="res://Art/Materials/TestGround.tres" id="1_bjxgj"]
-[ext_resource type="Script" uid="uid://bogiqy0n1oggd" path="res://Resources/Nodes/resource_node.gd" id="3_bjxgj"]
+[ext_resource type="PackedScene" uid="uid://c0hb15tk506b8" path="res://Resources/Nodes/base_resource_node.tscn" id="3_bjxgj"]
 [ext_resource type="PackedScene" uid="uid://bd8w8jdj7oshx" path="res://Characters/Worker/worker.tscn" id="3_k7njs"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_3w2og"]
@@ -15,13 +15,6 @@ albedo_color = Color(0.9019608, 0.44705883, 1, 0.23529412)
 
 [sub_resource type="SphereMesh" id="SphereMesh_bjxgj"]
 material = SubResource("StandardMaterial3D_yvsyn")
-
-[sub_resource type="SphereMesh" id="SphereMesh_yvsyn"]
-radius = 1.0
-height = 2.0
-
-[sub_resource type="SphereShape3D" id="SphereShape3D_bjxgj"]
-radius = 1.0
 
 [node name="PlayerTestGym" type="Node3D" unique_id=94953513]
 
@@ -86,18 +79,5 @@ mesh = SubResource("SphereMesh_bjxgj")
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1583805346]
 transform = Transform3D(-1, 8.444392e-08, -2.2626683e-08, 0, 0.25881907, 0.9659258, 8.742278e-08, 0.9659258, -0.25881907, 0, 20, 0)
 
-[node name="ResourceNode" type="StaticBody3D" parent="." unique_id=609161925]
+[node name="ResourceNode" parent="." unique_id=830053814 instance=ExtResource("3_bjxgj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.5, 0, -5.5)
-script = ExtResource("3_bjxgj")
-metadata/_custom_type_script = "uid://bogiqy0n1oggd"
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="ResourceNode" unique_id=1142665557]
-mesh = SubResource("SphereMesh_yvsyn")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ResourceNode" unique_id=1204977166]
-shape = SubResource("SphereShape3D_bjxgj")
-
-[node name="NavigationObstacle3D" type="NavigationObstacle3D" parent="ResourceNode" unique_id=557804513]
-affect_navigation_mesh = true
-carve_navigation_mesh = true
-use_3d_avoidance = true

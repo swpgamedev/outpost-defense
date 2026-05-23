@@ -18,6 +18,8 @@ config/icon="res://icon.svg"
 [autoload]
 
 DebugDraw="*uid://d13ns8beco012"
+ResourceManager="*uid://b538vpaycd7tr"
+WorkerManager="*uid://dtb5ugnet4vx5"
 
 [display]
 

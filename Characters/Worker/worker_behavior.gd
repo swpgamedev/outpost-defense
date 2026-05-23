@@ -1,4 +1,12 @@
 extends RigidBody3D
+class_name Worker
+
+# TODO
+# - Seperate worker behaivor into:
+# -- Movement
+# -- Working action
+# -- Combat
+
 
 @export_group("Debug")
 @export var debug_enabled : bool
@@ -25,6 +33,7 @@ func _ready() -> void:
 	nav_agent.velocity_computed.connect(Callable(_on_velocity_computed))
 
 
+# This is where to put self righting forces
 #func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 	#pass
 
