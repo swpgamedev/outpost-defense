@@ -7,7 +7,9 @@ class_name Worker
 # -- Working action
 # -- Combat
 
+var worker_manager : WorkerManager
 
+ 
 @export_group("Debug")
 @export var debug_enabled : bool
 @export var debug_target : Node3D
@@ -31,6 +33,9 @@ var worker_height : float
 
 func _ready() -> void:
 	nav_agent.velocity_computed.connect(Callable(_on_velocity_computed))
+	
+	worker_manager = WorkerManager
+	worker_manager.NewWorker(self)
 
 
 # This is where to put self righting forces
@@ -54,6 +59,10 @@ func _process(delta: float) -> void:
 			if distance_to_target > stopping_dist :
 				Set_Destination(Get_Dest_From_Target(target.global_position, stopping_dist))
 			
+	
+	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) :
+		worker_manager.AssignWorker(self, worker_manager.JobType.GatherWood)
+		
 
 func _physics_process(_delta: float) -> void:
 	if height_checked == false :

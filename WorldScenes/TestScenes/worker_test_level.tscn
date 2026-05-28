@@ -3,6 +3,7 @@
 [ext_resource type="Material" uid="uid://bu4rki261mij7" path="res://Art/Materials/TestGround.tres" id="1_bjxgj"]
 [ext_resource type="PackedScene" uid="uid://c0hb15tk506b8" path="res://Resources/Nodes/base_resource_node.tscn" id="3_bjxgj"]
 [ext_resource type="PackedScene" uid="uid://bd8w8jdj7oshx" path="res://Characters/Worker/worker.tscn" id="3_k7njs"]
+[ext_resource type="PackedScene" uid="uid://dlwy445tnc2s8" path="res://Resources/Chunks/resource_chunk.tscn" id="4_3w2og"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_3w2og"]
 vertices = PackedVector3Array(9, 0.70000005, -6.5, 10.5, 0.70000005, -7, 10.5, 0.70000005, -24.5, -24.5, 0.70000005, -24.5, -24.5, 0.70000005, -4.75, 9, 0.70000005, -4.75, 11.5, 0.70000005, -7, 12, 0.70000005, -5.5, 24.5, 0.70000005, -5.5, 24.5, 0.70000005, -24.5, 10, 1.6, -5.75, 10.25, 1.6, -5, 11, 1.6, -5.25, 10.75, 1.6, -6, 11.5, 0.70000005, -4, 24.5, 0.70000005, 24.5, 9.5, 0.70000005, -4, -24.5, 0.70000005, 24.5)
@@ -81,3 +82,6 @@ transform = Transform3D(-1, 8.444392e-08, -2.2626683e-08, 0, 0.25881907, 0.96592
 
 [node name="ResourceNode" parent="." unique_id=830053814 instance=ExtResource("3_bjxgj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.5, 0, -5.5)
+
+[node name="ResourceChunk" parent="." unique_id=1268283202 instance=ExtResource("4_3w2og")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0357642, 0)
