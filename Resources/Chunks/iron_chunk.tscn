@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://dkitka82v8u3k"]
+
+[ext_resource type="PackedScene" uid="uid://dlwy445tnc2s8" path="res://Resources/Chunks/resource_chunk.tscn" id="1_8ho2m"]
+[ext_resource type="Material" uid="uid://b5fq4dfc32roe" path="res://Art/Materials/ResourceMats/test_iron_mat.tres" id="2_fkllb"]
+
+[node name="IronChunk" unique_id=1059760451 instance=ExtResource("1_8ho2m")]
+chunk_resource = 3
+
+[node name="MeshInstance3D" parent="Mesh" parent_id_path=PackedInt32Array(577469254) index="0" unique_id=428252395]
+surface_material_override/0 = ExtResource("2_fkllb")
+
+[node name="MeshInstance3D2" parent="Mesh" parent_id_path=PackedInt32Array(577469254) index="1" unique_id=149282387]
+surface_material_override/0 = ExtResource("2_fkllb")

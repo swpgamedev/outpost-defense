@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://bvlc6p6dxl3gp"]
+
+[ext_resource type="PackedScene" uid="uid://c0hb15tk506b8" path="res://Resources/Nodes/base_resource_node.tscn" id="1_608an"]
+[ext_resource type="Material" uid="uid://oifkan0m3prh" path="res://Art/Materials/ResourceMats/test_gold_mat.tres" id="2_s2elr"]
+
+[node name="GoldResourceNode" unique_id=830053814 instance=ExtResource("1_608an")]
+
+[node name="MeshInstance3D" parent="." index="0" unique_id=1133214649]
+surface_material_override/0 = ExtResource("2_s2elr")

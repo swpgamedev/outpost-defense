@@ -1,15 +1,18 @@
 extends StaticBody3D
 class_name ResourceNode
 
-enum ResourceType {None, Gold, Wood, Stone, Iron, Crystal}
-@export var node_resource : ResourceType
-@export var chunk_to_spawn : PackedScene
+@export var node_resource : ResourceManager.ResourceType
+var chunk_to_spawn : PackedScene
 
-@export var total_chunks : int
+@export var chunks_left : int
 
 func _ready() -> void:
-	ResourceManager.Track_Resource_Node(self)
+	ResourceManager.Track_Resource_Node(self, node_resource)
 	
+
+func _process(_delta: float) -> void:
+	if Input.is_action_just_pressed("jump") :
+		SpawnChunk()
 	
 
 func SpawnChunk() :
@@ -19,4 +22,4 @@ func SpawnChunk() :
 
 
 func DepleteNode() :
-	ResourceManager.Untrack_Resource_Node(self)
+	ResourceManager.Untrack_Resource_Node(self, node_resource)
