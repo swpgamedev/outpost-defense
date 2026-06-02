@@ -11,10 +11,11 @@ albedo_color = Color(4.813075e-08, 0.427371, 0.30050135, 1)
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_u1olj"]
 
-[node name="Worker" type="RigidBody3D" unique_id=566881945 node_paths=PackedStringArray("nav_agent")]
+[node name="Worker" type="RigidBody3D" unique_id=1059500010 node_paths=PackedStringArray("nav_agent")]
 physics_material_override = SubResource("PhysicsMaterial_8w0bo")
 script = ExtResource("1_8w0bo")
 nav_agent = NodePath("NavigationAgent3D")
+metadata/_custom_type_script = "uid://b13jkdbqf2cum"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=759157175]
 shape = SubResource("CapsuleShape3D_r51mh")

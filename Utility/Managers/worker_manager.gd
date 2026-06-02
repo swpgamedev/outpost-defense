@@ -1,21 +1,29 @@
 extends Node
 
-enum JobType {None, GatherWood, Logistics, Repair}
+enum JobType {None, GatherGold, GatherWood, GatherStone, GatherIron, GatherCrystal, Logistics, Repair}
 
-@export var worker_dict : Dictionary = {Worker : JobType}
+@export var worker_dict : Dictionary[Worker, int]
 
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("test") :
-		AssignWorker(worker_dict[0], JobType.GatherWood)
+		print("worker_dict: " + str(worker_dict))
+		print("Keys: " + str(worker_dict.keys()))
+		print("Values: " + str(worker_dict.values()))
+		
+		var selected_worker : Worker = GetClosestIdleWorkerAtPos(Vector3.ZERO)
+		if selected_worker != null and worker_dict[selected_worker] != null:
+			AssignWorker(selected_worker, JobType.Logistics)
+		
+		
 
 
-func AssignWorker(selected_worker : Worker, selected_job : JobType) : #, target : Node3D, job_to_assign : Worker.JobType
+func AssignWorker(selected_worker : Worker, selected_job : JobType) :
 	worker_dict[selected_worker] = selected_job
 
 func NewWorker(worker : Worker) :
 	worker_dict.get_or_add(worker, JobType.None)
 
-func GetClosestIdleWorkerAtPos(origin : Vector3) : #-> Worker
+func GetClosestIdleWorkerAtPos(origin : Vector3) -> Worker :
 	var closest_worker : Worker = null
 	var shortest_distance : float = INF
 	
@@ -25,5 +33,5 @@ func GetClosestIdleWorkerAtPos(origin : Vector3) : #-> Worker
 		if distance < shortest_distance :
 			shortest_distance = distance
 			closest_worker = check_worker
-	
-	#return closest_worker
+	print("CLOSEST WORKER: " + str(closest_worker))
+	return closest_worker

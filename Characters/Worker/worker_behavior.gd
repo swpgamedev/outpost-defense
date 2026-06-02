@@ -4,6 +4,7 @@ class_name Worker
 # TODO
 # - Seperate worker behaivor into:
 # -- Movement
+# -- Inventory
 # -- Working action
 # -- Combat
 

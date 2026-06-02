@@ -2,7 +2,7 @@ extends Node
 
 enum ResourceType {Gold, Wood, Stone, Iron, Crystal}
 
-#region
+#region NODES AND CHUNKS
 var GoldNodes : Array[ResourceNode] = []
 var WoodNodes : Array[ResourceNode] = []
 var StoneNodes : Array[ResourceNode] = []
@@ -25,6 +25,20 @@ var CrystalChunks : Array[ResourceChunk] = []
 
 var nodeDict : Dictionary = {}
 var chunkDict : Dictionary = {}
+#endregion
+
+#region RESOURCE REQUESTS
+
+# OUTSTANDING = player has requested a building
+var outstanding_gold_req : float
+var outstanding_wood_req : float
+var outstanding_stone_req : float
+var outstanding_iron_req : float
+var outstanding_crystal_req : float
+
+# PENDING = resources tagged to be used for building requests (can be at site, in warehouse, or in logi worker inventory)
+var pending_gold_req : float
+
 #endregion
 
 func _ready() -> void:
