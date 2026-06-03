@@ -3,13 +3,13 @@ class_name Worker
 
 # TODO
 # - Seperate worker behaivor into:
+# - Data holder stuff used across all: State, Target
 # -- Movement
 # -- Inventory
 # -- Working action
 # -- Combat
 
 var worker_manager : WorkerManager
-
  
 @export_group("Debug")
 @export var debug_enabled : bool
@@ -61,9 +61,7 @@ func _process(delta: float) -> void:
 				Set_Destination(Get_Dest_From_Target(target.global_position, stopping_dist))
 			
 	
-	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) :
-		worker_manager.AssignWorker(self, worker_manager.JobType.GatherWood)
-		
+	
 
 func _physics_process(_delta: float) -> void:
 	if height_checked == false :
@@ -116,6 +114,7 @@ func CheckWorkerHeight() -> float :
 	
 	return height
 
+# bring up to helper util class
 func DoRayCast(origin : Vector3, end : Vector3, length : float, can_collide_with_areas : bool) -> Dictionary :
 	var result : Dictionary
 	var space_state = get_world_3d().direct_space_state

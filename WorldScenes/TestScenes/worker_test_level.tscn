@@ -73,39 +73,41 @@ material = ExtResource("1_bjxgj")
 transform = Transform3D(0.7069928, 0.48655125, 0.51325345, -0.09646886, -0.65260273, 0.751534, 0.7006104, -0.5808421, -0.41444832, 0, 2.812119, 0)
 shadow_enabled = true
 
-[node name="Worker" parent="." unique_id=566881945 node_paths=PackedStringArray("debug_target") instance=ExtResource("3_k7njs")]
+[node name="Workers" type="Node3D" parent="." unique_id=1552203236]
+
+[node name="Worker" parent="Workers" unique_id=566881945 node_paths=PackedStringArray("debug_target") instance=ExtResource("3_k7njs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.5, 1, 10)
 axis_lock_angular_x = true
 axis_lock_angular_z = true
-debug_target = NodePath("../DebugTarget")
+debug_target = NodePath("../../DebugTarget")
 stopping_dist = 2.0
 
-[node name="Worker2" parent="." unique_id=989758019 node_paths=PackedStringArray("debug_target") instance=ExtResource("3_k7njs")]
+[node name="Worker2" parent="Workers" unique_id=989758019 node_paths=PackedStringArray("debug_target") instance=ExtResource("3_k7njs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.313629, 1, 11.112507)
 axis_lock_angular_x = true
 axis_lock_angular_z = true
-debug_target = NodePath("../DebugTarget")
+debug_target = NodePath("../../DebugTarget")
 stopping_dist = 2.0
 
-[node name="Worker3" parent="." unique_id=475942067 node_paths=PackedStringArray("debug_target") instance=ExtResource("3_k7njs")]
+[node name="Worker3" parent="Workers" unique_id=475942067 node_paths=PackedStringArray("debug_target") instance=ExtResource("3_k7njs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.319254, 1, 4.1179886)
 axis_lock_angular_x = true
 axis_lock_angular_z = true
-debug_target = NodePath("../DebugTarget")
+debug_target = NodePath("../../DebugTarget")
 stopping_dist = 2.0
 
-[node name="Worker4" parent="." unique_id=623260697 node_paths=PackedStringArray("debug_target") instance=ExtResource("3_k7njs")]
+[node name="Worker4" parent="Workers" unique_id=623260697 node_paths=PackedStringArray("debug_target") instance=ExtResource("3_k7njs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.580553, 1, 4.7804985)
 axis_lock_angular_x = true
 axis_lock_angular_z = true
-debug_target = NodePath("../DebugTarget")
+debug_target = NodePath("../../DebugTarget")
 stopping_dist = 2.0
 
-[node name="Worker5" parent="." unique_id=1343740525 node_paths=PackedStringArray("debug_target") instance=ExtResource("3_k7njs")]
+[node name="Worker5" parent="Workers" unique_id=1343740525 node_paths=PackedStringArray("debug_target") instance=ExtResource("3_k7njs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.8600483, 1, 16.427277)
 axis_lock_angular_x = true
 axis_lock_angular_z = true
-debug_target = NodePath("../DebugTarget")
+debug_target = NodePath("../../DebugTarget")
 stopping_dist = 2.0
 
 [node name="DebugTarget" type="Node3D" parent="." unique_id=1729126804]
