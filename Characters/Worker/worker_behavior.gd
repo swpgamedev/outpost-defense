@@ -31,6 +31,8 @@ var height_checked : bool = false
 var height_distance : float = 0.1
 var worker_height : float
 
+var current_job = WorkerManager.JobType
+
 
 func _ready() -> void:
 	nav_agent.velocity_computed.connect(Callable(_on_velocity_computed))
@@ -47,7 +49,7 @@ func _process(delta: float) -> void:
 	if debug_enabled : # Change to if target != null
 		target = debug_target
 		
-		DebugDraw.draw_line_relative_pointy(target.global_position,global_position - target.global_position,1,Color.BLUE_VIOLET)
+		DebugDraw.draw_line_relative_pointy(target.global_position, global_position - target.global_position, 1, Color.BLUE_VIOLET)
 		# Destination
 		DebugDraw.draw_line_relative_thick(nav_agent.target_position,Vector3.UP,5,Color.LIGHT_GREEN)
 	

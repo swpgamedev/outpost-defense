@@ -9,6 +9,7 @@ var StoneNodes : Array[ResourceNode] = []
 var IronNodes : Array[ResourceNode] = []
 var CrystalNodes : Array[ResourceNode] = []
 
+# will defo break if moving stuff
 var gold_chunk : PackedScene = preload("res://Resources/Chunks/gold_chunk.tscn")
 var wood_chunk : PackedScene = preload("res://Resources/Chunks/wood_chunk.tscn")
 var stone_chunk : PackedScene = preload("res://Resources/Chunks/stone_chunk.tscn")
@@ -116,12 +117,16 @@ func GetClosestResourceNode(origin : Vector3, resource : ResourceType) -> Resour
 	var closest_node : ResourceNode = null
 	
 	var nodes_to_check : Array[ResourceNode] = nodeDict[resource]
-	print("NODES TO CHECK: " + str(nodes_to_check))
+	#print("NODES TO CHECK: " + str(nodes_to_check))
 	for check_node in nodes_to_check :
+		print(check_node.node_resource)
+		#if check_node.node_resource
+		
+		
 		var distance : float = origin.distance_to(check_node.global_position)
-		print("Checking this node: " + str(check_node) + ", Distance: " + str(distance))
+		#print("Checking this node: " + str(check_node) + ", Distance: " + str(distance))
 		if distance < shortest_distance :
-			print("NEW SHORTEST")
+			#print("NEW SHORTEST")
 			shortest_distance = distance
 			closest_node = check_node
 	
