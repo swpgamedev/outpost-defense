@@ -1,6 +1,8 @@
 [gd_scene format=3 uid="uid://dfdj6jyn71ywn"]
 
 [ext_resource type="Material" uid="uid://bu4rki261mij7" path="res://Art/Materials/TestGround.tres" id="1_bjxgj"]
+[ext_resource type="Script" uid="uid://d3jac3bh68qq" path="res://WorldScenes/TestScenes/worker_select_test_ui.gd" id="1_uwgho"]
+[ext_resource type="Material" uid="uid://dadl4ilnopt80" path="res://Art/Materials/debug_mat.tres" id="2_wo14j"]
 [ext_resource type="PackedScene" uid="uid://bd8w8jdj7oshx" path="res://Characters/Worker/worker.tscn" id="3_k7njs"]
 [ext_resource type="PackedScene" uid="uid://d3u2d2aikhsv3" path="res://Resources/Chunks/gold_chunk.tscn" id="4_8a7s8"]
 [ext_resource type="PackedScene" uid="uid://b4nseybi7knwr" path="res://Resources/Chunks/wood_chunk.tscn" id="5_eskjq"]
@@ -18,18 +20,14 @@ vertices = PackedVector3Array(-3.25, 0.70000005, -9.5, -1.75, 0.70000005, -10, -
 polygons = [PackedInt32Array(2, 1, 0), PackedInt32Array(0, 3, 2), PackedInt32Array(2, 3, 5), PackedInt32Array(2, 5, 4), PackedInt32Array(7, 6, 8), PackedInt32Array(8, 6, 9), PackedInt32Array(10, 1, 2), PackedInt32Array(6, 10, 9), PackedInt32Array(9, 10, 11), PackedInt32Array(11, 10, 12), PackedInt32Array(12, 10, 2), PackedInt32Array(15, 14, 13), PackedInt32Array(13, 11, 15), PackedInt32Array(15, 11, 12), PackedInt32Array(15, 12, 16), PackedInt32Array(20, 19, 17), PackedInt32Array(17, 19, 18), PackedInt32Array(22, 21, 23), PackedInt32Array(23, 21, 24), PackedInt32Array(24, 21, 5), PackedInt32Array(5, 21, 25), PackedInt32Array(5, 3, 24), PackedInt32Array(26, 22, 23), PackedInt32Array(30, 29, 27), PackedInt32Array(27, 29, 28), PackedInt32Array(26, 23, 27), PackedInt32Array(27, 23, 7), PackedInt32Array(27, 7, 30), PackedInt32Array(30, 7, 8), PackedInt32Array(34, 33, 31), PackedInt32Array(31, 33, 32), PackedInt32Array(36, 35, 37), PackedInt32Array(37, 35, 38), PackedInt32Array(41, 40, 39), PackedInt32Array(39, 42, 41), PackedInt32Array(41, 42, 15), PackedInt32Array(14, 15, 38), PackedInt32Array(38, 15, 37), PackedInt32Array(37, 15, 42), PackedInt32Array(28, 29, 43), PackedInt32Array(43, 38, 28), PackedInt32Array(28, 38, 44), PackedInt32Array(44, 38, 35), PackedInt32Array(47, 46, 45), PackedInt32Array(47, 45, 48), PackedInt32Array(48, 45, 49), PackedInt32Array(51, 50, 52), PackedInt32Array(52, 50, 53), PackedInt32Array(25, 21, 54), PackedInt32Array(52, 53, 54), PackedInt32Array(54, 53, 48), PackedInt32Array(54, 48, 25), PackedInt32Array(25, 48, 49), PackedInt32Array(58, 57, 55), PackedInt32Array(55, 57, 56), PackedInt32Array(36, 59, 35), PackedInt32Array(35, 59, 44), PackedInt32Array(51, 44, 50), PackedInt32Array(50, 44, 60), PackedInt32Array(60, 44, 59), PackedInt32Array(60, 59, 61), PackedInt32Array(65, 64, 62), PackedInt32Array(62, 64, 63), PackedInt32Array(40, 41, 66), PackedInt32Array(66, 41, 67), PackedInt32Array(45, 46, 68), PackedInt32Array(69, 60, 61), PackedInt32Array(68, 69, 61), PackedInt32Array(66, 67, 61), PackedInt32Array(61, 67, 68), PackedInt32Array(68, 67, 45), PackedInt32Array(73, 72, 70), PackedInt32Array(70, 72, 71)]
 cell_height = 0.1
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yvsyn"]
-transparency = 1
-albedo_color = Color(0.9019608, 0.44705883, 1, 0.23529412)
-
 [sub_resource type="SphereMesh" id="SphereMesh_bjxgj"]
-material = SubResource("StandardMaterial3D_yvsyn")
+material = ExtResource("2_wo14j")
 
 [node name="PlayerTestGym" type="Node3D" unique_id=94953513]
 
-[node name="TestWorkerUI" type="CanvasLayer" parent="." unique_id=1246689883]
+[node name="TestUI" type="CanvasLayer" parent="." unique_id=1246689883]
 
-[node name="Control" type="Control" parent="TestWorkerUI" unique_id=3354694]
+[node name="Control" type="Control" parent="TestUI" unique_id=3354694]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -37,12 +35,12 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ButtonRoot" type="Control" parent="TestWorkerUI/Control" unique_id=1696943978]
+[node name="ButtonRoot" type="Control" parent="TestUI/Control" unique_id=1696943978]
 anchors_preset = 0
 offset_right = 300.0
 offset_bottom = 900.0
 
-[node name="Button1" type="Button" parent="TestWorkerUI/Control/ButtonRoot" unique_id=1396589985]
+[node name="Button1" type="Button" parent="TestUI/Control/ButtonRoot" unique_id=1396589985]
 layout_mode = 1
 offset_left = 20.0
 offset_top = 20.0
@@ -50,13 +48,65 @@ offset_right = 140.0
 offset_bottom = 68.0
 text = "Button1"
 
-[node name="Button2" type="Button" parent="TestWorkerUI/Control/ButtonRoot" unique_id=509920219]
+[node name="Button2" type="Button" parent="TestUI/Control/ButtonRoot" unique_id=509920219]
 layout_mode = 1
 offset_left = 20.0
 offset_top = 88.0
 offset_right = 140.0
 offset_bottom = 136.00003
 text = "Button2"
+
+[node name="Control2" type="Control" parent="TestUI" unique_id=1486919827]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="WorkerSelectTest" type="Node3D" parent="TestUI/Control2" unique_id=534496026 node_paths=PackedStringArray("spherecast_indicator")]
+script = ExtResource("1_uwgho")
+debug_enabled = true
+spherecast_indicator = NodePath("spherecast_indicator")
+
+[node name="spherecast_indicator" type="CSGSphere3D" parent="TestUI/Control2/WorkerSelectTest" unique_id=2146589355]
+visible = false
+radius = 2.0
+radial_segments = 32
+rings = 32
+material = ExtResource("2_wo14j")
+
+[node name="Control" type="Control" parent="TestUI/Control2" unique_id=837327073]
+anchors_preset = 0
+offset_left = 1292.0
+offset_top = 112.0
+offset_right = 1292.0
+offset_bottom = 112.0
+
+[node name="MarginContainer" type="MarginContainer" parent="TestUI/Control2/Control" unique_id=932692320]
+layout_mode = 0
+offset_top = -48.0
+offset_right = 220.0
+
+[node name="Label" type="Label" parent="TestUI/Control2/Control/MarginContainer" unique_id=1376921059]
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(8, 0)
+text = "Assign Job"
+
+[node name="OptionButton" type="OptionButton" parent="TestUI/Control2/Control/MarginContainer" unique_id=1250876193]
+layout_mode = 2
+alignment = 2
+selected = 0
+item_count = 4
+popup/item_0/text = "Idle"
+popup/item_0/id = 0
+popup/item_1/text = "Gather"
+popup/item_1/id = 1
+popup/item_2/text = "Logistics"
+popup/item_2/id = 2
+popup/item_3/text = "Repair"
+popup/item_3/id = 3
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="." unique_id=1886643212]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
@@ -161,3 +211,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, -8)
 
 [node name="CrystalResourceNode" parent="TestNodes" unique_id=1317810833 instance=ExtResource("12_m00fy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5, 0, 3.5)
+
+[connection signal="item_selected" from="TestUI/Control2/Control/MarginContainer/OptionButton" to="TestUI/Control2/WorkerSelectTest" method="_on_option_button_item_selected"]

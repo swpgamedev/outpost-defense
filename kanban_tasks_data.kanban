@@ -4,18 +4,41 @@
 			"uuid": "e08862a7-4c67-4aac-9ef3-cf92b8cd4879",
 			"title": "Task",
 			"color": "569eff"
+		},
+		{
+			"uuid": "cb8e0e2f-6dc5-4bd5-bcc3-e475578af8eb",
+			"title": "Worker",
+			"color": "dad102"
+		},
+		{
+			"uuid": "919830e9-9076-425a-9a49-38a1f91c920c",
+			"title": "Resource",
+			"color": "6a90a8"
+		},
+		{
+			"uuid": "8f9871f7-1b08-410b-939f-07bee1f6655b",
+			"title": "BUG",
+			"color": "dc25f9"
 		}
 	],
 	"stages": [
 		{
 			"uuid": "0723c2b3-d57e-4cba-b23e-4a8f5c2eabec",
 			"title": "Todo",
-			"tasks": []
+			"tasks": [
+				"d5ab805d-7144-4b9c-9b64-b0627855fa9a",
+				"dc4334c1-fc29-47cc-a51c-9ddf92716bc5",
+				"fa8cafd6-cab6-40e8-a8be-2aba88838fc1",
+				"77e583de-3d2a-48de-b032-1ffcd12742df",
+				"851776e4-b52f-4829-a628-a9db53485309"
+			]
 		},
 		{
 			"uuid": "988fdda4-3c92-4b9d-9c0c-36d1d9c99bfc",
 			"title": "Doing",
-			"tasks": []
+			"tasks": [
+				"0d830724-9ff0-491f-a881-79817ad40967"
+			]
 		},
 		{
 			"uuid": "a100ce0f-f66c-42a6-b34b-470453056b28",
@@ -23,7 +46,50 @@
 			"tasks": []
 		}
 	],
-	"tasks": [],
+	"tasks": [
+		{
+			"uuid": "dc4334c1-fc29-47cc-a51c-9ddf92716bc5",
+			"title": "Worker Logistics Loop",
+			"description": "",
+			"category": "cb8e0e2f-6dc5-4bd5-bcc3-e475578af8eb",
+			"steps": []
+		},
+		{
+			"uuid": "fa8cafd6-cab6-40e8-a8be-2aba88838fc1",
+			"title": "Worker Repair Loop",
+			"description": "",
+			"category": "cb8e0e2f-6dc5-4bd5-bcc3-e475578af8eb",
+			"steps": []
+		},
+		{
+			"uuid": "77e583de-3d2a-48de-b032-1ffcd12742df",
+			"title": "Worker Gather Loop",
+			"description": "",
+			"category": "cb8e0e2f-6dc5-4bd5-bcc3-e475578af8eb",
+			"steps": []
+		},
+		{
+			"uuid": "851776e4-b52f-4829-a628-a9db53485309",
+			"title": "Worker Idle Loop",
+			"description": "",
+			"category": "cb8e0e2f-6dc5-4bd5-bcc3-e475578af8eb",
+			"steps": []
+		},
+		{
+			"uuid": "d5ab805d-7144-4b9c-9b64-b0627855fa9a",
+			"title": "Find Closest Chunk",
+			"description": "",
+			"category": "919830e9-9076-425a-9a49-38a1f91c920c",
+			"steps": []
+		},
+		{
+			"uuid": "0d830724-9ff0-491f-a881-79817ad40967",
+			"title": "Click on worker, get UI prompt",
+			"description": "",
+			"category": "cb8e0e2f-6dc5-4bd5-bcc3-e475578af8eb",
+			"steps": []
+		}
+	],
 	"layout": {
 		"columns": [
 			[
