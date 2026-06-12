@@ -9,7 +9,11 @@ extends Node3D
 enum SelectionStates {Disabled, Listening, Selected}
 var current_state : SelectionStates
 
+@export var select_ui : Control
+@export var option_button : OptionButton
+@export var ui_offset : Vector2 = Vector2(50,-50)
 var selected_worker : Worker
+@export var has_worker : bool = false
 
 var cam : Camera3D
 
@@ -26,6 +30,12 @@ func _ready() -> void:
 	pass
 
 func _process(_delta: float) -> void:
+	if selected_worker != null :
+		has_worker = true
+	else :
+		has_worker = false
+	
+	
 	if debug_enabled :
 		if spherecast_indicator.visible == false :
 			spherecast_indicator.visible = true
@@ -45,7 +55,7 @@ func _process(_delta: float) -> void:
 
 
 func _physics_process(_delta: float) -> void:
-	if Input.is_action_just_pressed("left_click") : # Need to handle inputs differently
+	if Input.is_action_just_pressed("right_click") : # Need to handle inputs differently
 		var results : Dictionary = MouseViewPortRayCast()
 		var sphere_results : Array[Dictionary]
 		
@@ -56,14 +66,32 @@ func _physics_process(_delta: float) -> void:
 				selected_worker = results.collider
 			else :
 				sphere_results = TrySphereCast(check_pos, check_radius)
-				var i : int = 0
-				for dict in sphere_results :
-					print(dict.collider)
-					if dict.collider is Worker :
-						print("HORRAY")
+				
+				if sphere_results.size() > 0 :
+					var worker_array : Array[Worker] = []
 					
-					print(str(i) + ": " + str(sphere_results[i]))
-					i += 1
+					for res in sphere_results :
+						if res.collider is Worker :
+							worker_array.append(res.collider)
+					
+					if worker_array.size() == 0 :
+						selected_worker = null
+					elif worker_array.size() == 1 :
+						selected_worker = worker_array[0]
+					elif worker_array.size() > 1 :
+						var origin_pos : Vector3 = results.position
+						var shortest_distance : float = INF
+						
+						for workie in worker_array :
+							var distance : float = origin_pos.distance_to(workie.global_position)
+							if  distance < shortest_distance :
+								shortest_distance = distance
+								selected_worker = workie
+		
+		if selected_worker != null :
+			MoveSelectUI(option_button, select_ui, selected_worker, ui_offset)
+		else :
+			HideSelectUI(select_ui)
 
 func MouseViewPortRayCast() -> Dictionary :
 	physics_space = get_world_3d().direct_space_state # access from root node
@@ -74,8 +102,6 @@ func MouseViewPortRayCast() -> Dictionary :
 	query.collide_with_areas = false
 	
 	var result = physics_space.intersect_ray(query)
-	
-	print("RESULT: " + str(result))
 	
 	return result
 
@@ -101,6 +127,35 @@ func TrySphereCast(pos : Vector3, radius : float) -> Array[Dictionary] :
 	#PhysicsServer3D.free_rid(shape_rid)
 	# Do we need to release this shape ever?
 
+func MoveSelectUI(opt_button : OptionButton, sel_ui : Control, worker : Worker, offset : Vector2) :
+	opt_button.selected = worker.current_job
+	sel_ui.visible = not get_viewport().get_camera_3d().is_position_behind(worker.global_transform.origin)
+	sel_ui.position = get_viewport().get_camera_3d().unproject_position(worker.global_transform.origin)
+	sel_ui.position += offset
 
-func _on_option_button_item_selected(index: int) -> void:
-	print("SELECTED: " + str(index))
+func HideSelectUI(sel_ui : Control) :
+	sel_ui.visible = false
+	selected_worker = null
+
+func _on_option_button_item_selected(index: int) -> void  :
+	WorkerManager.AssignWorker(selected_worker, index, ResourceManager.ResourceType.values()[randi_range(0, 4)] , true)
+	HideSelectUI(select_ui)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# ._.

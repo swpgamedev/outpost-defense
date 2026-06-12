@@ -31,7 +31,7 @@ var height_checked : bool = false
 var height_distance : float = 0.1
 var worker_height : float
 
-var current_job = WorkerManager.JobType
+var current_job : WorkerManager.JobType = WorkerManager.JobType.Idle
 
 
 func _ready() -> void:

@@ -30,14 +30,16 @@
 				"dc4334c1-fc29-47cc-a51c-9ddf92716bc5",
 				"fa8cafd6-cab6-40e8-a8be-2aba88838fc1",
 				"77e583de-3d2a-48de-b032-1ffcd12742df",
-				"851776e4-b52f-4829-a628-a9db53485309"
+				"851776e4-b52f-4829-a628-a9db53485309",
+				"24cafa2c-b9d1-4201-ae0c-2f87c038fabd"
 			]
 		},
 		{
 			"uuid": "988fdda4-3c92-4b9d-9c0c-36d1d9c99bfc",
 			"title": "Doing",
 			"tasks": [
-				"0d830724-9ff0-491f-a881-79817ad40967"
+				"0d830724-9ff0-491f-a881-79817ad40967",
+				"f53a6790-ff10-41ee-9a28-b12075a83339"
 			]
 		},
 		{
@@ -85,6 +87,20 @@
 		{
 			"uuid": "0d830724-9ff0-491f-a881-79817ad40967",
 			"title": "Click on worker, get UI prompt",
+			"description": "",
+			"category": "cb8e0e2f-6dc5-4bd5-bcc3-e475578af8eb",
+			"steps": []
+		},
+		{
+			"uuid": "f53a6790-ff10-41ee-9a28-b12075a83339",
+			"title": "UI prompt needs to disappear when clicking off",
+			"description": "Should it fire another check?\nDo I need to make an input handler?",
+			"category": "cb8e0e2f-6dc5-4bd5-bcc3-e475578af8eb",
+			"steps": []
+		},
+		{
+			"uuid": "24cafa2c-b9d1-4201-ae0c-2f87c038fabd",
+			"title": "Self Righting rigid body",
 			"description": "",
 			"category": "cb8e0e2f-6dc5-4bd5-bcc3-e475578af8eb",
 			"steps": []
