@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://qqafnd46vouw"]
+
+[ext_resource type="Material" uid="uid://mw1v010iwte" path="res://Art/Materials/Buildings/StorageMat.tres" id="1_3yjov"]
+[ext_resource type="Script" uid="uid://d3rn5l0y41rbp" path="res://Buildings/resource_storage_behavior.gd" id="1_m6p3d"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_2ov11"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2ov11"]
+
+[node name="ResourceStorage" type="Node3D" unique_id=1576425289]
+script = ExtResource("1_m6p3d")
+metadata/_custom_type_script = "uid://d3rn5l0y41rbp"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=492140264]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+material_override = ExtResource("1_3yjov")
+mesh = SubResource("BoxMesh_2ov11")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=1060524660]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=381610220]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("BoxShape3D_2ov11")

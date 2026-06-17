@@ -16,33 +16,14 @@ func _process(_delta: float) -> void:
 			test_index = 0
 		var selected_worker : Worker = GetClosestIdleWorkerAtPos(Vector3.ZERO)
 		if selected_worker != null :
-			var rand_int : int = randi_range(0, ResourceManager.ResourceType.size() - 1)
-			if JobType.values()[test_index] == JobType.Gather :
-				AssignWorker(selected_worker, JobType.values()[test_index], ResourceManager.ResourceType.values()[rand_int], true)
-			else :
-				AssignWorker(selected_worker, JobType.values()[test_index], ResourceManager.ResourceType.values()[rand_int], false)
+			AssignWorker(selected_worker, JobType.values()[test_index])
+			#if JobType.values()[test_index] == JobType.Gather :
+			#	AssignWorker(selected_worker, JobType.values()[test_index], ResourceManager.ResourceType.values()[some_int])
+				
 
-func AssignWorker(current_worker : Worker, selected_job : JobType, resource : ResourceManager.ResourceType, set_target : bool) :
+func AssignWorker(current_worker : Worker, selected_job : JobType) :
 	worker_dict[current_worker] = selected_job
-	current_worker.current_job = selected_job
-	
-	if selected_job == JobType.Idle :
-		# set to chill or go back to base?
-		gg.print("Idle")
-		pass
-	elif selected_job == JobType.Gather :
-		# start gather loop, set resource to try to work on
-		gg.print("Gather")
-		if set_target :
-			current_worker.target = ResourceManager.GetClosestResourceNode(current_worker.global_position, resource)
-	elif selected_job == JobType.Logistics :
-		# start logistics loop
-		gg.print("Logistics")
-		pass
-	elif selected_job == JobType.Repair :
-		# start repair loop
-		gg.print("Repair")
-		pass
+	current_worker.SetJob(selected_job)
 
 func NewWorker(worker : Worker) :
 	worker_dict.get_or_add(worker, JobType.Idle)

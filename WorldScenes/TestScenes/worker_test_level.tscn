@@ -14,10 +14,11 @@
 [ext_resource type="PackedScene" uid="uid://d07et5cogag4b" path="res://Resources/Nodes/stone_resource_node.tscn" id="10_iagux"]
 [ext_resource type="PackedScene" uid="uid://b27tk6fx1onjr" path="res://Resources/Nodes/iron_resource_node.tscn" id="11_iiv7w"]
 [ext_resource type="PackedScene" uid="uid://bg7afn6kw431c" path="res://Resources/Nodes/crystal_resource_node.tscn" id="12_m00fy"]
+[ext_resource type="PackedScene" uid="uid://qqafnd46vouw" path="res://Buildings/resource_storage.tscn" id="15_iagux"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_3w2og"]
-vertices = PackedVector3Array(-3.25, 0.70000005, -9.5, -1.75, 0.70000005, -10, -1.75, 0.70000005, -24.5, -3.5, 0.70000005, -8.25, -24.5, 0.70000005, -24.5, -24.5, 0.70000005, -8.25, -0.25, 0.70000005, -9.25, -0.25, 0.70000005, -8, 10.25, 0.70000005, -7.75, 10.75, 0.70000005, -8.75, -1, 0.70000005, -10, 12, 0.70000005, -9, 12, 0.70000005, -24.5, 13.25, 0.70000005, -8.5, 13.5, 0.70000005, -7.25, 24.5, 0.70000005, -7.25, 24.5, 0.70000005, -24.5, -2.25, 1.6, -8.75, -2.25, 1.6, -8, -1.5, 1.6, -8, -1.5, 1.6, -8.75, 2.25, 0.70000005, 3, 2.25, 0.70000005, 2.75, -1.25, 0.70000005, -6.75, -3, 0.70000005, -7, -24.5, 0.70000005, 3.25, 3, 0.70000005, 2, 4.5, 0.70000005, 2, 5.25, 0.70000005, 3, 11.25, 0.70000005, -5.75, 10.25, 0.70000005, -6.5, 11.5, 1.6, -7.5, 11.5, 1.6, -7, 12.25, 1.6, -7, 12.25, 1.6, -7.5, 17.75, 0.70000005, 5.25, 18.5, 0.70000005, 5.5, 19.5, 0.70000005, 4.5, 13.5, 0.70000005, -6.5, 21.5, 0.70000005, 5.25, 21.5, 0.70000005, 6.25, 24.5, 0.70000005, 6.25, 20.75, 0.70000005, 4.5, 12.75, 0.70000005, -5.75, 5, 0.70000005, 4.75, 5.25, 0.70000005, 24.5, 5.25, 0.70000005, 19.25, 4.5, 0.70000005, 19.25, 3.75, 0.70000005, 18.5, -24.5, 0.70000005, 24.5, 4.5, 0.70000005, 16, 4.25, 0.70000005, 5.25, 3, 0.70000005, 5.25, 3.75, 0.70000005, 16.75, 2.25, 0.70000005, 4.5, 3.5, 1.6, 3.25, 3.5, 1.6, 4, 4, 1.6, 4, 4, 1.6, 3.25, 18.5, 0.70000005, 7, 6.25, 0.70000005, 16.25, 19.5, 0.70000005, 7.75, 19.5, 1.6, 6, 19.5, 1.6, 6.5, 20.5, 1.6, 6.25, 20.5, 1.6, 5.75, 21.25, 0.70000005, 7.5, 24.5, 0.70000005, 24.5, 6.75, 0.70000005, 18.75, 6.75, 0.70000005, 16.5, 5, 1.6, 17.25, 5, 1.6, 18, 5.5, 1.6, 18, 5.5, 1.6, 17.25)
-polygons = [PackedInt32Array(2, 1, 0), PackedInt32Array(0, 3, 2), PackedInt32Array(2, 3, 5), PackedInt32Array(2, 5, 4), PackedInt32Array(7, 6, 8), PackedInt32Array(8, 6, 9), PackedInt32Array(10, 1, 2), PackedInt32Array(6, 10, 9), PackedInt32Array(9, 10, 11), PackedInt32Array(11, 10, 12), PackedInt32Array(12, 10, 2), PackedInt32Array(15, 14, 13), PackedInt32Array(13, 11, 15), PackedInt32Array(15, 11, 12), PackedInt32Array(15, 12, 16), PackedInt32Array(20, 19, 17), PackedInt32Array(17, 19, 18), PackedInt32Array(22, 21, 23), PackedInt32Array(23, 21, 24), PackedInt32Array(24, 21, 5), PackedInt32Array(5, 21, 25), PackedInt32Array(5, 3, 24), PackedInt32Array(26, 22, 23), PackedInt32Array(30, 29, 27), PackedInt32Array(27, 29, 28), PackedInt32Array(26, 23, 27), PackedInt32Array(27, 23, 7), PackedInt32Array(27, 7, 30), PackedInt32Array(30, 7, 8), PackedInt32Array(34, 33, 31), PackedInt32Array(31, 33, 32), PackedInt32Array(36, 35, 37), PackedInt32Array(37, 35, 38), PackedInt32Array(41, 40, 39), PackedInt32Array(39, 42, 41), PackedInt32Array(41, 42, 15), PackedInt32Array(14, 15, 38), PackedInt32Array(38, 15, 37), PackedInt32Array(37, 15, 42), PackedInt32Array(28, 29, 43), PackedInt32Array(43, 38, 28), PackedInt32Array(28, 38, 44), PackedInt32Array(44, 38, 35), PackedInt32Array(47, 46, 45), PackedInt32Array(47, 45, 48), PackedInt32Array(48, 45, 49), PackedInt32Array(51, 50, 52), PackedInt32Array(52, 50, 53), PackedInt32Array(25, 21, 54), PackedInt32Array(52, 53, 54), PackedInt32Array(54, 53, 48), PackedInt32Array(54, 48, 25), PackedInt32Array(25, 48, 49), PackedInt32Array(58, 57, 55), PackedInt32Array(55, 57, 56), PackedInt32Array(36, 59, 35), PackedInt32Array(35, 59, 44), PackedInt32Array(51, 44, 50), PackedInt32Array(50, 44, 60), PackedInt32Array(60, 44, 59), PackedInt32Array(60, 59, 61), PackedInt32Array(65, 64, 62), PackedInt32Array(62, 64, 63), PackedInt32Array(40, 41, 66), PackedInt32Array(66, 41, 67), PackedInt32Array(45, 46, 68), PackedInt32Array(69, 60, 61), PackedInt32Array(68, 69, 61), PackedInt32Array(66, 67, 61), PackedInt32Array(61, 67, 68), PackedInt32Array(68, 67, 45), PackedInt32Array(73, 72, 70), PackedInt32Array(70, 72, 71)]
+vertices = PackedVector3Array(-11.5, 0.70000005, -14.5, -10, 0.70000005, -15, -10, 0.70000005, -24.5, -24.5, 0.70000005, -24.5, -24.5, 0.70000005, -13.5, -11.5, 0.70000005, -13.5, -8.5, 0.70000005, -14.5, -8.5, 0.70000005, -12.75, -2.75, 0.70000005, -9.5, 7, 0.70000005, -17, 8.5, 0.70000005, -17.5, 8.5, 0.70000005, -24.5, -1.25, 0.70000005, -9.5, 7, 0.70000005, -15.25, 10, 0.70000005, -15, 9.25, 0.70000005, -14.5, 11.25, 0.70000005, -9.5, 13, 0.70000005, -9.5, 10, 0.70000005, -17, 24.5, 0.70000005, -8, 24.5, 0.70000005, -24.5, 13.5, 0.70000005, -8, 8, 1.6, -16.25, 8.25, 1.6, -15.5, 9, 1.6, -15.75, 8.75, 1.6, -16.5, 10.5, 0.70000005, -9, 7.5, 0.70000005, -14.5, -0.5, 0.70000005, -9, 10.5, 0.70000005, -8, -0.5, 0.70000005, -8, -10.5, 1.6, -13.75, -10.25, 1.6, -13, -9.5, 1.6, -13.25, -9.75, 1.6, -14, -8, 0.70000005, -3, -9.25, 0.70000005, -12, -11, 0.70000005, -12, -9.5, 0.70000005, -2.5, -9.5, 0.70000005, -1.5, -24.5, 0.70000005, -1.5, -6.5, 0.70000005, -2.5, -2.75, 0.70000005, -6.5, -3.5, 0.70000005, -7, -3.5, 0.70000005, -9, -2.5, 1.6, -8.25, -2.25, 1.6, -7.5, -1.5, 1.6, -7.75, -1.75, 1.6, -8.5, 11.5, 1.6, -8.25, 11.75, 1.6, -7.5, 12.5, 1.6, -7.75, 12.25, 1.6, -8.5, -0.5, 0.70000005, -7.25, 2.75, 0.70000005, 2, 4.5, 0.70000005, 2, 10.5, 0.70000005, -7, 5, 0.70000005, 2.75, 11.25, 0.70000005, -6.5, 17.75, 0.70000005, 5, 18.5, 0.70000005, 5.25, 19, 0.70000005, 4.5, 13.25, 0.70000005, -6.75, 21, 0.70000005, 4.5, 21.5, 0.70000005, 6, 24.5, 0.70000005, 6, -1, 0.70000005, -6.5, -6.5, 0.70000005, -0.5, 2, 0.70000005, 3, -7.25, 0.70000005, 0, 4.75, 0.70000005, 4.75, -8.5, 1.6, -1.75, -8.25, 1.6, -1, -7.5, 1.6, -1.25, -7.75, 1.6, -2, -9.5, 0.70000005, -0.5, -8.75, 0.70000005, 0, -24.5, 0.70000005, 24.5, -8.75, 0.70000005, 24.5, 5, 0.70000005, 24.5, 5, 0.70000005, 19.5, 3.5, 0.70000005, 19, 2, 0.70000005, 4.5, 2.5, 0.70000005, 5, 4.25, 0.70000005, 16.5, 4, 0.70000005, 5, 3.5, 0.70000005, 17, 3, 1.6, 3.25, 3.25, 1.6, 4, 4, 1.6, 3.75, 3.75, 1.6, 3, 18.5, 0.70000005, 7, 5.75, 0.70000005, 16.5, 19.25, 0.70000005, 7.5, 19.5, 1.6, 5.75, 19.75, 1.6, 6.5, 20.5, 1.6, 6.25, 20.25, 1.6, 5.5, 21, 0.70000005, 7.5, 24.5, 0.70000005, 24.5, 6.5, 0.70000005, 19, 6.5, 0.70000005, 17, 4.5, 1.6, 17.75, 4.75, 1.6, 18.5, 5.5, 1.6, 18.25, 5.25, 1.6, 17.5)
+polygons = [PackedInt32Array(1, 0, 2), PackedInt32Array(2, 0, 3), PackedInt32Array(3, 0, 4), PackedInt32Array(0, 5, 4), PackedInt32Array(6, 8, 7), PackedInt32Array(11, 10, 9), PackedInt32Array(8, 6, 12), PackedInt32Array(12, 6, 9), PackedInt32Array(9, 6, 11), PackedInt32Array(11, 6, 2), PackedInt32Array(6, 1, 2), PackedInt32Array(9, 13, 12), PackedInt32Array(16, 15, 14), PackedInt32Array(16, 14, 17), PackedInt32Array(17, 14, 18), PackedInt32Array(18, 10, 11), PackedInt32Array(18, 11, 17), PackedInt32Array(17, 11, 19), PackedInt32Array(19, 11, 20), PackedInt32Array(19, 21, 17), PackedInt32Array(25, 24, 22), PackedInt32Array(22, 24, 23), PackedInt32Array(16, 26, 15), PackedInt32Array(15, 26, 27), PackedInt32Array(28, 12, 13), PackedInt32Array(27, 26, 13), PackedInt32Array(13, 26, 29), PackedInt32Array(13, 29, 28), PackedInt32Array(28, 29, 30), PackedInt32Array(34, 33, 31), PackedInt32Array(31, 33, 32), PackedInt32Array(35, 38, 36), PackedInt32Array(36, 38, 37), PackedInt32Array(38, 39, 37), PackedInt32Array(37, 39, 5), PackedInt32Array(5, 39, 4), PackedInt32Array(4, 39, 40), PackedInt32Array(43, 42, 41), PackedInt32Array(41, 35, 43), PackedInt32Array(43, 35, 44), PackedInt32Array(44, 35, 36), PackedInt32Array(44, 36, 7), PackedInt32Array(44, 7, 8), PackedInt32Array(48, 47, 45), PackedInt32Array(45, 47, 46), PackedInt32Array(52, 51, 49), PackedInt32Array(49, 51, 50), PackedInt32Array(53, 30, 54), PackedInt32Array(54, 30, 55), PackedInt32Array(55, 30, 56), PackedInt32Array(56, 30, 29), PackedInt32Array(56, 58, 55), PackedInt32Array(55, 58, 57), PackedInt32Array(60, 59, 61), PackedInt32Array(61, 59, 62), PackedInt32Array(64, 63, 65), PackedInt32Array(65, 63, 19), PackedInt32Array(21, 19, 62), PackedInt32Array(62, 19, 61), PackedInt32Array(61, 19, 63), PackedInt32Array(42, 66, 41), PackedInt32Array(41, 66, 67), PackedInt32Array(67, 66, 54), PackedInt32Array(67, 54, 68), PackedInt32Array(66, 53, 54), PackedInt32Array(68, 69, 67), PackedInt32Array(58, 62, 57), PackedInt32Array(57, 62, 70), PackedInt32Array(70, 62, 59), PackedInt32Array(74, 73, 71), PackedInt32Array(71, 73, 72), PackedInt32Array(40, 39, 75), PackedInt32Array(75, 76, 40), PackedInt32Array(40, 76, 78), PackedInt32Array(40, 78, 77), PackedInt32Array(80, 79, 81), PackedInt32Array(81, 79, 78), PackedInt32Array(69, 68, 82), PackedInt32Array(83, 69, 82), PackedInt32Array(84, 86, 85), PackedInt32Array(85, 86, 83), PackedInt32Array(69, 83, 76), PackedInt32Array(76, 83, 86), PackedInt32Array(76, 86, 81), PackedInt32Array(76, 81, 78), PackedInt32Array(90, 89, 87), PackedInt32Array(87, 89, 88), PackedInt32Array(60, 91, 59), PackedInt32Array(59, 91, 70), PackedInt32Array(85, 70, 84), PackedInt32Array(84, 70, 92), PackedInt32Array(92, 70, 91), PackedInt32Array(92, 91, 93), PackedInt32Array(97, 96, 94), PackedInt32Array(94, 96, 95), PackedInt32Array(64, 65, 98), PackedInt32Array(98, 65, 99), PackedInt32Array(79, 80, 100), PackedInt32Array(101, 92, 93), PackedInt32Array(100, 101, 93), PackedInt32Array(98, 99, 93), PackedInt32Array(93, 99, 100), PackedInt32Array(100, 99, 79), PackedInt32Array(105, 104, 102), PackedInt32Array(102, 104, 103)]
 cell_height = 0.1
 
 [sub_resource type="SphereMesh" id="SphereMesh_bjxgj"]
@@ -66,7 +67,6 @@ grow_vertical = 2
 
 [node name="WorkerSelectTest" type="Node3D" parent="TestUI/Control2" unique_id=534496026 node_paths=PackedStringArray("spherecast_indicator", "select_ui", "option_button")]
 script = ExtResource("1_uwgho")
-debug_enabled = true
 spherecast_indicator = NodePath("spherecast_indicator")
 select_ui = NodePath("../WorkerSelectUI")
 option_button = NodePath("../WorkerSelectUI/MarginContainer/OptionButton")
@@ -79,6 +79,7 @@ rings = 32
 material = ExtResource("2_wo14j")
 
 [node name="WorkerSelectUI" type="Control" parent="TestUI/Control2" unique_id=837327073]
+visible = false
 anchors_preset = 0
 offset_left = 1292.0
 offset_top = 112.0
@@ -100,6 +101,7 @@ text = "Assign Job"
 layout_mode = 2
 alignment = 2
 selected = 0
+allow_reselect = true
 item_count = 4
 popup/item_0/text = "Idle"
 popup/item_0/id = 0
@@ -120,73 +122,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
 use_collision = true
 size = Vector3(50, 1, 50)
 material = ExtResource("1_bjxgj")
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=448775406]
-transform = Transform3D(0.7069928, 0.48655125, 0.51325345, -0.09646886, -0.65260273, 0.751534, 0.7006104, -0.5808421, -0.41444832, 0, 2.812119, 0)
-shadow_enabled = true
-
-[node name="Workers" type="Node3D" parent="." unique_id=1552203236]
-
-[node name="Worker" parent="Workers" unique_id=566881945 node_paths=PackedStringArray("debug_target") instance=ExtResource("3_k7njs")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.5, 1, 10)
-axis_lock_angular_x = true
-axis_lock_angular_z = true
-debug_target = NodePath("../../DebugTarget")
-stopping_dist = 2.0
-
-[node name="Worker2" parent="Workers" unique_id=989758019 node_paths=PackedStringArray("debug_target") instance=ExtResource("3_k7njs")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.313629, 1, 11.112507)
-axis_lock_angular_x = true
-axis_lock_angular_z = true
-debug_target = NodePath("../../DebugTarget")
-stopping_dist = 2.0
-
-[node name="Worker3" parent="Workers" unique_id=475942067 node_paths=PackedStringArray("debug_target") instance=ExtResource("3_k7njs")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.319254, 1, 4.1179886)
-axis_lock_angular_x = true
-axis_lock_angular_z = true
-debug_target = NodePath("../../DebugTarget")
-stopping_dist = 2.0
-
-[node name="Worker4" parent="Workers" unique_id=623260697 node_paths=PackedStringArray("debug_target") instance=ExtResource("3_k7njs")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.580553, 1, 4.7804985)
-axis_lock_angular_x = true
-axis_lock_angular_z = true
-debug_target = NodePath("../../DebugTarget")
-stopping_dist = 2.0
-
-[node name="Worker5" parent="Workers" unique_id=1343740525 node_paths=PackedStringArray("debug_target") instance=ExtResource("3_k7njs")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.8600483, 1, 16.427277)
-axis_lock_angular_x = true
-axis_lock_angular_z = true
-debug_target = NodePath("../../DebugTarget")
-stopping_dist = 2.0
-
-[node name="DebugTarget" type="Node3D" parent="." unique_id=1729126804]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 1, -4.5)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="DebugTarget" unique_id=1050471813]
-mesh = SubResource("SphereMesh_bjxgj")
-
-[node name="Camera3D" type="Camera3D" parent="." unique_id=1583805346]
-transform = Transform3D(-1, 8.444392e-08, -2.2626683e-08, 0, 0.25881907, 0.9659258, 8.742278e-08, 0.9659258, -0.25881907, 0, 20, 0)
-
-[node name="TestChunks" type="Node3D" parent="." unique_id=1263990786]
-
-[node name="GoldChunk" parent="TestChunks" unique_id=1059760451 instance=ExtResource("4_8a7s8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.503128, 0.24999905, 9.816)
-
-[node name="WoodChunk" parent="TestChunks" unique_id=1630719390 instance=ExtResource("5_eskjq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.7588296, 0.24999905, 2.702549)
-
-[node name="StoneChunk" parent="TestChunks" unique_id=918419056 instance=ExtResource("6_bv7qf")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.014082, 0.24999905, -6.9077034)
-
-[node name="IronChunk" parent="TestChunks" unique_id=1498923938 instance=ExtResource("7_rjr5o")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8357239, 0.24999905, -8.112606)
-
-[node name="CrystalChunk" parent="TestChunks" unique_id=1575873982 instance=ExtResource("8_q6erq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.7586865, 0.24999905, -9.440245)
 
 [node name="TestNodes" type="Node3D" parent="." unique_id=2072295452]
 
@@ -213,5 +148,69 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, -8)
 
 [node name="CrystalResourceNode" parent="TestNodes" unique_id=1317810833 instance=ExtResource("12_m00fy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5, 0, 3.5)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=448775406]
+transform = Transform3D(0.7069928, 0.48655125, 0.51325345, -0.09646886, -0.65260273, 0.751534, 0.7006104, -0.5808421, -0.41444832, 0, 2.812119, 0)
+shadow_enabled = true
+
+[node name="Workers" type="Node3D" parent="." unique_id=1552203236]
+
+[node name="Worker" parent="Workers" unique_id=566881945 node_paths=PackedStringArray("debug_target", "root_level_node") instance=ExtResource("3_k7njs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.5, 1, 10)
+debug_target = NodePath("../../DebugTarget")
+root_level_node = NodePath("../..")
+
+[node name="Worker2" parent="Workers" unique_id=989758019 node_paths=PackedStringArray("debug_target", "root_level_node") instance=ExtResource("3_k7njs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.313629, 1, 11.112507)
+debug_target = NodePath("../../DebugTarget")
+root_level_node = NodePath("../..")
+
+[node name="Worker3" parent="Workers" unique_id=475942067 node_paths=PackedStringArray("debug_target", "root_level_node") instance=ExtResource("3_k7njs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.319254, 1, 4.1179886)
+debug_target = NodePath("../../DebugTarget")
+root_level_node = NodePath("../..")
+
+[node name="Worker4" parent="Workers" unique_id=623260697 node_paths=PackedStringArray("debug_target", "root_level_node") instance=ExtResource("3_k7njs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.580553, 1, 4.7804985)
+debug_target = NodePath("../../DebugTarget")
+root_level_node = NodePath("../..")
+
+[node name="Worker5" parent="Workers" unique_id=1343740525 node_paths=PackedStringArray("debug_target", "root_level_node") instance=ExtResource("3_k7njs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.8600483, 1, 16.427277)
+debug_target = NodePath("../../DebugTarget")
+root_level_node = NodePath("../..")
+
+[node name="Worker6" parent="Workers" unique_id=1059500010 node_paths=PackedStringArray("root_level_node") instance=ExtResource("3_k7njs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 1, 13)
+root_level_node = NodePath("../..")
+
+[node name="DebugTarget" type="Node3D" parent="." unique_id=1729126804]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 1, -4.5)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="DebugTarget" unique_id=1050471813]
+mesh = SubResource("SphereMesh_bjxgj")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1583805346]
+transform = Transform3D(-1, 8.444392e-08, -2.2626683e-08, 0, 0.25881907, 0.9659258, 8.742278e-08, 0.9659258, -0.25881907, 0, 27, -9)
+
+[node name="TestChunks" type="Node3D" parent="." unique_id=1263990786]
+
+[node name="GoldChunk" parent="TestChunks" unique_id=1059760451 instance=ExtResource("4_8a7s8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.503128, 0.24999905, 9.816)
+
+[node name="WoodChunk" parent="TestChunks" unique_id=1630719390 instance=ExtResource("5_eskjq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.7588296, 0.24999905, 2.702549)
+
+[node name="StoneChunk" parent="TestChunks" unique_id=918419056 instance=ExtResource("6_bv7qf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.014082, 0.24999905, -6.9077034)
+
+[node name="IronChunk" parent="TestChunks" unique_id=1498923938 instance=ExtResource("7_rjr5o")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8357239, 0.24999905, -8.112606)
+
+[node name="CrystalChunk" parent="TestChunks" unique_id=1575873982 instance=ExtResource("8_q6erq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.7586865, 0.24999905, -9.440245)
+
+[node name="ResourceDropoff" parent="." unique_id=1888111638 instance=ExtResource("15_iagux")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.5, 0, 1.5)
 
 [connection signal="item_selected" from="TestUI/Control2/WorkerSelectUI/MarginContainer/OptionButton" to="TestUI/Control2/WorkerSelectTest" method="_on_option_button_item_selected"]

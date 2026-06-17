@@ -3,6 +3,7 @@ class_name ResourceNode
 
 @export var node_resource : ResourceManager.ResourceType
 var chunk_to_spawn : PackedScene
+@export var spawn_offset : Vector3 = Vector3(0, 2, 0)
 
 @export var chunks_left : int
 
@@ -18,6 +19,7 @@ func _process(_delta: float) -> void:
 func SpawnChunk() :
 	var new_chunk : ResourceChunk = load(chunk_to_spawn.resource_path).instantiate()
 	add_child(new_chunk)
+	new_chunk.global_position += spawn_offset
 	new_chunk.reparent(get_parent())
 
 

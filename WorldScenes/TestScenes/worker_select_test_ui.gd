@@ -138,7 +138,7 @@ func HideSelectUI(sel_ui : Control) :
 	selected_worker = null
 
 func _on_option_button_item_selected(index: int) -> void  :
-	WorkerManager.AssignWorker(selected_worker, index, ResourceManager.ResourceType.values()[randi_range(0, 4)] , true)
+	WorkerManager.AssignWorker(selected_worker, index)
 	HideSelectUI(select_ui)
 
 

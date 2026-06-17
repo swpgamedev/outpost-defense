@@ -28,9 +28,11 @@ var nodeDict : Dictionary = {}
 var chunkDict : Dictionary = {}
 #endregion
 
+var ResourceStorages : Array[ResourceStorage] = []
+
 #region RESOURCE REQUESTS
 
-# OUTSTANDING = player has requested a building
+# OUTSTANDING = player or director has requested a building
 var outstanding_gold_req : float
 var outstanding_wood_req : float
 var outstanding_stone_req : float
@@ -39,7 +41,7 @@ var outstanding_crystal_req : float
 
 # PENDING = resources tagged to be used for building requests (can be at site, in warehouse, or in logi worker inventory)
 var pending_gold_req : float
-
+### blah blah blah
 #endregion
 
 func _ready() -> void:
@@ -112,6 +114,13 @@ func Untrack_Resource_Chunk(chunk_to_remove : ResourceChunk,  resource_type : Re
 		ResourceType.Crystal :
 			CrystalChunks.erase(chunk_to_remove)
 
+func Track_Resource_Storage(new_storage : ResourceStorage) :
+	ResourceStorages.append(new_storage)
+	print("TEST")
+
+func Untrack_Resource_Storage(storage_to_remove : ResourceStorage) :
+	ResourceStorages.erase(storage_to_remove)
+
 func GetClosestResourceNode(origin : Vector3, resource : ResourceType) -> ResourceNode :
 	var shortest_distance : float = INF
 	var closest_node : ResourceNode = null
@@ -133,9 +142,42 @@ func GetClosestResourceNode(origin : Vector3, resource : ResourceType) -> Resour
 	return closest_node
 
 
+func GetClosestResourceChunk(origin : Vector3, resource : ResourceType) -> ResourceChunk :
+	var shortest_distance : float = INF
+	var closest_chunk : ResourceChunk = null
+	
+	var chunks_to_check : Array[ResourceChunk] = chunkDict[resource]
+	#print("Chunks TO CHECK: " + str(chunks_to_check))
+	for check_chunk in chunks_to_check :
+		#print("Looking at: " + str(check_chunk.name) + " | " + str(check_chunk.chunk_resource))
+		
+		# filtering by if it's already targeted by another worker and if it's the resource we want
+		if check_chunk.targeted == false and check_chunk.chunk_resource == resource :
+			var distance : float = origin.distance_to(check_chunk.global_position)
+			#print("Checking this chunk: " + str(check_chunk) + ", Distance: " + str(distance))
+			if distance < shortest_distance :
+				#print("NEW SHORTEST")
+				shortest_distance = distance
+				closest_chunk = check_chunk
+	
+	return closest_chunk
 
-
-
+func GetClosestResourceStorage(origin : Vector3) -> ResourceStorage :
+	var shortest_distance : float = INF
+	var closest_storage : ResourceStorage = null
+	
+	var storage_to_check : Array[ResourceStorage] = ResourceStorages
+	#print("Chunks TO CHECK: " + str(chunks_to_check))
+	for check_storage in storage_to_check :
+		
+		var distance : float = origin.distance_to(check_storage.global_position)
+		#print("Checking this chunk: " + str(check_chunk) + ", Distance: " + str(distance))
+		if distance < shortest_distance :
+			#print("NEW SHORTEST")
+			shortest_distance = distance
+			closest_storage = check_storage
+	
+	return closest_storage
 
 
 
