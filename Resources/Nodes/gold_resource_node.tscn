@@ -7,3 +7,6 @@
 
 [node name="MeshInstance3D" parent="." index="0" unique_id=1133214649]
 surface_material_override/0 = ExtResource("2_s2elr")
+
+[node name="NavigationObstacle3D" parent="." index="2" unique_id=122314741]
+radius = 0.5

@@ -20,6 +20,8 @@ mesh = SubResource("SphereMesh_yvsyn")
 shape = SubResource("SphereShape3D_bjxgj")
 
 [node name="NavigationObstacle3D" type="NavigationObstacle3D" parent="." unique_id=122314741]
+radius = 0.5
+height = 1.5
 affect_navigation_mesh = true
 carve_navigation_mesh = true
 use_3d_avoidance = true

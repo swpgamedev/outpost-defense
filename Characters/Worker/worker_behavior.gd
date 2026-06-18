@@ -9,7 +9,7 @@ var action_state : ActionState
 
 # TODO
 # - Seperate worker behaivor into:
-# - Data holder stuff used across all: State, Target
+# - Data holder stuff used across all: State, Target, Stats
 # -- Movement
 # -- Inventory
 # -- Working action
@@ -28,6 +28,7 @@ var worker_manager : WorkerManager
 var destination : Vector3
 var distance_to_target : float
 @export var stopping_dist : float = 1
+@export var worker_range : float = 1.5
 var in_range : bool
 var find_new_target : bool = false
 
@@ -45,9 +46,13 @@ var resource_priority : ResourceManager.ResourceType
 @export_group("Chunk")
 @export var hold_pos : Node3D
 var held_chunk : ResourceChunk
-
 @export var root_level_node : Node3D
 
+@export_group("Work Work")
+@export var work_cooldown : float = 0.5
+var work_timer : float = 0
+@export var work_amount : float = 1
+var can_do_work : bool = false
 
 func _ready() -> void:
 	nav_agent.velocity_computed.connect(Callable(_on_velocity_computed))
@@ -108,9 +113,9 @@ func _process(delta: float) -> void:
 			check_dest_timer = 0
 			distance_to_target = global_position.distance_to(target.global_position)
 			if distance_to_target > stopping_dist :
+				SetDestination(GetDestFromTarget(target.global_position, stopping_dist))
+			if distance_to_target > worker_range + (worker_height / 2) :
 				in_range = false
-				SetDestination(GetDestFromTarget(target.global_position, stopping_dist - 0.1))
-				# Little wiggle room incase we stop short... probably means I need to change something
 			else :
 				in_range = true
 		
@@ -118,7 +123,17 @@ func _process(delta: float) -> void:
 			WorkerManager.JobType.Idle :
 				pass
 			WorkerManager.JobType.Gather :
-				pass
+				if in_range :
+					if work_timer < work_cooldown :
+						work_timer += delta
+					else :
+						work_timer = 0
+						can_do_work = true
+				
+				if can_do_work :
+					target.TakeWork(work_amount)
+					can_do_work = false
+				
 			WorkerManager.JobType.Logistics :
 				if in_range and held_chunk == null :
 					print("IN RANGE OF CHUNK: " + str(target))
@@ -176,10 +191,12 @@ func SetDestination(new_destination : Vector3) :
 	nav_agent.target_position = new_destination
 
 func SetJob(job : WorkerManager.JobType) :
+	if target != null and target is ResourceChunk :
+		target.targeted = false
+	if held_chunk != null :
+		DropChunk(held_chunk)
 	in_range = false
-	if job == WorkerManager.JobType.Idle :
-		target = null
-	
+	target = null
 	current_job = job
 	find_new_target = true
 
@@ -195,8 +212,13 @@ func PickupChunk(chunk : ResourceChunk) :
 	held_chunk = chunk
 
 func DropChunk(chunk : ResourceChunk) :
+	target = null
+	in_range = false
+	find_new_target = true
+	
 	chunk.held = false
 	chunk.process_mode = Node.PROCESS_MODE_INHERIT
+	chunk.targeted = false
 	chunk.reparent(root_level_node)
 	held_chunk = null
 

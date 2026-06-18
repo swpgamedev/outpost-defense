@@ -20,7 +20,7 @@ linear_damp = 1.0
 angular_damp = 1.0
 script = ExtResource("1_8w0bo")
 nav_agent = NodePath("NavigationAgent3D")
-stopping_dist = 2.0
+range = 2.0
 hold_pos = NodePath("HoldPoint")
 metadata/_custom_type_script = "uid://b13jkdbqf2cum"
 
@@ -36,6 +36,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.9802322e-08, 0.5, 0.3)
 size = Vector3(0.8, 0.4, 0.4)
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=1425908841]
+avoidance_enabled = true
 debug_enabled = true
 
 [node name="HoldPoint" type="Node3D" parent="." unique_id=1463381787]
