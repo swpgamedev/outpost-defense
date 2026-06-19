@@ -27,16 +27,16 @@
 			"title": "Todo",
 			"tasks": [
 				"fa8cafd6-cab6-40e8-a8be-2aba88838fc1",
-				"851776e4-b52f-4829-a628-a9db53485309",
-				"24cafa2c-b9d1-4201-ae0c-2f87c038fabd"
+				"24cafa2c-b9d1-4201-ae0c-2f87c038fabd",
+				"77e583de-3d2a-48de-b032-1ffcd12742df",
+				"dc4334c1-fc29-47cc-a51c-9ddf92716bc5"
 			]
 		},
 		{
 			"uuid": "988fdda4-3c92-4b9d-9c0c-36d1d9c99bfc",
 			"title": "Doing",
 			"tasks": [
-				"dc4334c1-fc29-47cc-a51c-9ddf92716bc5",
-				"77e583de-3d2a-48de-b032-1ffcd12742df"
+				"851776e4-b52f-4829-a628-a9db53485309"
 			]
 		},
 		{
@@ -53,7 +53,7 @@
 		{
 			"uuid": "dc4334c1-fc29-47cc-a51c-9ddf92716bc5",
 			"title": "Worker Logistics Loop",
-			"description": "",
+			"description": "Flesh out",
 			"category": "cb8e0e2f-6dc5-4bd5-bcc3-e475578af8eb",
 			"steps": []
 		},
@@ -67,7 +67,7 @@
 		{
 			"uuid": "77e583de-3d2a-48de-b032-1ffcd12742df",
 			"title": "Worker Gather Loop",
-			"description": "",
+			"description": "Flesh out",
 			"category": "cb8e0e2f-6dc5-4bd5-bcc3-e475578af8eb",
 			"steps": []
 		},

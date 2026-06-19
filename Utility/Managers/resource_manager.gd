@@ -26,6 +26,8 @@ var CrystalChunks : Array[ResourceChunk] = []
 
 var nodeDict : Dictionary = {}
 var chunkDict : Dictionary = {}
+
+var allNodes : Array[ResourceNode]
 #endregion
 
 var ResourceStorages : Array[ResourceStorage] = []
@@ -58,6 +60,7 @@ func _ready() -> void:
 	chunkDict[4] = CrystalChunks
 
 func Track_Resource_Node(new_node : ResourceNode, resource_type : ResourceType) :
+	allNodes.append(new_node)
 	match resource_type :
 		ResourceType.Gold :
 			GoldNodes.append(new_node)
@@ -76,6 +79,7 @@ func Track_Resource_Node(new_node : ResourceNode, resource_type : ResourceType) 
 			new_node.chunk_to_spawn = crystal_chunk
 
 func Untrack_Resource_Node(node_to_remove : ResourceNode, resource_type : ResourceType) :
+	allNodes.erase(node_to_remove)
 	match resource_type :
 		ResourceType.Gold :
 			GoldNodes.erase(node_to_remove)
@@ -116,7 +120,6 @@ func Untrack_Resource_Chunk(chunk_to_remove : ResourceChunk,  resource_type : Re
 
 func Track_Resource_Storage(new_storage : ResourceStorage) :
 	ResourceStorages.append(new_storage)
-	print("TEST")
 
 func Untrack_Resource_Storage(storage_to_remove : ResourceStorage) :
 	ResourceStorages.erase(storage_to_remove)

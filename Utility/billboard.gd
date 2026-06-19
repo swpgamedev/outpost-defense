@@ -1,4 +1,4 @@
-extends Sprite3D
+extends Node3D
 
 @export var cam : Camera3D
 

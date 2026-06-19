@@ -1,6 +1,10 @@
 [gd_scene format=3 uid="uid://c0hb15tk506b8"]
 
 [ext_resource type="Script" uid="uid://bogiqy0n1oggd" path="res://Resources/resource_node.gd" id="1_k4hv5"]
+[ext_resource type="Script" uid="uid://chosn7xrxg10u" path="res://Utility/billboard.gd" id="2_7t8kp"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_7t8kp"]
+friction = 0.1
 
 [sub_resource type="SphereMesh" id="SphereMesh_yvsyn"]
 radius = 1.0
@@ -9,8 +13,18 @@ height = 2.0
 [sub_resource type="SphereShape3D" id="SphereShape3D_bjxgj"]
 radius = 1.0
 
-[node name="ResourceNode" type="StaticBody3D" unique_id=830053814]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hqb18"]
+shading_mode = 0
+albedo_color = Color(0.018448738, 0.058960944, 0.06970161, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_yqpnd"]
+material = SubResource("StandardMaterial3D_hqb18")
+size = Vector2(2, 1.25)
+
+[node name="ResourceNode" type="StaticBody3D" unique_id=830053814 node_paths=PackedStringArray("debug_label")]
+physics_material_override = SubResource("PhysicsMaterial_7t8kp")
 script = ExtResource("1_k4hv5")
+debug_label = NodePath("Label3D")
 metadata/_custom_type_script = "uid://bogiqy0n1oggd"
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1133214649]
@@ -25,3 +39,16 @@ height = 1.5
 affect_navigation_mesh = true
 carve_navigation_mesh = true
 use_3d_avoidance = true
+
+[node name="Label3D" type="Label3D" parent="." unique_id=580562802]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.9419483, 0)
+visible = false
+text = "-Resource-
+0/0"
+font_size = 100
+script = ExtResource("2_7t8kp")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Label3D" unique_id=1694478484]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, -0.01)
+cast_shadow = 0
+mesh = SubResource("PlaneMesh_yqpnd")

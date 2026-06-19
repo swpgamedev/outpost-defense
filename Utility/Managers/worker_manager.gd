@@ -1,6 +1,7 @@
 extends Node
 
 enum JobType {Idle, Gather, Logistics, Repair}
+@export var worker_scene : PackedScene = preload("res://Characters/Worker/worker.tscn")
 
 @export var worker_dict : Dictionary[Worker, JobType] = {}
 
@@ -50,7 +51,12 @@ func GetClosestIdleWorkerAtPos(origin : Vector3) -> Worker :
 	print("CLOSEST WORKER: " + str(closest_worker))
 	return closest_worker
 
-
+func SpawnWorker(pos : Vector3, parent : Node3D, level_root : Node3D) :
+	var new_worker : Worker = worker_scene.instantiate()
+	add_child(new_worker)
+	new_worker.global_position = pos
+	new_worker.root_level_node = level_root
+	new_worker.reparent(parent)
 
 
 

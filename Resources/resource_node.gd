@@ -1,6 +1,11 @@
 extends StaticBody3D
 class_name ResourceNode
 
+@export_group("Debug")
+@export var debug_enabled : bool
+@export var debug_label : Label3D
+@export_group("")
+
 @export var node_resource : ResourceManager.ResourceType
 var chunk_to_spawn : PackedScene
 @export var spawn_offset : Vector3 = Vector3(0, 2, 0)
@@ -10,6 +15,8 @@ var chunk_to_spawn : PackedScene
 @export var work_needed_per_chunk : float = 3
 var current_work_done : float = 0
 
+
+
 func _ready() -> void:
 	ResourceManager.Track_Resource_Node(self, node_resource)
 	
@@ -18,6 +25,18 @@ func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("jump") :
 		SpawnChunk()
 	
+	if debug_enabled :
+		if not debug_label.is_visible_in_tree() :
+			debug_label.visible = true
+		
+		var info_string : String = \
+		str(ResourceManager.ResourceType.keys()[node_resource]) + \
+		str("\n") + \
+		str(current_work_done) + "/" + str(work_needed_per_chunk)
+		debug_label.text = info_string
+	else :
+		if debug_label.is_visible_in_tree() :
+			debug_label.visible = false
 
 func SpawnChunk() :
 	var new_chunk : ResourceChunk = load(chunk_to_spawn.resource_path).instantiate()

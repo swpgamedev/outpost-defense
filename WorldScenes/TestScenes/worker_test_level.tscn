@@ -3,7 +3,9 @@
 [ext_resource type="Material" uid="uid://bu4rki261mij7" path="res://Art/Materials/TestGround.tres" id="1_bjxgj"]
 [ext_resource type="Script" uid="uid://bl85ndpytrbiu" path="res://WorldScenes/TestScenes/worker_debug_button.gd" id="1_iiv7w"]
 [ext_resource type="Script" uid="uid://d3jac3bh68qq" path="res://WorldScenes/TestScenes/worker_select_test_ui.gd" id="1_uwgho"]
+[ext_resource type="Script" uid="uid://bnix7shjagaod" path="res://WorldScenes/TestScenes/resource_node_debug_toggle.gd" id="2_m00fy"]
 [ext_resource type="Material" uid="uid://dadl4ilnopt80" path="res://Art/Materials/debug_mat.tres" id="2_wo14j"]
+[ext_resource type="Script" uid="uid://wc6bbjxmnpiq" path="res://WorldScenes/TestScenes/worker_spawn_button.gd" id="3_fst4r"]
 [ext_resource type="PackedScene" uid="uid://bd8w8jdj7oshx" path="res://Characters/Worker/worker.tscn" id="3_k7njs"]
 [ext_resource type="PackedScene" uid="uid://d3u2d2aikhsv3" path="res://Resources/Chunks/gold_chunk.tscn" id="4_8a7s8"]
 [ext_resource type="PackedScene" uid="uid://b4nseybi7knwr" path="res://Resources/Chunks/wood_chunk.tscn" id="5_eskjq"]
@@ -28,6 +30,9 @@ material = ExtResource("2_wo14j")
 
 [node name="PlayerTestGym" type="Node3D" unique_id=94953513]
 
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1583805346]
+transform = Transform3D(-1, 8.444392e-08, -2.2626683e-08, 0, 0.25881907, 0.9659258, 8.742278e-08, 0.9659258, -0.25881907, 0, 27, -9)
+
 [node name="TestUI" type="CanvasLayer" parent="." unique_id=1246689883]
 
 [node name="Control" type="Control" parent="TestUI" unique_id=3354694]
@@ -37,18 +42,21 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="ButtonRoot" type="Control" parent="TestUI/Control" unique_id=1696943978]
 anchors_preset = 0
 offset_right = 300.0
 offset_bottom = 900.0
+mouse_filter = 2
 
 [node name="MenuButton" type="MenuButton" parent="TestUI/Control/ButtonRoot" unique_id=1944191440]
 layout_mode = 0
 offset_left = 16.0
-offset_top = 20.0
+offset_top = 16.0
 offset_right = 164.0
-offset_bottom = 68.0
+offset_bottom = 64.0
+focus_mode = 0
 text = "Worker Debug"
 flat = false
 item_count = 4
@@ -61,6 +69,30 @@ popup/item_2/id = 2
 popup/item_3/text = "Repair"
 popup/item_3/id = 3
 script = ExtResource("1_iiv7w")
+
+[node name="NodeDebugToggle" type="Button" parent="TestUI/Control/ButtonRoot" unique_id=1359216251]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 16.0
+offset_right = 351.0
+offset_bottom = 64.0
+focus_mode = 0
+text = "Toggle Node Debug"
+script = ExtResource("2_m00fy")
+
+[node name="WorkerSpawnButton" type="Button" parent="TestUI/Control/ButtonRoot" unique_id=592169249 node_paths=PackedStringArray("spawn_pos", "worker_parent", "level_root")]
+layout_mode = 0
+offset_left = 384.0
+offset_top = 16.0
+offset_right = 532.0
+offset_bottom = 64.0
+focus_mode = 0
+text = "Spawn Worker"
+script = ExtResource("3_fst4r")
+spawn_pos = NodePath("../../../../Workers/WorkerSpawnPoint")
+spawn_offset = Vector3(0, 1, 0)
+worker_parent = NodePath("../../../../Workers")
+level_root = NodePath("../../../..")
 
 [node name="Control2" type="Control" parent="TestUI" unique_id=1486919827]
 layout_mode = 3
@@ -133,36 +165,51 @@ material = ExtResource("1_bjxgj")
 
 [node name="GoldResourceNode3" parent="TestNodes" unique_id=830053814 instance=ExtResource("8_uwgho")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, -1.5)
+physics_material_override = null
 
 [node name="GoldResourceNode4" parent="TestNodes" unique_id=1762762616 instance=ExtResource("8_uwgho")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.5, 0, -16)
+physics_material_override = null
 
 [node name="GoldResourceNode" parent="TestNodes" unique_id=720023152 instance=ExtResource("8_uwgho")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 0, 6)
+physics_material_override = null
 
 [node name="GoldResourceNode2" parent="TestNodes" unique_id=1055338661 instance=ExtResource("8_uwgho")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, -13.5)
+physics_material_override = null
 
 [node name="WoodResourceNode" parent="TestNodes" unique_id=1816930999 instance=ExtResource("9_wo14j")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 18)
+physics_material_override = null
 
 [node name="StoneResourceNode" parent="TestNodes" unique_id=1639362160 instance=ExtResource("10_iagux")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -8)
+physics_material_override = null
 
 [node name="IronResourceNode" parent="TestNodes" unique_id=1611899664 instance=ExtResource("11_iiv7w")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 0, -8)
+physics_material_override = null
 
 [node name="CrystalResourceNode" parent="TestNodes" unique_id=1317810833 instance=ExtResource("12_m00fy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5, 0, 3.5)
+physics_material_override = null
 
-[node name="ResourceStorage" parent="." unique_id=1888111638 instance=ExtResource("15_iagux")]
+[node name="ResourceStorages" type="Node3D" parent="." unique_id=1883383936]
+
+[node name="ResourceStorage" parent="ResourceStorages" unique_id=1888111638 instance=ExtResource("15_iagux")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.5, 0, 1.5)
+
+[node name="ResourceStorage2" parent="ResourceStorages" unique_id=1576425289 instance=ExtResource("15_iagux")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, -4.5)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=448775406]
 transform = Transform3D(0.7069928, 0.48655125, 0.51325345, -0.09646886, -0.65260273, 0.751534, 0.7006104, -0.5808421, -0.41444832, 0, 2.812119, 0)
 shadow_enabled = true
 
 [node name="Workers" type="Node3D" parent="." unique_id=1552203236]
+
+[node name="WorkerSpawnPoint" type="Node3D" parent="Workers" unique_id=1853572511]
 
 [node name="Worker" parent="Workers" unique_id=566881945 node_paths=PackedStringArray("debug_target", "root_level_node") instance=ExtResource("3_k7njs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.5, 1, 10)
@@ -199,25 +246,39 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 1, -4.5)
 [node name="MeshInstance3D" type="MeshInstance3D" parent="DebugTarget" unique_id=1050471813]
 mesh = SubResource("SphereMesh_bjxgj")
 
-[node name="Camera3D" type="Camera3D" parent="." unique_id=1583805346]
-transform = Transform3D(-1, 8.444392e-08, -2.2626683e-08, 0, 0.25881907, 0.9659258, 8.742278e-08, 0.9659258, -0.25881907, 0, 27, -9)
-
 [node name="TestChunks" type="Node3D" parent="." unique_id=1263990786]
 
 [node name="GoldChunk" parent="TestChunks" unique_id=1059760451 instance=ExtResource("4_8a7s8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.503128, 0.24999905, 9.816)
+physics_material_override = null
+linear_damp = 0.0
+angular_damp = 0.0
 
 [node name="WoodChunk" parent="TestChunks" unique_id=1630719390 instance=ExtResource("5_eskjq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.7588296, 0.24999905, 2.702549)
+physics_material_override = null
+linear_damp = 0.0
+angular_damp = 0.0
 
 [node name="StoneChunk" parent="TestChunks" unique_id=918419056 instance=ExtResource("6_bv7qf")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.014082, 0.24999905, -6.9077034)
+physics_material_override = null
+linear_damp = 0.0
+angular_damp = 0.0
 
 [node name="IronChunk" parent="TestChunks" unique_id=1498923938 instance=ExtResource("7_rjr5o")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8357239, 0.24999905, -8.112606)
+physics_material_override = null
+linear_damp = 0.0
+angular_damp = 0.0
 
 [node name="CrystalChunk" parent="TestChunks" unique_id=1575873982 instance=ExtResource("8_q6erq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.7586865, 0.24999905, -9.440245)
+physics_material_override = null
+linear_damp = 0.0
+angular_damp = 0.0
 
 [connection signal="pressed" from="TestUI/Control/ButtonRoot/MenuButton" to="TestUI/Control/ButtonRoot/MenuButton" method="_on_pressed"]
+[connection signal="pressed" from="TestUI/Control/ButtonRoot/NodeDebugToggle" to="TestUI/Control/ButtonRoot/NodeDebugToggle" method="_on_pressed"]
+[connection signal="pressed" from="TestUI/Control/ButtonRoot/WorkerSpawnButton" to="TestUI/Control/ButtonRoot/WorkerSpawnButton" method="_on_pressed"]
 [connection signal="item_selected" from="TestUI/Control2/WorkerSelectUI/MarginContainer/OptionButton" to="TestUI/Control2/WorkerSelectTest" method="_on_option_button_item_selected"]

@@ -49,7 +49,7 @@ var held_chunk : ResourceChunk
 @export var root_level_node : Node3D
 
 @export_group("Work Work")
-@export var work_cooldown : float = 0.5
+@export var work_cooldown : float = 1
 var work_timer : float = 0
 @export var work_amount : float = 1
 var can_do_work : bool = false

@@ -4,7 +4,7 @@ func _ready() -> void:
 	get_popup().connect("id_pressed", OnPressed)
 
 func OnPressed(id : int) :
-	print(id)
+	#print(id)
 	
 	var workers_array : Array[Worker] = WorkerManager.worker_dict.keys()
 	
