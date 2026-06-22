@@ -31,6 +31,7 @@ var allNodes : Array[ResourceNode]
 #endregion
 
 var ResourceStorages : Array[ResourceStorage] = []
+var TownHalls : Array[Building] = []
 
 #region RESOURCE REQUESTS
 
@@ -123,6 +124,12 @@ func Track_Resource_Storage(new_storage : ResourceStorage) :
 
 func Untrack_Resource_Storage(storage_to_remove : ResourceStorage) :
 	ResourceStorages.erase(storage_to_remove)
+
+func Track_TownHall(townhall : Building) :
+	TownHalls.append(townhall)
+
+func Untrack_TownHall(townhall : Building) :
+	TownHalls.erase(townhall)
 
 func GetClosestResourceNode(origin : Vector3, resource : ResourceType) -> ResourceNode :
 	var shortest_distance : float = INF

@@ -7,6 +7,7 @@ class_name ResourceChunk
 var held : bool = false
 var stored : bool = false
 var targeted : bool = false
+var part_of_a_request : bool = false
 
 func _ready() -> void:
 	ResourceManager.Track_Resource_Chunk(self, chunk_resource)

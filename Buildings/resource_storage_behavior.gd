@@ -1,4 +1,4 @@
-extends Node3D
+extends Building
 class_name ResourceStorage
 
 var held_chunks : Dictionary[ResourceChunk, ResourceManager.ResourceType]

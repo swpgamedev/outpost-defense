@@ -1,0 +1,72 @@
+[gd_scene format=3 uid="uid://dhrj77j07ax2b"]
+
+[ext_resource type="Script" uid="uid://bf8clcm31dtvd" path="res://Buildings/town_hall_behavior.gd" id="1_wtasv"]
+[ext_resource type="Texture2D" uid="uid://dukts3k5h4xii" path="res://Art/Textures/Prototype Textures/Orange/texture_05.png" id="2_bh1ve"]
+[ext_resource type="Script" uid="uid://chosn7xrxg10u" path="res://Utility/billboard.gd" id="3_ut8yo"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2ov11"]
+albedo_texture = ExtResource("2_bh1ve")
+
+[sub_resource type="BoxMesh" id="BoxMesh_yqpnd"]
+size = Vector3(2, 2, 2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2ov11"]
+size = Vector3(2, 2, 2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hqb18"]
+shading_mode = 0
+albedo_color = Color(0.018448738, 0.058960944, 0.06970161, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_5a4cw"]
+material = SubResource("StandardMaterial3D_hqb18")
+size = Vector2(5.5, 1.5)
+
+[node name="TownHall" type="Node3D" unique_id=360267369 node_paths=PackedStringArray("debug_label_parent", "debug_training_progress_label", "spawn_point")]
+script = ExtResource("1_wtasv")
+debug_label_parent = NodePath("LabelParent")
+debug_training_progress_label = NodePath("LabelParent/LabelBackground/ProgLabel")
+spawn_point = NodePath("SpawnPoint")
+metadata/_custom_type_script = "uid://uq2gqqdmvykw"
+
+[node name="SpawnPoint" type="Node3D" parent="." unique_id=582712823]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 2)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=678750820]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+material_override = SubResource("StandardMaterial3D_2ov11")
+mesh = SubResource("BoxMesh_yqpnd")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=1544580173]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=1653768917]
+shape = SubResource("BoxShape3D_2ov11")
+
+[node name="NavigationObstacle3D" type="NavigationObstacle3D" parent="." unique_id=361705369]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+radius = 1.0
+height = 2.0
+affect_navigation_mesh = true
+carve_navigation_mesh = true
+use_3d_avoidance = true
+
+[node name="LabelParent" type="Node3D" parent="." unique_id=1269361831]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.5, 0)
+visible = false
+script = ExtResource("3_ut8yo")
+
+[node name="LabelBackground" type="MeshInstance3D" parent="LabelParent" unique_id=28984860]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, -0.00999999)
+cast_shadow = 0
+mesh = SubResource("PlaneMesh_5a4cw")
+
+[node name="NameLabel" type="Label3D" parent="LabelParent/LabelBackground" unique_id=1640157220]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0.01, -0.3)
+text = "Town Hall"
+font_size = 100
+
+[node name="ProgLabel" type="Label3D" parent="LabelParent/LabelBackground" unique_id=886136358]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0.01, 0.3)
+text = "Train Prog: 0.00/0.00"
+font_size = 100
+horizontal_alignment = 3

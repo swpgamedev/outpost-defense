@@ -6,5 +6,6 @@ func _on_pressed() -> void:
 	debug_on = !debug_on
 	
 	for resource_node in ResourceManager.allNodes :
-			resource_node.debug_enabled = debug_on
-	
+		resource_node.debug_enabled = debug_on
+	for townhall in ResourceManager.TownHalls :
+		townhall.debug_enabled = debug_on

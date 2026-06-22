@@ -13,12 +13,17 @@
 		{
 			"uuid": "919830e9-9076-425a-9a49-38a1f91c920c",
 			"title": "Resource",
-			"color": "6a90a8"
+			"color": "8aa86a"
 		},
 		{
 			"uuid": "8f9871f7-1b08-410b-939f-07bee1f6655b",
 			"title": "BUG",
-			"color": "dc25f9"
+			"color": "ff0000"
+		},
+		{
+			"uuid": "1a042eeb-8d45-4a87-a053-0bd29d9412bc",
+			"title": "Building",
+			"color": "b0b0b0"
 		}
 	],
 	"stages": [
@@ -26,17 +31,25 @@
 			"uuid": "0723c2b3-d57e-4cba-b23e-4a8f5c2eabec",
 			"title": "Todo",
 			"tasks": [
+				"e5776d67-d9d9-4131-9b24-41ec59b63c46",
 				"fa8cafd6-cab6-40e8-a8be-2aba88838fc1",
 				"24cafa2c-b9d1-4201-ae0c-2f87c038fabd",
 				"77e583de-3d2a-48de-b032-1ffcd12742df",
-				"dc4334c1-fc29-47cc-a51c-9ddf92716bc5"
+				"dc4334c1-fc29-47cc-a51c-9ddf92716bc5",
+				"9944a531-45a6-4f94-97b5-9fa70b104463",
+				"5ef8e474-c8c9-48a6-a259-7dd34f64c84d",
+				"906ba80c-3fb9-47fe-9fc2-d2133177e023",
+				"ce18e351-73ef-4514-ad03-35ab868b18de"
 			]
 		},
 		{
 			"uuid": "988fdda4-3c92-4b9d-9c0c-36d1d9c99bfc",
 			"title": "Doing",
 			"tasks": [
-				"851776e4-b52f-4829-a628-a9db53485309"
+				"e3e4c122-9520-4854-9801-40bf17f196e2",
+				"380ce2a3-7333-404d-9f96-000ef62fd635",
+				"debc15a5-6f1f-4e78-891d-567bcc5771fe",
+				"945ecdd9-4b6d-4214-ac1d-aeff6c665233"
 			]
 		},
 		{
@@ -45,7 +58,8 @@
 			"tasks": [
 				"0d830724-9ff0-491f-a881-79817ad40967",
 				"f53a6790-ff10-41ee-9a28-b12075a83339",
-				"d5ab805d-7144-4b9c-9b64-b0627855fa9a"
+				"d5ab805d-7144-4b9c-9b64-b0627855fa9a",
+				"851776e4-b52f-4829-a628-a9db53485309"
 			]
 		}
 	],
@@ -104,6 +118,69 @@
 			"title": "Self Righting rigid body",
 			"description": "",
 			"category": "cb8e0e2f-6dc5-4bd5-bcc3-e475578af8eb",
+			"steps": []
+		},
+		{
+			"uuid": "906ba80c-3fb9-47fe-9fc2-d2133177e023",
+			"title": "Town Hall",
+			"description": "Spawning, kinda working\nBake nav\nDebug labels\nSelectable?\nHook up to director to control\nDo we store resources here as well?\nHow to show what is needed\nWhat is needed to train a worker besides time",
+			"category": "e08862a7-4c67-4aac-9ef3-cf92b8cd4879",
+			"steps": []
+		},
+		{
+			"uuid": "9944a531-45a6-4f94-97b5-9fa70b104463",
+			"title": "Food as a resource",
+			"description": "If adding or removing a resource breaks everything,\nmight mean refactoring is needed",
+			"category": "919830e9-9076-425a-9a49-38a1f91c920c",
+			"steps": []
+		},
+		{
+			"uuid": "5ef8e474-c8c9-48a6-a259-7dd34f64c84d",
+			"title": "Farm Building",
+			"description": "",
+			"category": "1a042eeb-8d45-4a87-a053-0bd29d9412bc",
+			"steps": []
+		},
+		{
+			"uuid": "e5776d67-d9d9-4131-9b24-41ec59b63c46",
+			"title": "Worker look at direction of travel",
+			"description": "",
+			"category": "cb8e0e2f-6dc5-4bd5-bcc3-e475578af8eb",
+			"steps": []
+		},
+		{
+			"uuid": "e3e4c122-9520-4854-9801-40bf17f196e2",
+			"title": "RESOURCE REQUEST SYSTEM ",
+			"description": "",
+			"category": "e08862a7-4c67-4aac-9ef3-cf92b8cd4879",
+			"steps": []
+		},
+		{
+			"uuid": "ce18e351-73ef-4514-ad03-35ab868b18de",
+			"title": "Build job?",
+			"description": "Should build and repair be the same,\nRepair is higher prio\nBuild is second\nNext is logi for existing requests\nLast is help with logi, but keep checking for new requests... drop if one comes up",
+			"category": "cb8e0e2f-6dc5-4bd5-bcc3-e475578af8eb",
+			"steps": []
+		},
+		{
+			"uuid": "380ce2a3-7333-404d-9f96-000ef62fd635",
+			"title": "Worker deliver to request",
+			"description": "",
+			"category": "cb8e0e2f-6dc5-4bd5-bcc3-e475578af8eb",
+			"steps": []
+		},
+		{
+			"uuid": "debc15a5-6f1f-4e78-891d-567bcc5771fe",
+			"title": "Building accept delivery",
+			"description": "",
+			"category": "1a042eeb-8d45-4a87-a053-0bd29d9412bc",
+			"steps": []
+		},
+		{
+			"uuid": "945ecdd9-4b6d-4214-ac1d-aeff6c665233",
+			"title": "Limit deliveries to what actually exists",
+			"description": "",
+			"category": "8f9871f7-1b08-410b-939f-07bee1f6655b",
 			"steps": []
 		}
 	],

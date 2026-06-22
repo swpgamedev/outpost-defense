@@ -8,19 +8,26 @@ enum JobType {Idle, Gather, Logistics, Repair}
 var test_index : int = 0
 
 func _process(_delta: float) -> void:
+	pass
+	# Do we need to check for an existing resource request?
+	# Lets do it here for now, but not every frame
+	#if RequestManager.existing_requests.size() > 0 :
+		# 1. Figure out what resources are needed
+		# 2. Check to see if we have a chunk stored in any of our buildings
+		# 3. Look in increasingly larger ranges for an untargeted chunk we need
+		# 4 FAIL. If we can't find keep looping? Complain that we don't have the resource
+			# 4.5 FAIL??? Move on to next request??
+		# 4 SUCCESS. Send worker to grab and deliver to building/construction site
+		# 5. Update what we have to pending
+		# 6. Move on to next needed in current request
+		# 7. Update delivered when delivered
+		# 8. When everything is delivered mark as fulfilled
+		# 9. Build workers should start building
+	# Wow this is complicated
 	
-	### ALL FOR SILLY TESTING :))
-	if Input.is_action_just_pressed("test") :
-		if test_index < JobType.size() - 1 :
-			test_index+= 1
-		else :
-			test_index = 0
-		var selected_worker : Worker = GetClosestIdleWorkerAtPos(Vector3.ZERO)
-		if selected_worker != null :
-			AssignWorker(selected_worker, JobType.values()[test_index])
-			#if JobType.values()[test_index] == JobType.Gather :
-			#	AssignWorker(selected_worker, JobType.values()[test_index], ResourceManager.ResourceType.values()[some_int])
-				
+	# Maybe just have worker with logi job proiritize delivering to requests
+	
+
 
 func AssignWorker(current_worker : Worker, selected_job : JobType) :
 	worker_dict[current_worker] = selected_job
@@ -54,6 +61,7 @@ func GetClosestIdleWorkerAtPos(origin : Vector3) -> Worker :
 func SpawnWorker(pos : Vector3, parent : Node3D, level_root : Node3D) :
 	var new_worker : Worker = worker_scene.instantiate()
 	add_child(new_worker)
+	new_worker.name = "Worker" + str(worker_dict.size())
 	new_worker.global_position = pos
 	new_worker.root_level_node = level_root
 	new_worker.reparent(parent)

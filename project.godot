@@ -22,6 +22,7 @@ ResourceManager="*uid://b538vpaycd7tr"
 WorkerManager="*uid://dtb5ugnet4vx5"
 gg="*uid://bne1gbwmsj2yp"
 PhantomCameraManager="*uid://duq6jhf6unyis"
+RequestManager="*uid://btt1r32qniora"
 
 [display]
 

@@ -24,8 +24,7 @@ var worker_manager : WorkerManager
 @export_group("Nav")
 @export var move_speed : float = 4
 @export var nav_agent : NavigationAgent3D
-@export var target : Node3D = null
-var destination : Vector3
+@export var target : Node3D
 var distance_to_target : float
 @export var stopping_dist : float = 1
 @export var worker_range : float = 1.5
@@ -47,6 +46,19 @@ var resource_priority : ResourceManager.ResourceType
 @export var hold_pos : Node3D
 var held_chunk : ResourceChunk
 @export var root_level_node : Node3D
+var delivering : bool = false
+var resource_request : RequestManager.Resource_Request
+
+@export_group("Idle")
+@export var idle_wait_max : float = 3
+@export var idle_wait_min : float = 0.5
+var idle_wait_cooldown : float
+var idle_wait_timer : float
+@export var idle_wander_distance_max : float = 3
+@export var idle_wander_distance_min : float = -3
+var wander_distance : float
+var idle_waiting : bool = false
+var idle_wandering : bool = false
 
 @export_group("Work Work")
 @export var work_cooldown : float = 1
@@ -66,11 +78,11 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	if debug_enabled : # Change to if target != null
-		target = debug_target
-		
-		DebugDraw.draw_line_relative_pointy(target.global_position, global_position - target.global_position, 1, Color.BLUE_VIOLET)
-		# Destination
-		DebugDraw.draw_line_relative_thick(nav_agent.target_position,Vector3.UP,5,Color.LIGHT_GREEN)
+		#target = debug_target
+		if target != null :
+			DebugDraw.draw_line_relative_pointy(target.global_position, global_position - target.global_position, 1, Color.BLUE_VIOLET)
+			# Destination
+			DebugDraw.draw_line_relative_thick(nav_agent.target_position,Vector3.UP,5,Color.LIGHT_GREEN)
 	
 	# Find a target now that a new job has been set
 	if find_new_target :
@@ -80,17 +92,29 @@ func _process(delta: float) -> void:
 				#set target to command center?
 				
 				# TEMP rn just wander a lil
-				var rand_vect : Vector3 = Vector3(randf_range(-2, 2), 0, randf_range(-2, 2))
-				var random_pos : Vector3 = global_position + rand_vect
+				#if idle_waiting :
+				
+				
+				idle_wait_cooldown = randf_range(idle_wait_min, idle_wait_max)
+				idle_wait_timer = 0
+				wander_distance = randf_range(idle_wander_distance_min, idle_wander_distance_max)
+				
+				idle_waiting = true
+				idle_wandering = false
+				
+				var rand_dir : Vector3 = Vector3(randf_range(-1, 1), 0, randf_range(-1, 1)).normalized()
+				var random_pos : Vector3 = global_position + (rand_dir * wander_distance)
 				SetDestination(GetDestFromTarget(random_pos, 0))
+			
 			WorkerManager.JobType.Gather :
 				# ask what resources are needed
-				#resource_priority = ResourceManager.GetMostNeededResource()
-				# TEMP
+				#resource_priority = ResourceManager.GetResourcePriority() ## Array? start top prio to last bottom prio?
+				# TEMP ### At some point need to prioritize resource type instead of random
 				target = ResourceManager.GetClosestResourceNode(self.global_position, ResourceManager.ResourceType.values()[randi_range(0, 4)])
+			
 			WorkerManager.JobType.Logistics :
-				
-				# TEMP
+				# TEMP ### At some point need to prioritize resource type instead of random
+				# Lets try and find a chunk
 				if held_chunk == null :
 					target = ResourceManager.GetClosestResourceChunk(self.global_position, ResourceManager.ResourceType.values()[randi_range(0, 4)])
 					if target != null :
@@ -99,29 +123,47 @@ func _process(delta: float) -> void:
 					else :
 						find_new_target = true
 				else :
-					target = ResourceManager.GetClosestResourceStorage(self.global_position)
+					# We are holding a chunk and need to decide where it goes
+					if RequestManager.existing_requests.size() > 0 :
+						var request : RequestManager.Resource_Request = RequestManager.GetClosestRequestWithType(global_position, held_chunk.chunk_resource)
+						if request != null :
+							print("TO A REQUEST ZOMG")
+							delivering = true # maybe get rid of delivering because we can null check resource_request
+							resource_request = request
+							target = request.source_request
+							RequestManager.UpdateRequest(request, held_chunk.chunk_resource, false)
+						else :
+							resource_request = null
+							target = ResourceManager.GetClosestResourceStorage(self.global_position)
+					else :
+						target = ResourceManager.GetClosestResourceStorage(self.global_position)
+			
 			WorkerManager.JobType.Repair :
 				# Find closest (or maybe lowest hp?) damaged building
 				pass
 	
 	# Do this while we have a target
 	if target != null :
+		distance_to_target = global_position.distance_to(target.global_position)
+		if distance_to_target > worker_range + (worker_height / 2) :
+			in_range = false
+		else :
+			in_range = true
 		
 		if check_dest_timer < check_dest_cd :
 			check_dest_timer += delta
 		else :
 			check_dest_timer = 0
-			distance_to_target = global_position.distance_to(target.global_position)
 			if distance_to_target > stopping_dist :
 				SetDestination(GetDestFromTarget(target.global_position, stopping_dist))
-			if distance_to_target > worker_range + (worker_height / 2) :
-				in_range = false
-			else :
-				in_range = true
+
 		
 		match current_job :
 			WorkerManager.JobType.Idle :
-				pass
+				# We shouldn't have a target if we're idle...
+				push_error("We are Idle but have a target... | " + str(self.name))
+				print_debug("")
+			
 			WorkerManager.JobType.Gather :
 				if in_range :
 					if work_timer < work_cooldown :
@@ -133,11 +175,14 @@ func _process(delta: float) -> void:
 				if can_do_work :
 					target.TakeWork(work_amount)
 					can_do_work = false
-				
+			
 			WorkerManager.JobType.Logistics :
 				if in_range and held_chunk == null :
 					print("IN RANGE OF CHUNK: " + str(target))
 					PickupChunk(target)
+				elif in_range and delivering and held_chunk != null :
+					pass
+					#DELIVER
 				elif in_range and held_chunk != null :
 					print("IN RANGE OF STORAGE")
 					target.StoreChunk(held_chunk, held_chunk.chunk_resource)
@@ -145,11 +190,26 @@ func _process(delta: float) -> void:
 					target = null
 					in_range = false
 					find_new_target = true
+			
 			WorkerManager.JobType.Repair :
 				pass
 	else :
 		in_range = false
-		# Timer
+		
+		# we do a little bit of wandering
+		if current_job == WorkerManager.JobType.Idle :
+			if idle_waiting :
+				idle_wait_timer += delta
+				if idle_wait_timer > idle_wait_cooldown :
+					idle_wait_timer = 0
+					idle_waiting = false
+					idle_wandering = true
+			elif idle_wandering :
+				if nav_agent.is_navigation_finished() :
+					idle_wandering = false
+					find_new_target = true
+		
+		# Maybe add another timer when on other jobs
 		# Look for a target a number of times
 		# After long enough switch to Idle
 		pass
@@ -197,6 +257,7 @@ func SetJob(job : WorkerManager.JobType) :
 		DropChunk(held_chunk)
 	in_range = false
 	target = null
+	delivering = false
 	current_job = job
 	find_new_target = true
 
@@ -215,6 +276,13 @@ func DropChunk(chunk : ResourceChunk) :
 	target = null
 	in_range = false
 	find_new_target = true
+	if delivering :
+		# If resource_request fails here... maybe need to remove these pending deliveries when the request is cancelled
+		RequestManager.UpdateRequest(resource_request, held_chunk.chunk_resource, false)
+		resource_request = null
+		delivering = false
+		
+	
 	
 	chunk.held = false
 	chunk.process_mode = Node.PROCESS_MODE_INHERIT
