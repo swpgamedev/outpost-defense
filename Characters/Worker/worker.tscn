@@ -21,6 +21,7 @@ linear_damp = 1.0
 angular_damp = 1.0
 script = ExtResource("1_8w0bo")
 nav_agent = NodePath("NavigationAgent3D")
+worker_range = 2.0
 hold_pos = NodePath("HoldPoint")
 metadata/_custom_type_script = "uid://b13jkdbqf2cum"
 

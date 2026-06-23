@@ -10,9 +10,11 @@ extends Building
 @export var worker_train_time : float = 2
 var train_timer : float = 0
 var currently_training : bool = false
+var worker_cost : RequestManager.Resource_Cost = RequestManager.CreateResourceCost(5, 0, 0, 0, 0)
+#@export var worker_cost : RequestManager.Resource_Cost ### TODO make ResourceCost a Resource
 
 var request_active : bool = false
-#@export var worker_cost : RequestManager.Resource_Cost ### TODO make ResourceCost a Resource
+
 
 @export_group("Spawning")
 @export var spawn_point : Node3D
@@ -26,6 +28,8 @@ var current_storage : int = 0
 
 func _ready() -> void:
 	ResourceManager.Track_TownHall(self)
+	
+	TryRequestWorkerResources()
 
 func _process(delta: float) -> void:
 	if debug_enabled :
@@ -53,10 +57,13 @@ func _process(delta: float) -> void:
 			WorkerManager.SpawnWorker(spawn_point.global_position, worker_parent, level_root)
 	pass
 
-
-
-
+func TryRequestWorkerResources() :
+	RequestManager.CreateRequest(self, worker_cost)
 
 func TryTrainWorker() :
 	if not currently_training :
 		currently_training = true
+
+func RequestRecieved():
+	super()
+	TryTrainWorker()

@@ -18,10 +18,9 @@ class Resource_Cost :
 		ResourceManager.ResourceType.Iron : 0,
 		ResourceManager.ResourceType.Crystal : 0
 		}
-	func IncreaseResourceBy1(resource_type : ResourceManager.ResourceType) :
-		cost[resource_type] = cost.values()[resource_type] + 1
-	func DecreaseResourceBy1(resource_type : ResourceManager.ResourceType) :
-		cost[resource_type] = cost.values()[resource_type] - 1
+	
+	func UpdateByAmount(resource_type : ResourceManager.ResourceType, amount : int) : ## +/-
+		cost[resource_type] = cost.values()[resource_type] + amount
 
 func CreateResourceCost(gold_val : int, wood_val : int, stone_val : int, iron_val : int, crystal_val : int) -> Resource_Cost :
 	var new_cost : Resource_Cost = Resource_Cost.new()
@@ -37,31 +36,10 @@ func CreateResourceCost(gold_val : int, wood_val : int, stone_val : int, iron_va
 func _ready() -> void:
 	
 	# Dummy requests for testing
-	var test_building : Building = get_tree().root.find_child("TownHall", true, false)
-	var worker_cost : Resource_Cost = CreateResourceCost(5, 0, 0, 0, 0)
-	
-	#var new_resource_dict : Dictionary = {
-		#ResourceManager.ResourceType.Gold : 5,
-		#ResourceManager.ResourceType.Wood : 0,
-		#ResourceManager.ResourceType.Stone : 0,
-		#ResourceManager.ResourceType.Iron : 0,
-		#ResourceManager.ResourceType.Crystal : 0}
-	
-	CreateRequest(test_building, worker_cost)
-	
 	var building2 : Building = get_tree().root.find_child("ResourceStorage", true, false)
 	var test_cost2 : Resource_Cost = CreateResourceCost(10, 5, 1, 1, 1)
 	
 	CreateRequest(building2, test_cost2)
-	
-	#print(existing_requests)
-	#print(existing_requests[0].source_request.name)
-	#print(existing_requests[1].source_request.name)
-	
-	
-	#GetClosestRequestWithType(Vector3.ZERO, ResourceManager.ResourceType.Gold)
-
-
 
 
 func CreateRequest(source_building : Building, needed_resources : Resource_Cost) : ## Gold, Wood, Stone, Iron, Crystal
@@ -73,47 +51,38 @@ func CreateRequest(source_building : Building, needed_resources : Resource_Cost)
 	
 	existing_requests.append(new_request)
 
-func UpdateRequest(request : Resource_Request, resource_type : ResourceManager.ResourceType, delivered : bool) :
-	print("*** REQUEST: " + str(request))
-	print("### RESOURCE TYPE: " + str(resource_type))
-	print("^^^ DELIVERED: " + str(delivered))
+
+func UpdateMissingDict(request : Resource_Request, resource_type : ResourceManager.ResourceType, amount : int) :
+	request.missing_resources.UpdateByAmount(resource_type, amount)
+func UpdateMovingDict(request : Resource_Request, resource_type : ResourceManager.ResourceType, amount : int) :
+	request.moving_resources.UpdateByAmount(resource_type, amount)
+func UpdateDeilveredDict(request : Resource_Request, resource_type : ResourceManager.ResourceType, amount : int) :
+	request.delivered_resources.UpdateByAmount(resource_type, amount)
 	
-	request.missing_resources.DecreaseResourceBy1(resource_type)
-	if delivered :
-		request.delivered_resources.IncreaseResourceBy1(resource_type)
-	else :
-		request.moving_resources.IncreaseResourceBy1(resource_type)
-	# decrement missing_resource by resource_type
-	# increment moving_resources by resource_type if !delivered
-	# increment delivered_resources by resource_type if delivered
-	# NEEDS TO BE UPDATED IF THE CHUNK IS DROPPED AND WHEN DELIVERED
+	if request.missing_resources.cost.values().all(CheckZero) and request.moving_resources.cost.values().all(CheckZero) :
+		FulfilledRequest(request)
 
+func CheckZero(numb) :
+	return numb == 0
 
-func FullfiledRequest() :
-	pass
-
+func FulfilledRequest(request : Resource_Request) :
+	request.fulfilled_request = true
+	request.source_request.RequestRecieved()
 
 func GetClosestRequestWithType(origin : Vector3, resource_type : ResourceManager.ResourceType) -> Resource_Request :
 	var shortest_distance : float = INF
 	var closest_request: Resource_Request = null
-	
 	for i in existing_requests.size() :
 		var distance : float = origin.distance_to(existing_requests[i].source_request.global_position)
-		print(distance)
-		
 		for temp_key : int in existing_requests[i].missing_resources.cost.keys() :
 			var temp_value : int = existing_requests[i].missing_resources.cost[temp_key]
 			if temp_value > 0 and temp_key == resource_type:
-				print("!!!FOUND MATCH!!!")
 				if distance < shortest_distance :
 					shortest_distance = distance
 					closest_request = existing_requests[i]
-		
-	
+					print("Request source: " + str(closest_request.source_request.name) + " | Distance to request: " + str(distance))
 	if closest_request == null :
 		print("No matching request found")
-	else :
-		print("Found match at: " + str(closest_request.source_request.name))
 	return closest_request
 
 

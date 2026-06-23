@@ -46,7 +46,6 @@ var resource_priority : ResourceManager.ResourceType
 @export var hold_pos : Node3D
 var held_chunk : ResourceChunk
 @export var root_level_node : Node3D
-var delivering : bool = false
 var resource_request : RequestManager.Resource_Request
 
 @export_group("Idle")
@@ -127,11 +126,10 @@ func _process(delta: float) -> void:
 					if RequestManager.existing_requests.size() > 0 :
 						var request : RequestManager.Resource_Request = RequestManager.GetClosestRequestWithType(global_position, held_chunk.chunk_resource)
 						if request != null :
-							print("TO A REQUEST ZOMG")
-							delivering = true # maybe get rid of delivering because we can null check resource_request
 							resource_request = request
 							target = request.source_request
-							RequestManager.UpdateRequest(request, held_chunk.chunk_resource, false)
+							RequestManager.UpdateMissingDict(request, held_chunk.chunk_resource, -1)
+							RequestManager.UpdateMovingDict(request, held_chunk.chunk_resource, 1)
 						else :
 							resource_request = null
 							target = ResourceManager.GetClosestResourceStorage(self.global_position)
@@ -180,16 +178,26 @@ func _process(delta: float) -> void:
 				if in_range and held_chunk == null :
 					print("IN RANGE OF CHUNK: " + str(target))
 					PickupChunk(target)
-				elif in_range and delivering and held_chunk != null :
-					pass
-					#DELIVER
+				elif in_range and resource_request != null and held_chunk != null :
+					if target is Building :
+						print("ITS A BUILDING")
+						var building : Building = target
+						building.TryTakeDelivery(held_chunk)
+						DeliverChunk(held_chunk, resource_request)
+						
+					else :
+						print("ERM")
 				elif in_range and held_chunk != null :
-					print("IN RANGE OF STORAGE")
-					target.StoreChunk(held_chunk, held_chunk.chunk_resource)
-					held_chunk = null
-					target = null
-					in_range = false
-					find_new_target = true
+					
+					if target is ResourceStorage :
+						print("IN RANGE OF STORAGE")
+						target.StoreChunk(held_chunk, held_chunk.chunk_resource)
+						held_chunk = null
+						target = null
+						in_range = false
+						find_new_target = true
+					else :
+						print("Not a resource storage..")
 			
 			WorkerManager.JobType.Repair :
 				pass
@@ -257,7 +265,7 @@ func SetJob(job : WorkerManager.JobType) :
 		DropChunk(held_chunk)
 	in_range = false
 	target = null
-	delivering = false
+	resource_request = null
 	current_job = job
 	find_new_target = true
 
@@ -265,7 +273,6 @@ func PickupChunk(chunk : ResourceChunk) :
 	target = null
 	in_range = false
 	find_new_target = true
-	
 	chunk.held = true
 	chunk.global_position = hold_pos.global_position
 	chunk.process_mode = Node.PROCESS_MODE_DISABLED
@@ -276,19 +283,32 @@ func DropChunk(chunk : ResourceChunk) :
 	target = null
 	in_range = false
 	find_new_target = true
-	if delivering :
+	if resource_request != null :
 		# If resource_request fails here... maybe need to remove these pending deliveries when the request is cancelled
-		RequestManager.UpdateRequest(resource_request, held_chunk.chunk_resource, false)
+		RequestManager.UpdateMovingDict(resource_request, chunk.chunk_resource, -1)
+		RequestManager.UpdateMissingDict(resource_request, chunk.chunk_resource, 1)
 		resource_request = null
-		delivering = false
-		
-	
-	
 	chunk.held = false
 	chunk.process_mode = Node.PROCESS_MODE_INHERIT
 	chunk.targeted = false
 	chunk.reparent(root_level_node)
 	held_chunk = null
+
+func DeliverChunk(chunk : ResourceChunk, request : RequestManager.Resource_Request) :
+	target = null
+	in_range = false
+	find_new_target = true
+	if resource_request != null :
+		# If resource_request fails here... maybe need to remove these pending deliveries when the request is cancelled
+		RequestManager.UpdateMovingDict(request, chunk.chunk_resource, -1)
+		RequestManager.UpdateDeilveredDict(request , chunk.chunk_resource, 1)
+		resource_request = null
+	chunk.held = false
+	chunk.process_mode = Node.PROCESS_MODE_INHERIT
+	chunk.targeted = false
+	chunk.reparent(root_level_node)
+	held_chunk = null
+
 
 func CheckWorkerHeight() -> float :
 	var height : float = 0

@@ -49,7 +49,7 @@
 				"e3e4c122-9520-4854-9801-40bf17f196e2",
 				"380ce2a3-7333-404d-9f96-000ef62fd635",
 				"debc15a5-6f1f-4e78-891d-567bcc5771fe",
-				"945ecdd9-4b6d-4214-ac1d-aeff6c665233"
+				"8e304a72-2ece-4bb9-848f-37a9040832e6"
 			]
 		},
 		{
@@ -59,7 +59,8 @@
 				"0d830724-9ff0-491f-a881-79817ad40967",
 				"f53a6790-ff10-41ee-9a28-b12075a83339",
 				"d5ab805d-7144-4b9c-9b64-b0627855fa9a",
-				"851776e4-b52f-4829-a628-a9db53485309"
+				"851776e4-b52f-4829-a628-a9db53485309",
+				"945ecdd9-4b6d-4214-ac1d-aeff6c665233"
 			]
 		}
 	],
@@ -179,7 +180,14 @@
 		{
 			"uuid": "945ecdd9-4b6d-4214-ac1d-aeff6c665233",
 			"title": "Limit deliveries to what actually exists",
-			"description": "",
+			"description": "Need to add a safey check?\nOnly if this come back",
+			"category": "8f9871f7-1b08-410b-939f-07bee1f6655b",
+			"steps": []
+		},
+		{
+			"uuid": "8e304a72-2ece-4bb9-848f-37a9040832e6",
+			"title": "Workers getting stuck at dropoff",
+			"description": "Seems like targeting a chunk that has been disabled.\nShouldn't be looking at stored chunks.\nMight be chunks that have been delivered.",
 			"category": "8f9871f7-1b08-410b-939f-07bee1f6655b",
 			"steps": []
 		}
