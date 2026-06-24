@@ -109,13 +109,13 @@ func _process(delta: float) -> void:
 				# ask what resources are needed
 				#resource_priority = ResourceManager.GetResourcePriority() ## Array? start top prio to last bottom prio?
 				# TEMP ### At some point need to prioritize resource type instead of random
-				target = ResourceManager.GetClosestResourceNode(self.global_position, ResourceManager.ResourceType.values()[randi_range(0, 4)])
+				target = ResourceManager.GetClosestResourceNode(self.global_position, ResourceManager.ResourceType.values()[randi_range(0, 5)])
 			
 			WorkerManager.JobType.Logistics :
 				# TEMP ### At some point need to prioritize resource type instead of random
 				# Lets try and find a chunk
 				if held_chunk == null :
-					target = ResourceManager.GetClosestResourceChunk(self.global_position, ResourceManager.ResourceType.values()[randi_range(0, 4)])
+					target = ResourceManager.GetClosestResourceChunk(self.global_position, ResourceManager.ResourceType.values()[randi_range(0, 5)])
 					if target != null :
 						print("TARGET TARGETED? : " + str(target) + " | " + str(target.targeted))
 						target.targeted = true
@@ -161,6 +161,7 @@ func _process(delta: float) -> void:
 				# We shouldn't have a target if we're idle...
 				push_error("We are Idle but have a target... | " + str(self.name))
 				print_debug("")
+				pass
 			
 			WorkerManager.JobType.Gather :
 				if in_range :

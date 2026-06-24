@@ -4,7 +4,7 @@
 [ext_resource type="Material" uid="uid://777ggk7awtxr" path="res://Art/Materials/ResourceMats/test_wood_mat.tres" id="2_xbhn1"]
 
 [node name="WoodChunk" unique_id=1059760451 instance=ExtResource("1_iqx5k")]
-chunk_resource = 1
+chunk_resource = 2
 
 [node name="MeshInstance3D" parent="Mesh" parent_id_path=PackedInt32Array(577469254) index="0" unique_id=428252395]
 surface_material_override/0 = ExtResource("2_xbhn1")

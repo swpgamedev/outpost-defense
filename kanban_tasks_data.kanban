@@ -36,20 +36,21 @@
 				"24cafa2c-b9d1-4201-ae0c-2f87c038fabd",
 				"77e583de-3d2a-48de-b032-1ffcd12742df",
 				"dc4334c1-fc29-47cc-a51c-9ddf92716bc5",
-				"9944a531-45a6-4f94-97b5-9fa70b104463",
 				"5ef8e474-c8c9-48a6-a259-7dd34f64c84d",
 				"906ba80c-3fb9-47fe-9fc2-d2133177e023",
-				"ce18e351-73ef-4514-ad03-35ab868b18de"
+				"ce18e351-73ef-4514-ad03-35ab868b18de",
+				"e3e4c122-9520-4854-9801-40bf17f196e2",
+				"8e304a72-2ece-4bb9-848f-37a9040832e6",
+				"debc15a5-6f1f-4e78-891d-567bcc5771fe",
+				"95772bfb-0f85-4f8c-bdb6-0f4a8f79ff63",
+				"a453f82c-d6b7-4aa6-946a-fc0c3121ad30"
 			]
 		},
 		{
 			"uuid": "988fdda4-3c92-4b9d-9c0c-36d1d9c99bfc",
 			"title": "Doing",
 			"tasks": [
-				"e3e4c122-9520-4854-9801-40bf17f196e2",
-				"380ce2a3-7333-404d-9f96-000ef62fd635",
-				"debc15a5-6f1f-4e78-891d-567bcc5771fe",
-				"8e304a72-2ece-4bb9-848f-37a9040832e6"
+				"9944a531-45a6-4f94-97b5-9fa70b104463"
 			]
 		},
 		{
@@ -60,7 +61,8 @@
 				"f53a6790-ff10-41ee-9a28-b12075a83339",
 				"d5ab805d-7144-4b9c-9b64-b0627855fa9a",
 				"851776e4-b52f-4829-a628-a9db53485309",
-				"945ecdd9-4b6d-4214-ac1d-aeff6c665233"
+				"945ecdd9-4b6d-4214-ac1d-aeff6c665233",
+				"380ce2a3-7333-404d-9f96-000ef62fd635"
 			]
 		}
 	],
@@ -189,6 +191,20 @@
 			"title": "Workers getting stuck at dropoff",
 			"description": "Seems like targeting a chunk that has been disabled.\nShouldn't be looking at stored chunks.\nMight be chunks that have been delivered.",
 			"category": "8f9871f7-1b08-410b-939f-07bee1f6655b",
+			"steps": []
+		},
+		{
+			"uuid": "95772bfb-0f85-4f8c-bdb6-0f4a8f79ff63",
+			"title": "Food Nodes / buildings",
+			"description": "",
+			"category": "e08862a7-4c67-4aac-9ef3-cf92b8cd4879",
+			"steps": []
+		},
+		{
+			"uuid": "a453f82c-d6b7-4aa6-946a-fc0c3121ad30",
+			"title": "Make resource cost a resource",
+			"description": "",
+			"category": "e08862a7-4c67-4aac-9ef3-cf92b8cd4879",
 			"steps": []
 		}
 	],

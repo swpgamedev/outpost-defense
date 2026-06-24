@@ -1,8 +1,9 @@
 extends Node
 
-enum ResourceType {Gold, Wood, Stone, Iron, Crystal}
+enum ResourceType {Food, Gold, Wood, Stone, Iron, Crystal}
 
 #region NODES AND CHUNKS
+var FoodNodes : Array[ResourceNode] = []
 var GoldNodes : Array[ResourceNode] = []
 var WoodNodes : Array[ResourceNode] = []
 var StoneNodes : Array[ResourceNode] = []
@@ -10,6 +11,7 @@ var IronNodes : Array[ResourceNode] = []
 var CrystalNodes : Array[ResourceNode] = []
 
 # will defo break if moving stuff
+var food_chunk : PackedScene = preload("res://Resources/Chunks/food_chunk.tscn")
 var gold_chunk : PackedScene = preload("res://Resources/Chunks/gold_chunk.tscn")
 var wood_chunk : PackedScene = preload("res://Resources/Chunks/wood_chunk.tscn")
 var stone_chunk : PackedScene = preload("res://Resources/Chunks/stone_chunk.tscn")
@@ -18,6 +20,7 @@ var crystal_chunk : PackedScene = preload("res://Resources/Chunks/crystal_chunk.
 
 var chunk_scenes : Array[PackedScene] = [gold_chunk, wood_chunk, stone_chunk, iron_chunk, crystal_chunk]
 
+var FoodChunks : Array[ResourceChunk] = []
 var GoldChunks : Array[ResourceChunk] = []
 var WoodChunks : Array[ResourceChunk] = []
 var StoneChunks : Array[ResourceChunk] = []
@@ -33,36 +36,27 @@ var allNodes : Array[ResourceNode]
 var ResourceStorages : Array[ResourceStorage] = []
 var TownHalls : Array[Building] = []
 
-#region RESOURCE REQUESTS
-
-# OUTSTANDING = player or director has requested a building
-var outstanding_gold_req : float
-var outstanding_wood_req : float
-var outstanding_stone_req : float
-var outstanding_iron_req : float
-var outstanding_crystal_req : float
-
-# PENDING = resources tagged to be used for building requests (can be at site, in warehouse, or in logi worker inventory)
-var pending_gold_req : float
-### blah blah blah
-#endregion
-
 func _ready() -> void:
-	nodeDict[0] = GoldNodes
-	nodeDict[1] = WoodNodes
-	nodeDict[2] = StoneNodes
-	nodeDict[3] = IronNodes
-	nodeDict[4] = CrystalNodes
+	nodeDict[0] = FoodNodes
+	nodeDict[1] = GoldNodes
+	nodeDict[2] = WoodNodes
+	nodeDict[3] = StoneNodes
+	nodeDict[4] = IronNodes
+	nodeDict[5] = CrystalNodes
 	
-	chunkDict[0] = GoldChunks
-	chunkDict[1] = WoodChunks
-	chunkDict[2] = StoneChunks
-	chunkDict[3] = IronChunks
-	chunkDict[4] = CrystalChunks
+	chunkDict[0] = FoodChunks
+	chunkDict[1] = GoldChunks
+	chunkDict[2] = WoodChunks
+	chunkDict[3] = StoneChunks
+	chunkDict[4] = IronChunks
+	chunkDict[5] = CrystalChunks
 
 func Track_Resource_Node(new_node : ResourceNode, resource_type : ResourceType) :
 	allNodes.append(new_node)
 	match resource_type :
+		ResourceType.Food :
+			FoodNodes.append(new_node)
+			new_node.chunk_to_spawn = food_chunk
 		ResourceType.Gold :
 			GoldNodes.append(new_node)
 			new_node.chunk_to_spawn = gold_chunk
@@ -82,6 +76,8 @@ func Track_Resource_Node(new_node : ResourceNode, resource_type : ResourceType) 
 func Untrack_Resource_Node(node_to_remove : ResourceNode, resource_type : ResourceType) :
 	allNodes.erase(node_to_remove)
 	match resource_type :
+		ResourceType.Food :
+			FoodNodes.erase(node_to_remove)
 		ResourceType.Gold :
 			GoldNodes.erase(node_to_remove)
 		ResourceType.Wood :
@@ -95,6 +91,8 @@ func Untrack_Resource_Node(node_to_remove : ResourceNode, resource_type : Resour
 
 func Track_Resource_Chunk(new_chunk : ResourceChunk, resource_type : ResourceType) :
 	match resource_type :
+		ResourceType.Food :
+			FoodChunks.append(new_chunk)
 		ResourceType.Gold :
 			GoldChunks.append(new_chunk)
 		ResourceType.Wood :
@@ -108,6 +106,8 @@ func Track_Resource_Chunk(new_chunk : ResourceChunk, resource_type : ResourceTyp
 
 func Untrack_Resource_Chunk(chunk_to_remove : ResourceChunk,  resource_type : ResourceType) :
 	match resource_type :
+		ResourceType.Food :
+			FoodChunks.erase(chunk_to_remove)
 		ResourceType.Gold :
 			GoldChunks.erase(chunk_to_remove)
 		ResourceType.Wood :
@@ -131,63 +131,43 @@ func Track_TownHall(townhall : Building) :
 func Untrack_TownHall(townhall : Building) :
 	TownHalls.erase(townhall)
 
+# Could make generic find closest variant
+# Would need some if's to filter chunks or nodes
+
 func GetClosestResourceNode(origin : Vector3, resource : ResourceType) -> ResourceNode :
 	var shortest_distance : float = INF
 	var closest_node : ResourceNode = null
-	
 	var nodes_to_check : Array[ResourceNode] = nodeDict[resource]
-	#print("NODES TO CHECK: " + str(nodes_to_check))
 	for check_node in nodes_to_check :
-		print(check_node.node_resource)
-		#if check_node.node_resource
-		
-		
 		var distance : float = origin.distance_to(check_node.global_position)
-		#print("Checking this node: " + str(check_node) + ", Distance: " + str(distance))
 		if distance < shortest_distance :
-			#print("NEW SHORTEST")
 			shortest_distance = distance
 			closest_node = check_node
-	
 	return closest_node
-
 
 func GetClosestResourceChunk(origin : Vector3, resource : ResourceType) -> ResourceChunk :
 	var shortest_distance : float = INF
 	var closest_chunk : ResourceChunk = null
-	
 	var chunks_to_check : Array[ResourceChunk] = chunkDict[resource]
-	#print("Chunks TO CHECK: " + str(chunks_to_check))
 	for check_chunk in chunks_to_check :
-		#print("Looking at: " + str(check_chunk.name) + " | " + str(check_chunk.chunk_resource))
-		
-		# filtering by if it's already targeted by another worker and if it's the resource we want
 		if check_chunk.targeted == false and check_chunk.chunk_resource == resource :
 			var distance : float = origin.distance_to(check_chunk.global_position)
-			#print("Checking this chunk: " + str(check_chunk) + ", Distance: " + str(distance))
 			if distance < shortest_distance :
-				#print("NEW SHORTEST")
 				shortest_distance = distance
 				closest_chunk = check_chunk
-	
 	return closest_chunk
 
 func GetClosestResourceStorage(origin : Vector3) -> ResourceStorage :
 	var shortest_distance : float = INF
 	var closest_storage : ResourceStorage = null
-	
 	var storage_to_check : Array[ResourceStorage] = ResourceStorages
-	#print("Chunks TO CHECK: " + str(chunks_to_check))
 	for check_storage in storage_to_check :
-		
 		var distance : float = origin.distance_to(check_storage.global_position)
-		#print("Checking this chunk: " + str(check_chunk) + ", Distance: " + str(distance))
 		if distance < shortest_distance :
-			#print("NEW SHORTEST")
 			shortest_distance = distance
 			closest_storage = check_storage
-	
 	return closest_storage
+
 
 
 

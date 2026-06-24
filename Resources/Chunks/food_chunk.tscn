@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://4kw71ju57gmk"]
+
+[ext_resource type="PackedScene" uid="uid://dlwy445tnc2s8" path="res://Resources/Chunks/resource_chunk.tscn" id="1_g84yl"]
+[ext_resource type="Material" uid="uid://ddtvlvklnfd6x" path="res://Art/Materials/ResourceMats/test_food_mat.tres" id="2_3a1bx"]
+
+[node name="FoodChunk" unique_id=1059760451 instance=ExtResource("1_g84yl")]
+
+[node name="MeshInstance3D" parent="Mesh" parent_id_path=PackedInt32Array(577469254) index="0" unique_id=428252395]
+surface_material_override/0 = ExtResource("2_3a1bx")
+
+[node name="MeshInstance3D2" parent="Mesh" parent_id_path=PackedInt32Array(577469254) index="1" unique_id=149282387]
+surface_material_override/0 = ExtResource("2_3a1bx")

@@ -12,6 +12,7 @@ class Resource_Request :
 
 class Resource_Cost :
 	var cost : Dictionary[ResourceManager.ResourceType, int] = {
+		ResourceManager.ResourceType.Food : 0,
 		ResourceManager.ResourceType.Gold : 0,
 		ResourceManager.ResourceType.Wood : 0,
 		ResourceManager.ResourceType.Stone : 0,
@@ -22,9 +23,10 @@ class Resource_Cost :
 	func UpdateByAmount(resource_type : ResourceManager.ResourceType, amount : int) : ## +/-
 		cost[resource_type] = cost.values()[resource_type] + amount
 
-func CreateResourceCost(gold_val : int, wood_val : int, stone_val : int, iron_val : int, crystal_val : int) -> Resource_Cost :
+func CreateResourceCost(food_val : int, gold_val : int, wood_val : int, stone_val : int, iron_val : int, crystal_val : int) -> Resource_Cost :
 	var new_cost : Resource_Cost = Resource_Cost.new()
 	new_cost.cost = {
+		ResourceManager.ResourceType.Food : food_val,
 		ResourceManager.ResourceType.Gold : gold_val,
 		ResourceManager.ResourceType.Wood : wood_val,
 		ResourceManager.ResourceType.Stone : stone_val,
@@ -37,7 +39,7 @@ func _ready() -> void:
 	
 	# Dummy requests for testing
 	var building2 : Building = get_tree().root.find_child("ResourceStorage", true, false)
-	var test_cost2 : Resource_Cost = CreateResourceCost(10, 5, 1, 1, 1)
+	var test_cost2 : Resource_Cost = CreateResourceCost(1, 10, 5, 1, 1, 1)
 	
 	CreateRequest(building2, test_cost2)
 
@@ -80,9 +82,10 @@ func GetClosestRequestWithType(origin : Vector3, resource_type : ResourceManager
 				if distance < shortest_distance :
 					shortest_distance = distance
 					closest_request = existing_requests[i]
-					print("Request source: " + str(closest_request.source_request.name) + " | Distance to request: " + str(distance))
+					#print("Request source: " + str(closest_request.source_request.name) + " | Distance to request: " + str(distance))
 	if closest_request == null :
 		print("No matching request found")
+		pass
 	return closest_request
 
 

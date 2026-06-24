@@ -4,7 +4,7 @@
 [ext_resource type="Material" uid="uid://b5fq4dfc32roe" path="res://Art/Materials/ResourceMats/test_iron_mat.tres" id="2_vl5at"]
 
 [node name="IronResourceNode" unique_id=830053814 instance=ExtResource("1_1d70n")]
-node_resource = 3
+node_resource = 4
 
 [node name="MeshInstance3D" parent="." index="0" unique_id=1133214649]
 surface_material_override/0 = ExtResource("2_vl5at")

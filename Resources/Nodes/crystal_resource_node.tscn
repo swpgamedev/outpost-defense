@@ -4,7 +4,7 @@
 [ext_resource type="Material" uid="uid://hw6gg5rqcy00" path="res://Art/Materials/ResourceMats/test_crystal_mat.tres" id="2_15hh8"]
 
 [node name="CrystalResourceNode" unique_id=830053814 instance=ExtResource("1_rsd3j")]
-node_resource = 4
+node_resource = 5
 
 [node name="MeshInstance3D" parent="." index="0" unique_id=1133214649]
 surface_material_override/0 = ExtResource("2_15hh8")

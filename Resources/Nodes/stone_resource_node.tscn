@@ -4,7 +4,7 @@
 [ext_resource type="Material" uid="uid://bf8lfl58rwlf2" path="res://Art/Materials/ResourceMats/test_stone_mat.tres" id="2_o45gv"]
 
 [node name="StoneResourceNode" unique_id=830053814 instance=ExtResource("1_4bxey")]
-node_resource = 2
+node_resource = 3
 
 [node name="MeshInstance3D" parent="." index="0" unique_id=1133214649]
 surface_material_override/0 = ExtResource("2_o45gv")

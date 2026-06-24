@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://b4nseybi7knwr" path="res://Resources/Chunks/wood_chunk.tscn" id="5_eskjq"]
 [ext_resource type="PackedScene" uid="uid://cis0nl4n0ymtu" path="res://Resources/Chunks/stone_chunk.tscn" id="6_bv7qf"]
 [ext_resource type="PackedScene" uid="uid://dkitka82v8u3k" path="res://Resources/Chunks/iron_chunk.tscn" id="7_rjr5o"]
+[ext_resource type="PackedScene" uid="uid://dt4iu0bhj8xha" path="res://Resources/Nodes/food_resource_node.tscn" id="8_0hoem"]
 [ext_resource type="PackedScene" uid="uid://cswkysp5p53bp" path="res://Resources/Chunks/crystal_chunk.tscn" id="8_q6erq"]
 [ext_resource type="PackedScene" uid="uid://bvlc6p6dxl3gp" path="res://Resources/Nodes/gold_resource_node.tscn" id="8_uwgho"]
 [ext_resource type="PackedScene" uid="uid://doa0cqjict353" path="res://Resources/Nodes/wood_resource_node.tscn" id="9_wo14j"]
@@ -18,6 +19,7 @@
 [ext_resource type="PackedScene" uid="uid://b27tk6fx1onjr" path="res://Resources/Nodes/iron_resource_node.tscn" id="11_iiv7w"]
 [ext_resource type="PackedScene" uid="uid://bg7afn6kw431c" path="res://Resources/Nodes/crystal_resource_node.tscn" id="12_m00fy"]
 [ext_resource type="PackedScene" uid="uid://dhrj77j07ax2b" path="res://Buildings/town_hall.tscn" id="12_y4mkk"]
+[ext_resource type="PackedScene" uid="uid://4kw71ju57gmk" path="res://Resources/Chunks/food_chunk.tscn" id="14_vu4am"]
 [ext_resource type="PackedScene" uid="uid://qqafnd46vouw" path="res://Buildings/resource_storage.tscn" id="15_iagux"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_3w2og"]
@@ -162,33 +164,18 @@ level_root = NodePath("../..")
 worker_parent = NodePath("../../Workers")
 
 [node name="ResourceStorage" parent="Buildings" unique_id=1888111638 instance=ExtResource("15_iagux")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.5, 0, 1.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.5, 0, 6.5)
 
 [node name="ResourceStorage2" parent="Buildings" unique_id=1576425289 instance=ExtResource("15_iagux")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, -4.5)
-
-[node name="ResourceStorage3" parent="Buildings" unique_id=483846021 instance=ExtResource("15_iagux")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.5, 0, -13.5)
-
-[node name="ResourceStorage4" parent="Buildings" unique_id=1251395176 instance=ExtResource("15_iagux")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5, 0, 9.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, -1)
 
 [node name="TestNodes" type="Node3D" parent="." unique_id=2072295452]
 
-[node name="GoldResourceNode3" parent="TestNodes" unique_id=830053814 instance=ExtResource("8_uwgho")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, -1.5)
-physics_material_override = null
-
-[node name="GoldResourceNode4" parent="TestNodes" unique_id=1762762616 instance=ExtResource("8_uwgho")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.5, 0, -16)
-physics_material_override = null
+[node name="FoodResourceNode" parent="TestNodes" unique_id=830053814 instance=ExtResource("8_0hoem")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 0, -3.5)
 
 [node name="GoldResourceNode" parent="TestNodes" unique_id=720023152 instance=ExtResource("8_uwgho")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 0, 6)
-physics_material_override = null
-
-[node name="GoldResourceNode2" parent="TestNodes" unique_id=1055338661 instance=ExtResource("8_uwgho")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, -13.5)
 physics_material_override = null
 
 [node name="WoodResourceNode" parent="TestNodes" unique_id=1816930999 instance=ExtResource("9_wo14j")]
@@ -220,7 +207,10 @@ navigation_mesh = SubResource("NavigationMesh_3w2og")
 
 [node name="TestChunks" type="Node3D" parent="." unique_id=1263990786]
 
-[node name="GoldChunk" parent="TestChunks" unique_id=1059760451 instance=ExtResource("4_8a7s8")]
+[node name="FoodChunk" parent="TestChunks" unique_id=1059760451 instance=ExtResource("14_vu4am")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.5, 0.5, 2)
+
+[node name="GoldChunk" parent="TestChunks" unique_id=1646433849 instance=ExtResource("4_8a7s8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.503128, 0.24999905, 9.816)
 physics_material_override = null
 linear_damp = 0.0
@@ -262,25 +252,6 @@ root_level_node = NodePath("../..")
 [node name="Worker2" parent="Workers" unique_id=989758019 node_paths=PackedStringArray("debug_target", "root_level_node") instance=ExtResource("3_k7njs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.313629, 1, 11.112507)
 debug_target = NodePath("../../DebugTarget")
-root_level_node = NodePath("../..")
-
-[node name="Worker3" parent="Workers" unique_id=475942067 node_paths=PackedStringArray("debug_target", "root_level_node") instance=ExtResource("3_k7njs")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.319254, 1, 4.1179886)
-debug_target = NodePath("../../DebugTarget")
-root_level_node = NodePath("../..")
-
-[node name="Worker4" parent="Workers" unique_id=623260697 node_paths=PackedStringArray("debug_target", "root_level_node") instance=ExtResource("3_k7njs")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.580553, 1, 4.7804985)
-debug_target = NodePath("../../DebugTarget")
-root_level_node = NodePath("../..")
-
-[node name="Worker5" parent="Workers" unique_id=1343740525 node_paths=PackedStringArray("debug_target", "root_level_node") instance=ExtResource("3_k7njs")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.8600483, 1, 16.427277)
-debug_target = NodePath("../../DebugTarget")
-root_level_node = NodePath("../..")
-
-[node name="Worker6" parent="Workers" unique_id=1059500010 node_paths=PackedStringArray("root_level_node") instance=ExtResource("3_k7njs")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 1, 13)
 root_level_node = NodePath("../..")
 
 [node name="DebugTarget" type="Node3D" parent="." unique_id=1729126804]
