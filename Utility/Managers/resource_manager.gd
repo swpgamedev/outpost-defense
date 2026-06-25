@@ -145,17 +145,26 @@ func GetClosestResourceNode(origin : Vector3, resource : ResourceType) -> Resour
 			closest_node = check_node
 	return closest_node
 
-func GetClosestResourceChunk(origin : Vector3, resource : ResourceType) -> ResourceChunk :
-	var shortest_distance : float = INF
+
+func GetClosestResourceChunk(origin : Vector3, resource : ResourceType, filter_targeted : bool, filter_stored : bool, max_distance : float = INF) -> ResourceChunk : ## Filter out
+	var shortest_distance : float = INF # replace with max_range var?
 	var closest_chunk : ResourceChunk = null
-	var chunks_to_check : Array[ResourceChunk] = chunkDict[resource]
-	for check_chunk in chunks_to_check :
-		if check_chunk.targeted == false and check_chunk.chunk_resource == resource :
+	for check_chunk : ResourceChunk in chunkDict[resource] :
+		if check_chunk.for_delivery :
+			continue
+		if not check_chunk.chunk_resource == resource :
+			continue
+		else :
+			if filter_targeted and check_chunk.targeted :
+				continue
+			if filter_stored and check_chunk.stored:
+				continue
 			var distance : float = origin.distance_to(check_chunk.global_position)
-			if distance < shortest_distance :
-				shortest_distance = distance
-				closest_chunk = check_chunk
+			if distance < max_distance and distance < shortest_distance:
+					shortest_distance = distance
+					closest_chunk = check_chunk
 	return closest_chunk
+
 
 func GetClosestResourceStorage(origin : Vector3) -> ResourceStorage :
 	var shortest_distance : float = INF

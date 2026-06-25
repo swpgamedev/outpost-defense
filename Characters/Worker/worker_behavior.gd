@@ -88,6 +88,7 @@ func _process(delta: float) -> void:
 		find_new_target = false
 		match current_job :
 			WorkerManager.JobType.Idle :
+				print("IDLE TARGETING")
 				#set target to command center?
 				
 				# TEMP rn just wander a lil
@@ -106,16 +107,38 @@ func _process(delta: float) -> void:
 				SetDestination(GetDestFromTarget(random_pos, 0))
 			
 			WorkerManager.JobType.Gather :
+				print("GATHER TARGETING")
 				# ask what resources are needed
 				#resource_priority = ResourceManager.GetResourcePriority() ## Array? start top prio to last bottom prio?
 				# TEMP ### At some point need to prioritize resource type instead of random
-				target = ResourceManager.GetClosestResourceNode(self.global_position, ResourceManager.ResourceType.values()[randi_range(0, 5)])
+				target = ResourceManager.GetClosestResourceNode(self.global_position, ResourceManager.ResourceType.values()[randi_range(0, ResourceManager.ResourceType.size() - 1)])
 			
 			WorkerManager.JobType.Logistics :
+				print("LOGISTICS TARGETING")
 				# TEMP ### At some point need to prioritize resource type instead of random
+				var resource_to_find : ResourceManager.ResourceType
+				var outstanding_requests : bool = RequestManager.existing_requests.size() > 0
+				
+				if outstanding_requests :
+					resource_to_find = RequestManager.GetClosestMissingResourceType(global_position)
+				
 				# Lets try and find a chunk
 				if held_chunk == null :
-					target = ResourceManager.GetClosestResourceChunk(self.global_position, ResourceManager.ResourceType.values()[randi_range(0, 5)])
+					# If request exists, look for the closest chunk
+					
+					if outstanding_requests :
+						target = ResourceManager.GetClosestResourceChunk(
+							global_position,
+							resource_to_find,
+							true,
+							false)
+					else :
+						target = ResourceManager.GetClosestResourceChunk(
+							global_position,
+							ResourceManager.ResourceType.values()[randi_range(0, ResourceManager.ResourceType.size() - 1)],
+							true,
+							true)
+					
 					if target != null :
 						print("TARGET TARGETED? : " + str(target) + " | " + str(target.targeted))
 						target.targeted = true
@@ -124,7 +147,7 @@ func _process(delta: float) -> void:
 				else :
 					# We are holding a chunk and need to decide where it goes
 					if RequestManager.existing_requests.size() > 0 :
-						var request : RequestManager.Resource_Request = RequestManager.GetClosestRequestWithType(global_position, held_chunk.chunk_resource)
+						var request : RequestManager.Resource_Request = RequestManager.GetClosestRequest(global_position, held_chunk.chunk_resource)
 						if request != null :
 							resource_request = request
 							target = request.source_request
@@ -164,6 +187,7 @@ func _process(delta: float) -> void:
 				pass
 			
 			WorkerManager.JobType.Gather :
+				print("GATHER DOING")
 				if in_range :
 					if work_timer < work_cooldown :
 						work_timer += delta
@@ -176,18 +200,17 @@ func _process(delta: float) -> void:
 					can_do_work = false
 			
 			WorkerManager.JobType.Logistics :
+				print("LOGISTICS DOING")
 				if in_range and held_chunk == null :
 					print("IN RANGE OF CHUNK: " + str(target))
 					PickupChunk(target)
 				elif in_range and resource_request != null and held_chunk != null :
 					if target is Building :
 						print("ITS A BUILDING")
-						var building : Building = target
-						building.TryTakeDelivery(held_chunk)
-						DeliverChunk(held_chunk, resource_request)
+						DeliverChunk(target, held_chunk, resource_request)
 						
 					else :
-						print("ERM")
+						push_error("ERM... trying to deliver to something thats not a building")
 				elif in_range and held_chunk != null :
 					
 					if target is ResourceStorage :
@@ -295,7 +318,9 @@ func DropChunk(chunk : ResourceChunk) :
 	chunk.reparent(root_level_node)
 	held_chunk = null
 
-func DeliverChunk(chunk : ResourceChunk, request : RequestManager.Resource_Request) :
+func DeliverChunk(building : Building, chunk : ResourceChunk, request : RequestManager.Resource_Request) :
+	building.TryTakeDelivery(held_chunk)
+	
 	target = null
 	in_range = false
 	find_new_target = true
@@ -304,10 +329,6 @@ func DeliverChunk(chunk : ResourceChunk, request : RequestManager.Resource_Reque
 		RequestManager.UpdateMovingDict(request, chunk.chunk_resource, -1)
 		RequestManager.UpdateDeilveredDict(request , chunk.chunk_resource, 1)
 		resource_request = null
-	chunk.held = false
-	chunk.process_mode = Node.PROCESS_MODE_INHERIT
-	chunk.targeted = false
-	chunk.reparent(root_level_node)
 	held_chunk = null
 
 

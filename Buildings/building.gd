@@ -13,6 +13,7 @@ func TryTakeDelivery(chunk : ResourceChunk) :
 	held_delivery_chunks[chunk] = chunk.chunk_resource
 	chunk.held = false
 	chunk.stored = true
+	chunk.for_delivery = true
 	chunk.visible = false
 	chunk.global_position = self.global_position
 	chunk.reparent(self)

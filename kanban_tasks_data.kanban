@@ -41,7 +41,6 @@
 				"ce18e351-73ef-4514-ad03-35ab868b18de",
 				"e3e4c122-9520-4854-9801-40bf17f196e2",
 				"8e304a72-2ece-4bb9-848f-37a9040832e6",
-				"debc15a5-6f1f-4e78-891d-567bcc5771fe",
 				"95772bfb-0f85-4f8c-bdb6-0f4a8f79ff63",
 				"a453f82c-d6b7-4aa6-946a-fc0c3121ad30"
 			]
@@ -50,7 +49,9 @@
 			"uuid": "988fdda4-3c92-4b9d-9c0c-36d1d9c99bfc",
 			"title": "Doing",
 			"tasks": [
-				"9944a531-45a6-4f94-97b5-9fa70b104463"
+				"debc15a5-6f1f-4e78-891d-567bcc5771fe",
+				"6c3ea0df-10b8-4fdf-b487-b75fc2221020",
+				"e3515536-7a7e-44eb-89da-aa5a2c3f7f1f"
 			]
 		},
 		{
@@ -62,7 +63,8 @@
 				"d5ab805d-7144-4b9c-9b64-b0627855fa9a",
 				"851776e4-b52f-4829-a628-a9db53485309",
 				"945ecdd9-4b6d-4214-ac1d-aeff6c665233",
-				"380ce2a3-7333-404d-9f96-000ef62fd635"
+				"380ce2a3-7333-404d-9f96-000ef62fd635",
+				"9944a531-45a6-4f94-97b5-9fa70b104463"
 			]
 		}
 	],
@@ -127,7 +129,7 @@
 			"uuid": "906ba80c-3fb9-47fe-9fc2-d2133177e023",
 			"title": "Town Hall",
 			"description": "Spawning, kinda working\nBake nav\nDebug labels\nSelectable?\nHook up to director to control\nDo we store resources here as well?\nHow to show what is needed\nWhat is needed to train a worker besides time",
-			"category": "e08862a7-4c67-4aac-9ef3-cf92b8cd4879",
+			"category": "1a042eeb-8d45-4a87-a053-0bd29d9412bc",
 			"steps": []
 		},
 		{
@@ -205,6 +207,20 @@
 			"title": "Make resource cost a resource",
 			"description": "",
 			"category": "e08862a7-4c67-4aac-9ef3-cf92b8cd4879",
+			"steps": []
+		},
+		{
+			"uuid": "6c3ea0df-10b8-4fdf-b487-b75fc2221020",
+			"title": "Convert worker behavior to FSM",
+			"description": "",
+			"category": "cb8e0e2f-6dc5-4bd5-bcc3-e475578af8eb",
+			"steps": []
+		},
+		{
+			"uuid": "e3515536-7a7e-44eb-89da-aa5a2c3f7f1f",
+			"title": "Finding chunk currently broken",
+			"description": "Only one worker grabs first missing...\nThen nothing\n",
+			"category": "8f9871f7-1b08-410b-939f-07bee1f6655b",
 			"steps": []
 		}
 	],

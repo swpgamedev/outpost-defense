@@ -71,25 +71,37 @@ func FulfilledRequest(request : Resource_Request) :
 	request.fulfilled_request = true
 	request.source_request.RequestRecieved()
 
-func GetClosestRequestWithType(origin : Vector3, resource_type : ResourceManager.ResourceType) -> Resource_Request :
+## Finds closest request with something in missing
+func GetClosestRequest(origin : Vector3, select_resource : bool, max_range : float = INF, resource_type : ResourceManager.ResourceType = ResourceManager.ResourceType.Food) -> Resource_Request :
 	var shortest_distance : float = INF
 	var closest_request: Resource_Request = null
 	for i in existing_requests.size() :
 		var distance : float = origin.distance_to(existing_requests[i].source_request.global_position)
-		for temp_key : int in existing_requests[i].missing_resources.cost.keys() :
-			var temp_value : int = existing_requests[i].missing_resources.cost[temp_key]
-			if temp_value > 0 and temp_key == resource_type:
-				if distance < shortest_distance :
-					shortest_distance = distance
-					closest_request = existing_requests[i]
-					#print("Request source: " + str(closest_request.source_request.name) + " | Distance to request: " + str(distance))
+		if distance > max_range :
+			continue
+		for resource_key : int in existing_requests[i].missing_resources.cost.keys() :
+			if existing_requests[i].missing_resources.cost[resource_key] <= 0 :
+				continue
+			if select_resource and not resource_type :
+				continue
+			if distance < shortest_distance :
+				shortest_distance = distance
+				closest_request = existing_requests[i]
+				#print("Request source: " + str(closest_request.source_request.name) + " | Distance to request: " + str(distance))
 	if closest_request == null :
 		print("No matching request found")
 		pass
 	return closest_request
 
-
-
+## Finds first resource type thats missing for a request 
+func GetClosestMissingResourceType(origin : Vector3, max_range : float = INF) -> ResourceManager.ResourceType :
+	var closest_request : RequestManager.Resource_Request = GetClosestRequest(origin, false, max_range)
+	var resource_to_find : ResourceManager.ResourceType
+	for resource_key : int in closest_request.missing_resources.cost.keys():
+		if closest_request.missing_resources.cost[resource_key] > 0 :
+			resource_to_find = ResourceManager.ResourceType.values()[resource_key]
+			break
+	return resource_to_find
 
 
 
