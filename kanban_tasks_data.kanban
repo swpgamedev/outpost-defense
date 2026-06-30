@@ -51,7 +51,8 @@
 			"tasks": [
 				"debc15a5-6f1f-4e78-891d-567bcc5771fe",
 				"6c3ea0df-10b8-4fdf-b487-b75fc2221020",
-				"e3515536-7a7e-44eb-89da-aa5a2c3f7f1f"
+				"e3515536-7a7e-44eb-89da-aa5a2c3f7f1f",
+				"8a842ceb-9e74-4ac4-b66e-37d17d2df138"
 			]
 		},
 		{
@@ -218,9 +219,16 @@
 		},
 		{
 			"uuid": "e3515536-7a7e-44eb-89da-aa5a2c3f7f1f",
-			"title": "Finding chunk currently broken",
-			"description": "Only one worker grabs first missing...\nThen nothing\n",
+			"title": "Resource prio is broken",
+			"description": "Only one worker grabs first missing...\nThen nothing\nSits around if nothing avaliable in prio, should try next resource type",
 			"category": "8f9871f7-1b08-410b-939f-07bee1f6655b",
+			"steps": []
+		},
+		{
+			"uuid": "8a842ceb-9e74-4ac4-b66e-37d17d2df138",
+			"title": "Attach resource request to building",
+			"description": "Can only have one resource request at a time?",
+			"category": "e08862a7-4c67-4aac-9ef3-cf92b8cd4879",
 			"steps": []
 		}
 	],

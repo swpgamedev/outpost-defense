@@ -121,6 +121,7 @@ func _process(delta: float) -> void:
 				
 				if outstanding_requests :
 					resource_to_find = RequestManager.GetClosestMissingResourceType(global_position)
+					resource_priority = resource_to_find
 				
 				# Lets try and find a chunk
 				if held_chunk == null :
@@ -132,6 +133,8 @@ func _process(delta: float) -> void:
 							resource_to_find,
 							true,
 							false)
+						if target == null : ## Can't find chunks of type, need to grab something else
+							pass
 					else :
 						target = ResourceManager.GetClosestResourceChunk(
 							global_position,
@@ -142,6 +145,7 @@ func _process(delta: float) -> void:
 					if target != null :
 						print("TARGET TARGETED? : " + str(target) + " | " + str(target.targeted))
 						target.targeted = true
+						find_new_target = false
 					else :
 						find_new_target = true
 				else :

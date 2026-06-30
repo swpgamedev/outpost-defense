@@ -93,12 +93,17 @@ func GetClosestRequest(origin : Vector3, select_resource : bool, max_range : flo
 		pass
 	return closest_request
 
+
+#### SOMETHING BROKEN HERE, returns something funny......
+
 ## Finds first resource type thats missing for a request 
 func GetClosestMissingResourceType(origin : Vector3, max_range : float = INF) -> ResourceManager.ResourceType :
 	var closest_request : RequestManager.Resource_Request = GetClosestRequest(origin, false, max_range)
 	var resource_to_find : ResourceManager.ResourceType
 	for resource_key : int in closest_request.missing_resources.cost.keys():
-		if closest_request.missing_resources.cost[resource_key] > 0 :
+		if closest_request.missing_resources.cost[resource_key] <= 0 :
+			continue
+		else :
 			resource_to_find = ResourceManager.ResourceType.values()[resource_key]
 			break
 	return resource_to_find

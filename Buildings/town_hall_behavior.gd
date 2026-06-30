@@ -1,4 +1,5 @@
 extends Building
+class_name TownHall
 
 @export_group("Debug")
 @export var debug_enabled : bool

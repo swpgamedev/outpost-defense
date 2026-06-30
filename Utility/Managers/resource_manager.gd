@@ -151,6 +151,7 @@ func GetClosestResourceChunk(origin : Vector3, resource : ResourceType, filter_t
 	var closest_chunk : ResourceChunk = null
 	for check_chunk : ResourceChunk in chunkDict[resource] :
 		if check_chunk.for_delivery :
+			print("DELIVERY FILTER OUT")
 			continue
 		if not check_chunk.chunk_resource == resource :
 			continue

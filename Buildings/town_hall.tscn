@@ -4,13 +4,13 @@
 [ext_resource type="Texture2D" uid="uid://dukts3k5h4xii" path="res://Art/Textures/Prototype Textures/Orange/texture_05.png" id="2_bh1ve"]
 [ext_resource type="Script" uid="uid://chosn7xrxg10u" path="res://Utility/billboard.gd" id="3_ut8yo"]
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_2ov11"]
+size = Vector3(2, 2, 2)
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2ov11"]
 albedo_texture = ExtResource("2_bh1ve")
 
 [sub_resource type="BoxMesh" id="BoxMesh_yqpnd"]
-size = Vector3(2, 2, 2)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_2ov11"]
 size = Vector3(2, 2, 2)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hqb18"]
@@ -21,12 +21,17 @@ albedo_color = Color(0.018448738, 0.058960944, 0.06970161, 1)
 material = SubResource("StandardMaterial3D_hqb18")
 size = Vector2(5.5, 1.5)
 
-[node name="TownHall" type="Node3D" unique_id=360267369 node_paths=PackedStringArray("debug_label_parent", "debug_training_progress_label", "spawn_point")]
+[node name="TownHall" type="StaticBody3D" unique_id=1589096867 node_paths=PackedStringArray("debug_label_parent", "debug_training_progress_label", "spawn_point")]
 script = ExtResource("1_wtasv")
 debug_label_parent = NodePath("LabelParent")
 debug_training_progress_label = NodePath("LabelParent/LabelBackground/ProgLabel")
 spawn_point = NodePath("SpawnPoint")
-metadata/_custom_type_script = "uid://uq2gqqdmvykw"
+max_hp = 25.0
+metadata/_custom_type_script = "uid://bf8clcm31dtvd"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1653768917]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("BoxShape3D_2ov11")
 
 [node name="SpawnPoint" type="Node3D" parent="." unique_id=582712823]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 2)
@@ -35,12 +40,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 2)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 material_override = SubResource("StandardMaterial3D_2ov11")
 mesh = SubResource("BoxMesh_yqpnd")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=1544580173]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=1653768917]
-shape = SubResource("BoxShape3D_2ov11")
 
 [node name="NavigationObstacle3D" type="NavigationObstacle3D" parent="." unique_id=361705369]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)

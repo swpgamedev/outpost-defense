@@ -2,7 +2,7 @@
 
 [ext_resource type="Material" uid="uid://bu4rki261mij7" path="res://Art/Materials/TestGround.tres" id="1_bjxgj"]
 [ext_resource type="Script" uid="uid://bl85ndpytrbiu" path="res://WorldScenes/TestScenes/worker_debug_button.gd" id="1_iiv7w"]
-[ext_resource type="Script" uid="uid://d3jac3bh68qq" path="res://WorldScenes/TestScenes/worker_select_test_ui.gd" id="1_uwgho"]
+[ext_resource type="Script" uid="uid://d3jac3bh68qq" path="res://WorldScenes/TestScenes/select_debug_UI.gd" id="1_uwgho"]
 [ext_resource type="Script" uid="uid://bnix7shjagaod" path="res://WorldScenes/TestScenes/resource_node_debug_toggle.gd" id="2_m00fy"]
 [ext_resource type="Material" uid="uid://dadl4ilnopt80" path="res://Art/Materials/debug_mat.tres" id="2_wo14j"]
 [ext_resource type="Script" uid="uid://wc6bbjxmnpiq" path="res://WorldScenes/TestScenes/worker_spawn_button.gd" id="3_fst4r"]
@@ -52,7 +52,7 @@ mouse_filter = 2
 
 [node name="ButtonRoot" type="Control" parent="TestUI/Control" unique_id=1696943978]
 anchors_preset = 0
-offset_right = 300.0
+offset_right = 568.0
 offset_bottom = 900.0
 mouse_filter = 2
 
@@ -109,40 +109,53 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="WorkerSelectTest" type="Node3D" parent="TestUI/Control2" unique_id=534496026 node_paths=PackedStringArray("spherecast_indicator", "select_ui", "option_button")]
+[node name="SelectDebugUI" type="Node3D" parent="TestUI/Control2" unique_id=534496026 node_paths=PackedStringArray("spherecast_indicator", "worker_info_ui", "worker_info_label", "option_button", "building_info_ui", "building_info_label", "resource_info_ui", "resource_info_label", "ground")]
 script = ExtResource("1_uwgho")
 spherecast_indicator = NodePath("spherecast_indicator")
-select_ui = NodePath("../WorkerSelectUI")
-option_button = NodePath("../WorkerSelectUI/MarginContainer/OptionButton")
+worker_info_ui = NodePath("../WorkerInfoUI")
+worker_info_label = NodePath("../WorkerInfoUI/SplitContainer/HBoxContainer/FoldableContainer/MarginContainer/WorkerInfoLabel")
+option_button = NodePath("../WorkerInfoUI/SplitContainer/HBoxContainer/MarginContainer/OptionButton")
+building_info_ui = NodePath("../BuildingInfoUI")
+building_info_label = NodePath("../BuildingInfoUI/Panel/MarginContainer/BuildingInfoLabel")
+resource_info_ui = NodePath("../ResourceInfoUI")
+resource_info_label = NodePath("../ResourceInfoUI/Panel/MarginContainer/ResourceInfoLabel")
+ground = NodePath("../../../Ground")
 
-[node name="spherecast_indicator" type="CSGSphere3D" parent="TestUI/Control2/WorkerSelectTest" unique_id=2146589355]
+[node name="spherecast_indicator" type="CSGSphere3D" parent="TestUI/Control2/SelectDebugUI" unique_id=2146589355]
 visible = false
 radius = 2.0
 radial_segments = 32
 rings = 32
 material = ExtResource("2_wo14j")
 
-[node name="WorkerSelectUI" type="Control" parent="TestUI/Control2" unique_id=837327073]
-visible = false
+[node name="WorkerInfoUI" type="Control" parent="TestUI/Control2" unique_id=837327073]
 anchors_preset = 0
-offset_left = 1292.0
-offset_top = 112.0
-offset_right = 1292.0
-offset_bottom = 112.0
+offset_left = 1280.0
+offset_top = 128.0
+offset_right = 1280.0
+offset_bottom = 128.0
 
-[node name="MarginContainer" type="MarginContainer" parent="TestUI/Control2/WorkerSelectUI" unique_id=932692320]
+[node name="SplitContainer" type="SplitContainer" parent="TestUI/Control2/WorkerInfoUI" unique_id=1983984740]
 layout_mode = 0
-offset_top = -48.0
-offset_right = 220.0
+offset_top = -32.0
+offset_right = 472.0
+offset_bottom = 120.0
+split_offsets = PackedInt32Array(-325)
+dragging_enabled = false
+split_offset = -325
 
-[node name="Label" type="Label" parent="TestUI/Control2/WorkerSelectUI/MarginContainer" unique_id=1376921059]
+[node name="HBoxContainer" type="HBoxContainer" parent="TestUI/Control2/WorkerInfoUI/SplitContainer" unique_id=1238688742]
 layout_mode = 2
-offset_transform_enabled = true
-offset_transform_position = Vector2(8, 0)
-text = "Assign Job"
+alignment = 1
 
-[node name="OptionButton" type="OptionButton" parent="TestUI/Control2/WorkerSelectUI/MarginContainer" unique_id=1250876193]
+[node name="MarginContainer" type="MarginContainer" parent="TestUI/Control2/WorkerInfoUI/SplitContainer/HBoxContainer" unique_id=932692320]
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+
+[node name="OptionButton" type="OptionButton" parent="TestUI/Control2/WorkerInfoUI/SplitContainer/HBoxContainer/MarginContainer" unique_id=1250876193]
+layout_mode = 2
+focus_mode = 0
 alignment = 2
 selected = 0
 allow_reselect = true
@@ -155,6 +168,108 @@ popup/item_2/text = "Logistics"
 popup/item_2/id = 2
 popup/item_3/text = "Repair"
 popup/item_3/id = 3
+
+[node name="Label" type="Label" parent="TestUI/Control2/WorkerInfoUI/SplitContainer/HBoxContainer/MarginContainer" unique_id=1376921059]
+layout_mode = 2
+size_flags_horizontal = 0
+offset_transform_enabled = true
+offset_transform_position = Vector2(8, 0)
+text = "Assign Job"
+
+[node name="FoldableContainer" type="FoldableContainer" parent="TestUI/Control2/WorkerInfoUI/SplitContainer/HBoxContainer" unique_id=504464826]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+size_flags_stretch_ratio = 1.5
+offset_transform_position = Vector2(0, -32.6)
+focus_mode = 0
+folded = true
+title = "Debug Info"
+title_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="TestUI/Control2/WorkerInfoUI/SplitContainer/HBoxContainer/FoldableContainer" unique_id=1732397069]
+visible = false
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="WorkerInfoLabel" type="Label" parent="TestUI/Control2/WorkerInfoUI/SplitContainer/HBoxContainer/FoldableContainer/MarginContainer" unique_id=1635201098]
+layout_mode = 2
+size_flags_vertical = 1
+text = "Job: --
+Target: --
+Request: --
+Resource: --"
+
+[node name="BuildingInfoUI" type="Control" parent="TestUI/Control2" unique_id=505164435]
+anchors_preset = 0
+offset_left = 640.0
+offset_top = 127.0
+offset_right = 640.0
+offset_bottom = 127.0
+
+[node name="Panel" type="Panel" parent="TestUI/Control2/BuildingInfoUI" unique_id=18288345]
+layout_mode = 0
+offset_right = 192.0
+offset_bottom = 168.0
+mouse_filter = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="TestUI/Control2/BuildingInfoUI/Panel" unique_id=597205490]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="BuildingInfoLabel" type="Label" parent="TestUI/Control2/BuildingInfoUI/Panel/MarginContainer" unique_id=935554836]
+layout_mode = 2
+text = "Name: --
+Building Type: --
+Resource Request: --
+Missing : {-,-,-,-,-}
+Moving: {-,-,-,-,-}
+Delivered: {-,-,-,-,-}"
+
+[node name="ResourceInfoUI" type="Control" parent="TestUI/Control2" unique_id=1201086968]
+anchors_preset = 0
+offset_left = 128.0
+offset_top = 131.0
+offset_right = 128.0
+offset_bottom = 131.0
+
+[node name="Panel" type="Panel" parent="TestUI/Control2/ResourceInfoUI" unique_id=61037856]
+layout_mode = 0
+offset_right = 320.0
+offset_bottom = 189.0
+mouse_filter = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="TestUI/Control2/ResourceInfoUI/Panel" unique_id=1187270556]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="ResourceInfoLabel" type="Label" parent="TestUI/Control2/ResourceInfoUI/Panel/MarginContainer" unique_id=303806551]
+layout_mode = 2
+text = "Name: --
+Resource Type: --
+Targeted: --
+Held: --
+Stored: --
+Delivered: --"
 
 [node name="Buildings" type="Node3D" parent="." unique_id=1883383936]
 
@@ -263,4 +378,4 @@ mesh = SubResource("SphereMesh_bjxgj")
 [connection signal="pressed" from="TestUI/Control/ButtonRoot/MenuButton" to="TestUI/Control/ButtonRoot/MenuButton" method="_on_pressed"]
 [connection signal="pressed" from="TestUI/Control/ButtonRoot/ToggleDebugLabelsButton" to="TestUI/Control/ButtonRoot/ToggleDebugLabelsButton" method="_on_pressed"]
 [connection signal="pressed" from="TestUI/Control/ButtonRoot/WorkerSpawnButton" to="TestUI/Control/ButtonRoot/WorkerSpawnButton" method="_on_pressed"]
-[connection signal="item_selected" from="TestUI/Control2/WorkerSelectUI/MarginContainer/OptionButton" to="TestUI/Control2/WorkerSelectTest" method="_on_option_button_item_selected"]
+[connection signal="item_selected" from="TestUI/Control2/WorkerInfoUI/SplitContainer/HBoxContainer/MarginContainer/OptionButton" to="TestUI/Control2/SelectDebugUI" method="_on_option_button_item_selected"]
