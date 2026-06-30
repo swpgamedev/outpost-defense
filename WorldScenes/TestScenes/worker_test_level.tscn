@@ -312,6 +312,7 @@ physics_material_override = null
 [node name="Ground" type="CSGBox3D" parent="." unique_id=1074539373]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
 use_collision = true
+collision_layer = 5
 size = Vector3(100, 1, 100)
 material = ExtResource("1_bjxgj")
 
