@@ -1,20 +1,45 @@
 extends Node
 
 @export var debug_indicators : bool = true
+var level_root : Node3D
+var building_parent : Node3D
 
 var in_build_mode : bool = false
 var mouse_pos : Vector3
 var build_pos : Vector3
+
+var town_hall_scene : PackedScene = preload("res://Buildings/town_hall.tscn")
+var resource_storage_scene : PackedScene = preload("res://Buildings/resource_storage.tscn")
+
+var selector_index : int = 0
+var building_scenes : Array[PackedScene] = [
+	town_hall_scene,
+	resource_storage_scene,
+	
+	]
+
+var selected_building : PackedScene
+
+var grid_size : float = 1
+
 
 enum BuildingType {House, Farm, Townhall, Warehouse}
 
 var BuildingDict : Dictionary[Building, BuildingType] = {}
 var BuildingRequests : Dictionary[Building, RequestManager.Resource_Request]
 
+func _ready() -> void:
+	level_root = get_tree().root.find_child("PlayerTestGym", false, false)
+	if level_root != null :
+		building_parent = level_root.buildings_parent
+	
+	selector_index = 0
+	selected_building = building_scenes[selector_index]
 
 func _process(_delta: float) -> void:
 	if debug_indicators :
-		DebugDraw.draw_line_relative_thick(build_pos, Vector3.UP, 2, Color.ORANGE)
+		DebugDraw.draw_line_relative_thick(mouse_pos, Vector3.UP, 2, Color.ORANGE)
+		DebugDraw.draw_line_relative_thick(build_pos, Vector3.UP, 2, Color.GHOST_WHITE)
 	
 	
 	if Input.is_action_just_pressed("build_mode") :
@@ -22,13 +47,40 @@ func _process(_delta: float) -> void:
 	
 	
 	if in_build_mode :
-		var results : Dictionary = Utility.MouseViewPortRayCast()
-		if not results.is_empty() :
-			mouse_pos = results.position
-			###
-			build_pos = mouse_pos
-	
-	
+		if Input.is_action_just_pressed("build_sel_next") :
+			selector_index += 1
+			if selector_index >= building_scenes.size() :
+				selector_index = 0
+			selected_building = building_scenes[selector_index]
+			
+		if Input.is_action_just_pressed("build_sel_prev") :
+			selector_index -= 1
+			if selector_index < 0 :
+				selector_index = building_scenes.size() - 1
+			selected_building = building_scenes[selector_index]
+		
+		
+		
+		var mouse_ray_results : Dictionary = Utility.MouseViewPortRayCast(1000, level_root.ground_only_collision_mask)
+		if not mouse_ray_results.is_empty() :
+			mouse_pos = mouse_ray_results.position
+			
+			build_pos = Vector3(
+				RoundToNearestGrid(mouse_pos.x, grid_size),
+				RoundToNearestGrid(mouse_pos.y, grid_size),
+				RoundToNearestGrid(mouse_pos.z, grid_size)
+			)
+			
+		
+		if Input.is_action_just_pressed("left_click") :
+			TryPlaceFoundation(selected_building, build_pos)
+			
+
+func TryPlaceFoundation(building_scene : PackedScene, position : Vector3) :
+	var new_building : Building = load(building_scene.resource_path).instantiate()
+	add_child(new_building)
+	new_building.global_position = position
+	new_building.reparent(building_parent)
 
 func CreateBuildingRequest(building : Building, cost : RequestManager.Resource_Cost) :
 	var new_request : RequestManager.Resource_Request = RequestManager.Resource_Request.new()
@@ -40,179 +92,13 @@ func TrackBuilding(building : Building, building_type : BuildingType) :
 	BuildingDict[building] = building_type
 
 
-
-
-
-
-
-	#private Camera cam;
-	#public float buildRange;
-	#public GameObject player;
-	
-	#public float gridSize = 1f;
-	#public LayerMask mouseLayerMask;
-#
-	#InputAction selectNext;
-	#InputAction selectPrevious;
-#
-	#int selectorIndex;
-#
-	#public List<GameObject> buildingPrefabs;
-	#public GameObject selectedBuilding;
-#
-#
-	#public List<GameObject> ghostBuildings;
-	#public GameObject ghostParent;
-#
-#
-	#public GameObject inProgressPlaceHolder;
-#
-	#BuildingManager buildingManager;
-#
-#
-	#private void Start()
-	#{
-#
-		#cam = Camera.main;
-		#buildModeAction = InputSystem.actions.FindAction("ToggleBuild");
-		#clickAction = InputSystem.actions.FindAction("Attack");
-#
-		#selectorIndex = 0;
-		#selectedBuilding = buildingPrefabs[selectorIndex];
-#
-		#selectNext = InputSystem.actions.FindAction("SelectNext");
-		#selectPrevious = InputSystem.actions.FindAction("SelectPrevious");
-#
-#
-		#buildingManager = BuildingManager.Instance;
-#
-		#player = PlayerWorkerBehavior.Instance.gameObject;
-	#}
-#
-	#private void Update()
-	#{
-		#if (buildMode)
-		#{
-			#UpdateMouseWorldPos();
-			#mouseWorldPos = new Vector3(
-				#RoundToNearestGrid(mouseWorldPos.x),
-				#RoundToNearestGrid(mouseWorldPos.y),
-				#RoundToNearestGrid(mouseWorldPos.z));
-#
-			#debugIndicator.transform.position = mouseWorldPos;
-#
-#
-			#ghostParent.transform.position = mouseWorldPos;
-#
-#
-			#if (selectNext.WasPressedThisFrame())
-			#{
-				#ghostBuildings[selectorIndex].SetActive(false);
-#
-				#selectorIndex++;
-				#if (selectorIndex >= buildingPrefabs.Count)
-				#{
-					#selectorIndex = 0;
-				#}
-				#ghostBuildings[selectorIndex].SetActive(true);
-				#selectedBuilding = buildingPrefabs[selectorIndex];
-#
-			#}
-			#if (selectPrevious.WasPressedThisFrame())
-			#{
-				#ghostBuildings[selectorIndex].SetActive(false);
-#
-				#selectorIndex--;
-				#if (selectorIndex < 0)
-				#{
-					#selectorIndex = buildingPrefabs.Count - 1;
-				#}
-				#ghostBuildings[selectorIndex].SetActive(true);
-				#selectedBuilding = buildingPrefabs[selectorIndex];
-			#}
-#
-#
-#
-			#if (clickAction.WasPressedThisFrame())
-			#{
-				#BuildSelected();
-			#}
-		#}
-#
-		#if (buildModeAction.WasPressedThisFrame())
-		#{
-			#buildMode = !buildMode;
-			#ToggleBuildMode();
-		#}
-#
-#
-	#}
-#
-	#void ToggleBuildMode()
-	#{
-		#if (buildMode)
-		#{
-			#ghostBuildings[selectorIndex].SetActive(true);
-		#}
-		#else
-		#{
-			#foreach (GameObject go in ghostBuildings)
-			#{
-				#go.SetActive(false);
-			#}
-		#}
-	#}
-#
-#
-	#void BuildSelected()
-	#{
-		#GameObject newBuilding = Instantiate(inProgressPlaceHolder, mouseWorldPos, Quaternion.identity);
-		#BuildingInProgress construction = newBuilding.GetComponent<BuildingInProgress>();
-		#buildingManager.buildingsInProgress.Add(construction);
-#
-		#construction.SetBuilding(selectedBuilding);
-		#// Needs to be set based on selected building
-		#construction.WorkNeeded(10);
-	#}
-#
-	#private void UpdateMouseWorldPos()
-	#{
-		#Ray ray = cam.ScreenPointToRay(Input.mousePosition);
-		#float maxDistance = 1000;
-#
-		#if (Physics.Raycast(ray, out RaycastHit hit, maxDistance, mouseLayerMask))
-		#{
-			#mouseWorldPos = hit.point;
-		#}
-#
-		#Vector3 toPointVert = (mouseWorldPos - player.transform.position);
-		#mouseWorldPos = player.transform.position + Vector3.ClampMagnitude(toPointVert, buildRange);
-	#}
-#
-	#private float RoundToNearestGrid(float pos)
-	#{
-		#float xDiff = pos % gridSize;
-		#bool isPositive = pos > 0;
-		#pos -= xDiff;
-		#if (Mathf.Abs(xDiff) > (gridSize / 2))
-		#{
-			#if (isPositive)
-			#{
-				#pos += gridSize;
-			#}
-			#else
-			#{
-				#pos -= gridSize;
-			#}
-		#}
-		#return pos;
-	#}
-#
-#
-#
-	#private void OnDrawGizmos()
-	#{
-		#Gizmos.color = Color.green;
-		#Gizmos.DrawWireSphere(mouseWorldPos, 0.5f);
-	#}
-#}
+func RoundToNearestGrid(pos : float, _grid_size : float) -> float :
+	var xDiff : float = fmod(pos, _grid_size)
+	var isPositive : bool = pos > 0
+	pos -= xDiff
+	if (abs(xDiff) > (_grid_size / 2)) :
+		if isPositive :
+			pos += _grid_size
+		else :
+			pos -= _grid_size
+	return pos

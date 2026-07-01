@@ -18,7 +18,7 @@ var stone_chunk : PackedScene = preload("res://Resources/Chunks/stone_chunk.tscn
 var iron_chunk : PackedScene = preload("res://Resources/Chunks/iron_chunk.tscn")
 var crystal_chunk : PackedScene = preload("res://Resources/Chunks/crystal_chunk.tscn")
 
-var chunk_scenes : Array[PackedScene] = [gold_chunk, wood_chunk, stone_chunk, iron_chunk, crystal_chunk]
+#var chunk_scenes : Array[PackedScene] = [food_chunk, gold_chunk, wood_chunk, stone_chunk, iron_chunk, crystal_chunk]
 
 var FoodChunks : Array[ResourceChunk] = []
 var GoldChunks : Array[ResourceChunk] = []
